@@ -4,20 +4,33 @@ import { UpdateParentDto } from './dto/update-parent.dto';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose/dist/common';
 import { Parent, ParentDocument } from './entities/parent.entity';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class ParentService {
+  private saltOrRounds: number = 10;
   constructor(
     @InjectModel(Parent.name)
-    private parentModel: Model<ParentDocument>
-  ){}
+    private parentModel: Model<ParentDocument>,
+  ) {}
 
-  create(createParentDto: CreateParentDto) {
-    const parent = new this.parentModel(createParentDto)
-    return parent.save()
-    .catch((e)=>{
-      throw new HttpException(e,HttpStatus.BAD_REQUEST)
-    })
+  async create(createParentDto: CreateParentDto) {
+    const password = createParentDto.password;
+    const hash: string = await bcrypt
+      .hash(password, this.saltOrRounds)
+      .catch((e) => e);
+
+    delete createParentDto.password;
+
+    const parent = new this.parentModel({
+      ...createParentDto,
+      password: hash,
+    });
+    return parent.save().catch((e) => {
+      throw new HttpException({ error: e }, 400, {
+        cause: new Error(e),
+      });
+    });
   }
 
   findAll() {
