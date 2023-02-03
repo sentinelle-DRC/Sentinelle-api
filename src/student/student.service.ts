@@ -8,14 +8,14 @@ import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class StudentService {
-  private saltOrRounds: number = 10;
+  private saltOrRounds = 10;
 
   constructor(
     @InjectModel(Student.name)
     private studentModel: Model<StudentDocument>,
   ) {}
 
-  async create(createStudentDto: CreateStudentDto): Promise<Object> {
+  async create(createStudentDto: CreateStudentDto): Promise<any> {
     const password: string = createStudentDto.password;
     const hash: string = await bcrypt
       .hash(password, this.saltOrRounds)

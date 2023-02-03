@@ -6,18 +6,18 @@ export type ParentDocument = Parent & Document;
 @Schema()
 export class Parent {
   @Prop({ required: true, unique: true })
-  phoneNumber: String;
+  phoneNumber: string;
   @Prop()
-  email: String;
+  email: string;
   @Prop({ required: true })
-  firstName: String;
+  firstName: string;
   @Prop({ required: true })
-  lastName: String;
+  lastName: string;
   @Prop({ required: true, enum: ['F', 'M'] })
-  sex: String;
+  sex: string;
   @Prop({ required: true })
-  address: String;
+  address: string;
   @Prop({ required: true })
-  password: String;
+  password: string;
 }
 export const ParentSchema = SchemaFactory.createForClass(Parent);

@@ -24,7 +24,7 @@ export class AuthService {
     private jwtService: JwtService,
   ) {}
 
-  async login(signInDto: SignInDto): Promise<Object> {
+  async login(signInDto: SignInDto): Promise<any> {
     let user = await this.StudentModel.findOne({
       phoneNumber: signInDto.phoneNumber,
     }).catch((e) => e);
@@ -49,11 +49,6 @@ export class AuthService {
       const token = this.jwtService.sign(payload, {
         secret: process.env.TOKEN_SECRET,
       });
-
-      console.log(token);
-
-      // const { password, ...newuser } = user;
-      console.log({ 'actual user': user });
 
       const { password, ...newUser } = user._doc;
 

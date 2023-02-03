@@ -1,4 +1,4 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { HttpException, Injectable } from '@nestjs/common';
 import { CreateParentDto } from './dto/create-parent.dto';
 import { UpdateParentDto } from './dto/update-parent.dto';
 import { Model } from 'mongoose';
@@ -8,7 +8,7 @@ import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class ParentService {
-  private saltOrRounds: number = 10;
+  private saltOrRounds = 10;
   constructor(
     @InjectModel(Parent.name)
     private parentModel: Model<ParentDocument>,

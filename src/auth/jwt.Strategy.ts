@@ -2,10 +2,7 @@ import { PassportStrategy } from '@nestjs/passport';
 import { Strategy, ExtractJwt } from 'passport-jwt';
 import { Injectable } from '@nestjs/common';
 import { payloadInterface } from './payload.interface';
-import { Model } from 'mongoose';
-import { Student, StudentDocument } from 'src/student/entities/student.entity';
 import { UnauthorizedException } from '@nestjs/common/exceptions';
-import { InjectModel } from '@nestjs/mongoose';
 import { StudentService } from 'src/student/student.service';
 
 @Injectable()

@@ -5,7 +5,6 @@ import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
 import { JwtStrategy } from './jwt.Strategy';
 import { StudentModule } from 'src/student/student.module';
-import { Model } from 'mongoose';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Student, StudentSchema } from 'src/student/entities/student.entity';
 import { Parent, ParentSchema } from 'src/parent/entities/parent.entity';

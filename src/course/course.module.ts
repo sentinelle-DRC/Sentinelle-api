@@ -4,8 +4,8 @@ import { CourseController } from './course.controller';
 import { AuthModule } from 'src/auth/auth.module';
 
 @Module({
-  imports:[AuthModule],
+  imports: [AuthModule],
   controllers: [CourseController],
-  providers: [CourseService]
+  providers: [CourseService],
 })
 export class CourseModule {}

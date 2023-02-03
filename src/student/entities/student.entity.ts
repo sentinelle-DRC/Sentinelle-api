@@ -5,21 +5,21 @@ export type StudentDocument = Student & Document;
 @Schema()
 export class Student {
   @Prop({ required: true, unique: true })
-  phoneNumber: String;
+  phoneNumber: string;
   @Prop({ required: true })
-  firstName: String;
+  firstName: string;
   @Prop({ required: true })
-  lastName: String;
+  lastName: string;
   @Prop({ required: true })
-  middleName: String;
+  middleName: string;
   @Prop({ required: true, enum: ['F', 'M'] })
-  sex: String;
+  sex: string;
   @Prop({ required: true })
-  birthDate: String;
+  birthDate: string;
   @Prop({ required: true })
-  nationality: String;
+  nationality: string;
   @Prop({ required: true })
-  password: String;
+  password: string;
 }
 
 export const StudentSchema = SchemaFactory.createForClass(Student);
