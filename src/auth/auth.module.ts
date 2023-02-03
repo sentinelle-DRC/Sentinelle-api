@@ -9,6 +9,7 @@ import { Model } from 'mongoose';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Student, StudentSchema } from 'src/student/entities/student.entity';
 import { Parent, ParentSchema } from 'src/parent/entities/parent.entity';
+import { ParentModule } from 'src/parent/parent.module';
 
 @Module({
   imports: [
@@ -27,6 +28,7 @@ import { Parent, ParentSchema } from 'src/parent/entities/parent.entity';
       },
     }),
     StudentModule,
+    ParentModule,
   ],
   controllers: [AuthController],
   providers: [AuthService, JwtStrategy],

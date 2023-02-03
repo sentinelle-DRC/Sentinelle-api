@@ -6,6 +6,10 @@ import { Parent, ParentDocument } from 'src/parent/entities/parent.entity';
 import { Student, StudentDocument } from 'src/student/entities/student.entity';
 import { SignInDto } from './dto/signIn.dto';
 import * as bcrypt from 'bcrypt';
+import { CreateStudentDto } from 'src/student/dto/create-student.dto';
+import { StudentService } from 'src/student/student.service';
+import { CreateParentDto } from 'src/parent/dto/create-parent.dto';
+import { ParentService } from 'src/parent/parent.service';
 
 @Injectable()
 export class AuthService {
@@ -14,6 +18,9 @@ export class AuthService {
     private StudentModel: Model<StudentDocument>,
     @InjectModel(Parent.name)
     private ParentModel: Model<ParentDocument>,
+
+    private studentService: StudentService,
+    private parentService: ParentService,
     private jwtService: JwtService,
   ) {}
 
@@ -65,5 +72,13 @@ export class AuthService {
         HttpStatus.INTERNAL_SERVER_ERROR,
       );
     }
+  }
+
+  async signUpStudent(createStudentDto: CreateStudentDto) {
+    return this.studentService.create(createStudentDto);
+  }
+
+  async signUpParent(createParentDto: CreateParentDto) {
+    return this.parentService.create(createParentDto);
   }
 }
