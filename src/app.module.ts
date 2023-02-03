@@ -14,9 +14,7 @@ import { CourseModule } from './course/course.module';
     ConfigModule.forRoot({
       isGlobal: true,
     }),
-    MongooseModule.forRoot(
-      'mongodb+srv://sirMelka:SENTinelle1945@sentinelle.oukuvgu.mongodb.net/sentinelledB?retryWrites=true&w=majority',
-    ),
+    MongooseModule.forRoot(process.env.DB_URI),
     ParentModule,
     StudentModule,
     AuthModule,

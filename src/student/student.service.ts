@@ -37,7 +37,7 @@ export class StudentService {
     return `This action returns all student`;
   }
 
-  findOne(id: number) {
+  findOne(id: string): Promise<Student> | any {
     return `This action returns a #${id} student`;
   }
 

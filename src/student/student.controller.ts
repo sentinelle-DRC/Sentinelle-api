@@ -1,4 +1,14 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UsePipes, ValidationPipe } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  UsePipes,
+  ValidationPipe,
+} from '@nestjs/common';
 import { StudentService } from './student.service';
 import { CreateStudentDto } from './dto/create-student.dto';
 import { UpdateStudentDto } from './dto/update-student.dto';
@@ -8,7 +18,6 @@ export class StudentController {
   constructor(private readonly studentService: StudentService) {}
 
   @Post()
-
   create(@Body() createStudentDto: CreateStudentDto) {
     return this.studentService.create(createStudentDto);
   }
@@ -20,7 +29,7 @@ export class StudentController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.studentService.findOne(+id);
+    return this.studentService.findOne(id);
   }
 
   @Patch(':id')
