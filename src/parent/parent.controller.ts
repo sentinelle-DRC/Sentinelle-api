@@ -10,10 +10,12 @@ import {
 import { ParentService } from './parent.service';
 import { CreateParentDto } from './dto/create-parent.dto';
 import { UpdateParentDto } from './dto/update-parent.dto';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags("Parents")
 @Controller('parent')
 export class ParentController {
-  constructor(private readonly parentService: ParentService) {}
+  constructor(private readonly parentService: ParentService) { }
 
   @Post()
   create(@Body() createParentDto: CreateParentDto) {

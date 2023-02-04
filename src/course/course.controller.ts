@@ -13,11 +13,13 @@ import { JwtAuthGuard } from 'src/auth/jwt.auth.guard';
 import { CourseService } from './course.service';
 import { CreateCourseDto } from './dto/create-course.dto';
 import { UpdateCourseDto } from './dto/update-course.dto';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags("Courses")
 @UseGuards(JwtAuthGuard)
 @Controller('course')
 export class CourseController {
-  constructor(private readonly courseService: CourseService) {}
+  constructor(private readonly courseService: CourseService) { }
 
   @Post()
   create(@Body() createCourseDto: CreateCourseDto) {
