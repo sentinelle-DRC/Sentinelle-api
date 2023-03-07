@@ -1,9 +1,10 @@
 import { IsNotEmpty, IsString, Length } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
+import mongoose from 'mongoose';
 export class CreateStudentDto {
   @ApiProperty({
     type: String,
-    description: "Numéro de téléphone congolais à 10 chiffres"
+    description: 'Numéro de téléphone congolais à 10 chiffres',
   })
   @IsString()
   @IsNotEmpty()
@@ -11,21 +12,21 @@ export class CreateStudentDto {
   public phoneNumber: string;
 
   @ApiProperty({
-    type: String
+    type: String,
   })
   @IsString()
   @IsNotEmpty()
   public firstName: string;
 
   @ApiProperty({
-    type: String
+    type: String,
   })
   @IsString()
   @IsNotEmpty()
   public lastName: string;
 
   @ApiProperty({
-    type: String
+    type: String,
   })
   @IsString()
   @IsNotEmpty()
@@ -33,7 +34,7 @@ export class CreateStudentDto {
 
   @ApiProperty({
     type: String,
-    description: "Doit être soit M, soit F"
+    description: 'Doit être soit M, soit F',
   })
   @IsString()
   @IsNotEmpty()
@@ -48,16 +49,23 @@ export class CreateStudentDto {
   public birthDate: string;
 
   @ApiProperty({
-    type: String
+    type: String,
   })
   @IsString()
   @IsNotEmpty()
   public nationality: string;
 
   @ApiProperty({
-    type: String
+    type: String,
   })
   @IsString()
   @IsNotEmpty()
   public password: string;
+
+  @ApiProperty({
+    type: String,
+  })
+  @IsString()
+  @IsNotEmpty()
+  public school: mongoose.Schema.Types.ObjectId;
 }
