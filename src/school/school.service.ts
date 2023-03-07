@@ -28,8 +28,9 @@ export class SchoolService {
     return schools;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} school`;
+  async findOne(id: mongoose.Schema.Types.ObjectId) {
+    const school = await this.SchoolModel.find({ _id: id }).populate('student');
+    return school;
   }
 
   async update(id: string, updateSchoolDto: UpdateSchoolDto) {

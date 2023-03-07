@@ -11,6 +11,7 @@ import {
 import { SchoolService } from './school.service';
 import { CreateSchoolDto } from './dto/create-school.dto';
 import { UpdateSchoolDto } from './dto/update-school.dto';
+import mongoose from 'mongoose';
 
 @Controller('school')
 export class SchoolController {
@@ -27,8 +28,8 @@ export class SchoolController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.schoolService.findOne(+id);
+  findOne(@Param('id') id: mongoose.Schema.Types.ObjectId) {
+    return this.schoolService.findOne(id);
   }
 
   @Patch(':id')
