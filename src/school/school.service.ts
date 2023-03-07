@@ -24,12 +24,16 @@ export class SchoolService {
   }
 
   async findAll() {
-    const schools = await this.SchoolModel.find().populate('student');
+    const schools = await this.SchoolModel.find()
+      .populate('students')
+      .populate('classes');
     return schools;
   }
 
   async findOne(id: mongoose.Schema.Types.ObjectId) {
-    const school = await this.SchoolModel.find({ _id: id }).populate('student');
+    const school = await this.SchoolModel.find({ _id: id }).populate(
+      'students',
+    );
     return school;
   }
 

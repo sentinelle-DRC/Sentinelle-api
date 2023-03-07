@@ -10,7 +10,7 @@ export class SignInDto {
   public phoneNumber: string;
 
   @ApiProperty({
-    type: String
+    type: String,
   })
   @IsNotEmpty()
   @IsString()
