@@ -1,10 +1,17 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import {
+  forwardRef,
+  HttpException,
+  HttpStatus,
+  Inject,
+  Injectable,
+} from '@nestjs/common';
 import { CreateStudentDto } from './dto/create-student.dto';
 import { UpdateStudentDto } from './dto/update-student.dto';
 import { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose/dist/common';
 import { Student, StudentDocument } from './entities/student.entity';
 import * as bcrypt from 'bcrypt';
+import { SchoolService } from 'src/school/school.service';
 
 @Injectable()
 export class StudentService {
@@ -13,6 +20,7 @@ export class StudentService {
   constructor(
     @InjectModel(Student.name)
     private studentModel: Model<StudentDocument>,
+    private schoolService: SchoolService,
   ) {}
 
   async create(createStudentDto: CreateStudentDto): Promise<any> {
@@ -28,9 +36,17 @@ export class StudentService {
       password: hash,
     });
 
-    return student.save().catch((e) => {
-      throw new HttpException(e.message, HttpStatus.BAD_REQUEST);
-    });
+    // this.schoolService.addStudent
+    const newStudent = await student.save();
+
+    const addtoSchool = await this.schoolService.addStudent(
+      createStudentDto.school,
+      newStudent._id,
+    );
+    return newStudent;
+    // return student.save().catch((e) => {
+    //   throw new HttpException(e.message, HttpStatus.BAD_REQUEST);
+    // });
   }
 
   findAll() {

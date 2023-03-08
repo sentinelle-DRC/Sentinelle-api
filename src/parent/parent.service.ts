@@ -44,7 +44,6 @@ export class ParentService {
   update(id: number, updateParentDto: UpdateParentDto) {
     return `This action updates a #${id} parent`;
   }
-
   remove(id: number) {
     return `This action removes a #${id} parent`;
   }
