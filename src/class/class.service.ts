@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+import { SchoolService } from 'src/school/school.service';
 import { CreateClassDto } from './dto/create-class.dto';
 import { UpdateClassDto } from './dto/update-class.dto';
 import { Class, ClassDocument } from './entities/class.entity';
@@ -9,15 +10,20 @@ export class ClassService {
   constructor(
     @InjectModel(Class.name)
     private ClassModel: Model<ClassDocument>,
+    private schoolService: SchoolService,
   ) {}
 
-  create(createClassDto: CreateClassDto) {
+  async create(createClassDto: CreateClassDto) {
     const classe = new this.ClassModel({
       ...createClassDto,
     });
-    console.log(createClassDto);
 
-    return classe.save();
+    const newClass = await classe.save();
+    const addtoSchool = await this.schoolService.addClass(
+      createClassDto.school,
+      newClass._id,
+    );
+    return newClass;
   }
 
   async findAll() {

@@ -1,6 +1,7 @@
 import { Injectable, HttpStatus, HttpException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import mongoose, { Model } from 'mongoose';
+import path from 'path';
 import { Student, StudentDocument } from 'src/student/entities/student.entity';
 import { CreateSchoolDto } from './dto/create-school.dto';
 import { UpdateSchoolDto } from './dto/update-school.dto';
@@ -26,14 +27,17 @@ export class SchoolService {
   async findAll() {
     const schools = await this.SchoolModel.find()
       .populate('students')
-      .populate('classes');
+      .populate({ path: 'classes', populate: { path: 'option' } });
     return schools;
   }
 
   async findOne(id: mongoose.Schema.Types.ObjectId) {
-    const school = await this.SchoolModel.find({ _id: id }).populate(
-      'students',
-    );
+    const school = await this.SchoolModel.find({ _id: id })
+      .populate({
+        path: 'classes',
+        populate: { path: 'option' },
+      })
+      .populate('students');
     return school;
   }
 
@@ -53,7 +57,14 @@ export class SchoolService {
   async addStudent(id: mongoose.Schema.Types.ObjectId, student: any) {
     const updatedSchool = await this.SchoolModel.updateOne(
       { _id: id },
-      { $push: { student: student } },
+      { $push: { students: student } },
+    );
+    return updatedSchool;
+  }
+  async addClass(id: string, classe: any) {
+    const updatedSchool = await this.SchoolModel.updateOne(
+      { _id: id },
+      { $push: { classes: classe } },
     );
     return updatedSchool;
   }
