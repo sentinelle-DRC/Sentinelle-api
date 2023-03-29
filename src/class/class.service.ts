@@ -27,7 +27,9 @@ export class ClassService {
   }
 
   async findAll() {
-    const classes = await this.ClassModel.find();
+    const classes = await this.ClassModel.find()
+      .populate({ path: 'school', select: { _id: 1, name: 1 } })
+      .populate('option');
     return classes;
   }
 
