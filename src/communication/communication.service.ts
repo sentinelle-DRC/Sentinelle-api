@@ -1,20 +1,53 @@
 import { Injectable } from '@nestjs/common';
+import { InjectModel } from '@nestjs/mongoose';
+import { Model } from 'mongoose';
 import { CreateCommunicationDto } from './dto/create-communication.dto';
 import { UpdateCommunicationDto } from './dto/update-communication.dto';
+import {
+  Communication,
+  CommunicationDocument,
+} from './entities/communication.entity';
 
 @Injectable()
 export class CommunicationService {
+  constructor(
+    @InjectModel(Communication.name)
+    private CommunicationModel: Model<CommunicationDocument>,
+  ) {}
   create(createCommunicationDto: CreateCommunicationDto) {
-    return 'This action adds a new communication';
+    const newCommunication = new this.CommunicationModel({
+      ...createCommunicationDto,
+    });
+
+    return newCommunication.save();
   }
 
   findAll() {
-    return `This action returns all communication`;
+    const communications = this.CommunicationModel.find().populate({
+      path: 'class',
+    });
+    return communications;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} communication`;
+  findByClass(id: string) {
+    const communications = this.CommunicationModel.find({
+      class: id,
+    }).populate({
+      path: 'class',
+      match: { _id: id },
+    });
+    return communications;
   }
+
+  // findOne(id: string) {
+  //   const communications = this.CommunicationModel.find({
+  //     class: id,
+  //   }).populate({
+  //     path: 'class',
+  //     match: { _id: id },
+  //   });
+  //   return communications;
+  // }
 
   update(id: number, updateCommunicationDto: UpdateCommunicationDto) {
     return `This action updates a #${id} communication`;

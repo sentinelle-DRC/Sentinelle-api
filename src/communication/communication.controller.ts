@@ -1,4 +1,12 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { CommunicationService } from './communication.service';
 import { CreateCommunicationDto } from './dto/create-communication.dto';
 import { UpdateCommunicationDto } from './dto/update-communication.dto';
@@ -6,7 +14,6 @@ import { UpdateCommunicationDto } from './dto/update-communication.dto';
 @Controller('communication')
 export class CommunicationController {
   constructor(private readonly communicationService: CommunicationService) {}
-
   @Post()
   create(@Body() createCommunicationDto: CreateCommunicationDto) {
     return this.communicationService.create(createCommunicationDto);
@@ -19,11 +26,14 @@ export class CommunicationController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.communicationService.findOne(+id);
+    return this.communicationService.findByClass(id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateCommunicationDto: UpdateCommunicationDto) {
+  update(
+    @Param('id') id: string,
+    @Body() updateCommunicationDto: UpdateCommunicationDto,
+  ) {
     return this.communicationService.update(+id, updateCommunicationDto);
   }
 
