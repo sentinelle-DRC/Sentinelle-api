@@ -1,15 +1,27 @@
 import { Injectable } from '@nestjs/common';
 import { CreateTeacherDto } from './dto/create-teacher.dto';
 import { UpdateTeacherDto } from './dto/update-teacher.dto';
+import { InjectModel } from '@nestjs/mongoose';
+import { Teacher, TeacherDocument } from './entities/teacher.entity';
+import { Model } from 'mongoose';
 
 @Injectable()
 export class TeacherService {
+  constructor(
+    @InjectModel(Teacher.name)
+    private teacher = Model<TeacherDocument>,
+  ) {}
+
   create(createTeacherDto: CreateTeacherDto) {
-    return 'This action adds a new teacher';
+    const newTeacher = this.teacher.create({
+      ...createTeacherDto,
+    });
+    return newTeacher;
   }
 
   findAll() {
-    return `This action returns all teacher`;
+    const teachers = this.teacher.find();
+    return teachers;
   }
 
   findOne(id: number) {

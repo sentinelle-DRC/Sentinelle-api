@@ -21,6 +21,7 @@ export class CourseService {
 
   async findAll() {
     const course = await this.course.find().populate({ path: 'field' });
+
     return course;
   }
 
