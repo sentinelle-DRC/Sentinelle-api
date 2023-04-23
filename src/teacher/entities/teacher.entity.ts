@@ -14,10 +14,9 @@ export class Teacher {
   lastName: string;
   @Prop({ required: true })
   phoneNumber: string;
-
-  @Prop({ type: [mongoose.Schema.Types.ObjectId], ref: Course.name })
+  @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId }], ref: 'Course' })
   @Type(() => Course)
-  course: Course;
+  courses: Course;
 }
 
 export const TeacherSchema = SchemaFactory.createForClass(Teacher);

@@ -1,4 +1,12 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { WorkService } from './work.service';
 import { CreateWorkDto } from './dto/create-work.dto';
 import { UpdateWorkDto } from './dto/update-work.dto';
@@ -14,7 +22,41 @@ export class WorkController {
 
   @Get()
   findAll() {
-    return this.workService.findAll();
+    return [
+      {
+        course: 'Anglais',
+        type: 'Dévoir',
+        cote: 2,
+        maxima: 20,
+        date: '1/04/2023',
+        description: 'Basics of sentences',
+      },
+      {
+        course: 'Anglais',
+        type: 'intero',
+        cote: 10,
+        maxima: 30,
+        date: '21/04/2023',
+        description: 'the adverbs of times and places',
+      },
+      {
+        course: 'Math',
+        type: 'Intero',
+        cote: 14,
+        maxima: 20,
+        date: '14/03/2023',
+        description: 'les équations de 2nd dégré ',
+      },
+      {
+        course: 'Français',
+        type: 'Dévoir',
+        cote: 28,
+        maxima: 30,
+        date: '27/03/2023',
+        description: 'les ajéctifs qualificatifs',
+      },
+    ];
+    // return this.workService.findAll();
   }
 
   @Get(':id')

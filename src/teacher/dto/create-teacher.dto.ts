@@ -17,4 +17,12 @@ export class CreateTeacherDto {
   @IsString()
   @IsNotEmpty()
   lastName: string;
+
+  @ApiProperty({
+    type: String,
+    description: 'Numéro du prof',
+  })
+  @IsString()
+  @IsNotEmpty()
+  phoneNumber: string;
 }

@@ -1,22 +1,45 @@
-import { Injectable } from '@nestjs/common';
+import {
+  HttpException,
+  HttpStatus,
+  Inject,
+  Injectable,
+  forwardRef,
+} from '@nestjs/common';
 import { CreateCourseDto } from './dto/create-course.dto';
 import { UpdateCourseDto } from './dto/update-course.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { Course, CourseDocument } from './entities/course.entity';
-import { Model } from 'mongoose';
+import mongoose, { Model } from 'mongoose';
+import { TeacherService } from 'src/teacher/teacher.service';
 
 @Injectable()
 export class CourseService {
   constructor(
     @InjectModel(Course.name)
-    private course = Model<CourseDocument>,
+    private course: Model<CourseDocument>,
+    @Inject(TeacherService)
+    private teacherService: TeacherService,
   ) {}
 
   async create(createCourseDto: CreateCourseDto) {
-    const newCourse = this.course.create({
-      ...createCourseDto,
-    });
-    return newCourse;
+    const newCourse = await this.course
+      .create({
+        ...createCourseDto,
+      })
+      .catch((e) => {
+        throw new HttpException({ error: 'error', e }, HttpStatus.BAD_REQUEST);
+        e;
+      });
+
+    console.log(createCourseDto.teacher);
+
+    const updatedTeacher = await this.teacherService
+      .addCourse(createCourseDto.teacher, newCourse)
+      .catch((e) => {
+        throw new HttpException({ error: 'error', e }, HttpStatus.BAD_REQUEST);
+      });
+
+    return updatedTeacher;
   }
 
   async findAll() {
