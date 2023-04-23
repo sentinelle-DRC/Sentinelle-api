@@ -12,10 +12,10 @@ import { CreateStudentDto } from './dto/create-student.dto';
 import { UpdateStudentDto } from './dto/update-student.dto';
 import { ApiTags } from '@nestjs/swagger';
 
-@ApiTags("Students")
+@ApiTags('Students')
 @Controller('student')
 export class StudentController {
-  constructor(private readonly studentService: StudentService) { }
+  constructor(private readonly studentService: StudentService) {}
 
   @Post()
   create(@Body() createStudentDto: CreateStudentDto) {
@@ -29,7 +29,19 @@ export class StudentController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.studentService.findOne(id);
+    return {
+      name: 'lokako',
+      class: '2eme primaire',
+      profile:
+        'https://www.blackenterprise.com/wp-content/blogs.dir/1/files/2012/11/Black_Student.jpg',
+      status: {
+        moyenne: 80,
+        absences: 4,
+        force: 'Français',
+        faiblesse: 'Anglais',
+      },
+    };
+    // return this.studentService.findOne(id);
   }
 
   @Patch(':id')
