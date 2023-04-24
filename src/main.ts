@@ -4,8 +4,13 @@ import { AppModule } from './app.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
-
+  const app = await NestFactory.create(AppModule, { cors: true });
+  app.enableCors({
+    origin: '*',
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    preflightContinue: false,
+    optionsSuccessStatus: 204,
+  });
   const config = new DocumentBuilder()
     .setTitle('Sentinelle api')
     .setDescription('Api for the sentinelle RDC mobile app')
@@ -14,24 +19,6 @@ async function bootstrap() {
 
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('docs', app, document);
-
-  var whitelist = [
-    'https://sentinelledrc.vercel.app',
-    'https://sentinelledrc.vercel.app/auth',
-    'https://sentinelledrc.vercel.app/home',
-    'sentinelledrc.vercel.app',
-    'sentinelledrc.vercel.app/auth',
-    'sentinelledrc.vercel.app/home',
-  ];
-  app.enableCors({
-    origin: function (origin, callback) {
-      if (!origin || whitelist.indexOf(origin) !== -1) {
-        callback(null, true);
-      } else {
-        callback(new Error('Not allowed by CORS'));
-      }
-    },
-  });
 
   app.useGlobalPipes(new ValidationPipe());
 
