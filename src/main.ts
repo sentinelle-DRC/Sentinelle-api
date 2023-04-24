@@ -18,7 +18,12 @@ async function bootstrap() {
   app.useGlobalPipes(new ValidationPipe());
 
   app.enableCors({
-    origin: '*',
+    origin: [
+      'http://localhost:3000',
+      'https://sentinelledrc.vercel.app/',
+      'https://sentinelledrc.vercel.app/home',
+      'https://sentinelledrc.vercel.app/auth',
+    ],
   });
 
   await app.listen(process.env.PORT);
