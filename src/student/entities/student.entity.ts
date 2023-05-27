@@ -1,6 +1,7 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose/dist';
 import { Type } from 'class-transformer';
 import mongoose, { Types } from 'mongoose';
+import { Class } from 'src/class/entities/class.entity';
 import { School } from 'src/school/entities/school.entity';
 
 export type StudentDocument = Student & Document;
@@ -29,6 +30,14 @@ export class Student {
   })
   @Type(() => School)
   school: School;
+
+  @Prop({
+    required: true,
+    type: mongoose.Schema.Types.ObjectId,
+    ref: Class.name,
+  })
+  @Type(() => Class)
+  class: Class;
 }
 
 export const StudentSchema = SchemaFactory.createForClass(Student);

@@ -37,7 +37,9 @@ export class StudentService {
     });
 
     // this.schoolService.addStudent
-    const newStudent = await student.save();
+    const newStudent = await student.save().catch((e) => {
+      throw new HttpException(e, HttpStatus.BAD_REQUEST);
+    });
 
     const addtoSchool = await this.schoolService.addStudent(
       createStudentDto.school,
@@ -50,7 +52,7 @@ export class StudentService {
   }
 
   findAll() {
-    return `This action returns all student`;
+    return this.studentModel.find();
   }
 
   findOne(id: string): Promise<Student> | any {

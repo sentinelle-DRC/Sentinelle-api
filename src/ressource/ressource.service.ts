@@ -1,15 +1,28 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { CreateRessourceDto } from './dto/create-ressource.dto';
 import { UpdateRessourceDto } from './dto/update-ressource.dto';
+import { InjectModel } from '@nestjs/mongoose';
+import { Ressource, RessourceDocument } from './entities/ressource.entity';
+import { Model } from 'mongoose';
 
 @Injectable()
 export class RessourceService {
-  create(createRessourceDto: CreateRessourceDto) {
-    return 'This action adds a new ressource';
+  constructor(
+    @InjectModel(Ressource.name)
+    private RessourceModel: Model<RessourceDocument>,
+  ) {}
+  async create(createRessourceDto: CreateRessourceDto) {
+    const newRssource = new this.RessourceModel({
+      ...createRessourceDto,
+    });
+
+    return newRssource.save().catch((e) => {
+      throw new HttpException(e, HttpStatus.BAD_REQUEST);
+    });
   }
 
   findAll() {
-    return `This action returns all ressource`;
+    return this.RessourceModel.find();
   }
 
   findOne(id: number) {

@@ -24,6 +24,6 @@ export class CreateClassDto {
     description: "l'id de l'école",
   })
   @IsNotEmpty()
-  @IsString()
+  @IsString() 
   school: string;
 }
