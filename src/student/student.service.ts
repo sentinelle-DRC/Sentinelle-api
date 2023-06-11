@@ -56,7 +56,9 @@ export class StudentService {
   }
 
   findOne(id: string): Promise<Student> | any {
-    return `This action returns a #${id} student`;
+    console.log(id);
+
+    return this.studentModel.findOne({ _id: id }).populate('class');
   }
 
   update(id: number, updateStudentDto: UpdateStudentDto) {

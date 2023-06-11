@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { SchoolService } from 'src/school/school.service';
@@ -18,12 +18,22 @@ export class ClassService {
       ...createClassDto,
     });
 
-    const newClass = await classe.save();
+    const newClass = await classe.save().catch((e) => {
+      throw new HttpException(e, HttpStatus.BAD_REQUEST);
+    });
     const addtoSchool = await this.schoolService.addClass(
       createClassDto.school,
       newClass._id,
     );
     return newClass;
+  }
+
+  async addClass(id: string, classe: any) {
+    const updatedSchool = await this.ClassModel.updateOne(
+      { _id: id },
+      { $push: { classes: classe } },
+    );
+    return updatedSchool;
   }
 
   async findAll() {

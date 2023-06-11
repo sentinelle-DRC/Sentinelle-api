@@ -4,10 +4,14 @@ import { ClassController } from './class.controller';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Class, ClassSchema } from './entities/class.entity';
 import { SchoolModule } from 'src/school/school.module';
+import { Student, StudentSchema } from 'src/student/entities/student.entity';
 
 @Module({
   imports: [
-    MongooseModule.forFeature([{ name: Class.name, schema: ClassSchema }]),
+    MongooseModule.forFeature([
+      { name: Class.name, schema: ClassSchema },
+      { name: Student.name, schema: StudentSchema },
+    ]),
     SchoolModule,
   ],
   controllers: [ClassController],
