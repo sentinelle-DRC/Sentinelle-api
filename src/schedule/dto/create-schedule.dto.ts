@@ -19,9 +19,9 @@ export class CreateScheduleDto {
         description:"Heure de debut"
     })
 
-    @IsDate()
+    @IsString()
     @IsNotEmpty()
-    public startHour:Date
+    public startHour:String
 
 
     @ApiProperty({
@@ -30,9 +30,9 @@ export class CreateScheduleDto {
 
     }) 
 
-    @IsDate()
+    @IsString()
     @IsNotEmpty()
-    public endHour:Date
+    public endHour:String
 
     @ApiProperty({
         type:String,
@@ -41,7 +41,7 @@ export class CreateScheduleDto {
 
     @IsNotEmpty()
     @IsString()
-    public cours = mongoose.Schema.Types.ObjectId;
+    public course : mongoose.Schema.Types.ObjectId;
 
     @ApiProperty({
         type:String,
@@ -50,5 +50,5 @@ export class CreateScheduleDto {
 
     @IsNotEmpty()
     @IsString()
-    public class = mongoose.Schema.Types.ObjectId;
+    public class : mongoose.Schema.Types.ObjectId;
 }

@@ -12,10 +12,10 @@ export class Schedule {
     day:String
 
     @Prop({required:true})
-    startHour:Date
+    startHour:String
 
     @Prop({required:true})
-    endHour:Date
+    endHour:String
 
     @Prop({required:true,type:mongoose.Schema.Types.ObjectId,ref:Course.name})
     @Type(()=>Course)

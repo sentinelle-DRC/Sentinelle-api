@@ -14,6 +14,7 @@ export class ScheduleController {
 
   @Get()
   findAll() {
+    // return Date.now()
     return this.scheduleService.findAll();
   }
 
@@ -32,3 +33,5 @@ export class ScheduleController {
     return this.scheduleService.remove(+id);
   }
 }
+
+ 
