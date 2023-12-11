@@ -42,4 +42,4 @@ import { FieldModule } from './field/field.module';
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule { }
+export class AppModule {}

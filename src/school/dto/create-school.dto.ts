@@ -1,5 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
-import { IsEmailTidy } from '@nestjsi/class-validator';
+// import { IsEmailTidy } from '@nestjsi/class-validator';
 import { IsString, IsNotEmpty } from 'class-validator';
 
 export class CreateSchoolDto {
@@ -9,7 +9,7 @@ export class CreateSchoolDto {
   })
   @IsString()
   @IsNotEmpty()
-  public name: String;
+  public name: string;
 
   @ApiProperty({
     type: String,
@@ -17,13 +17,13 @@ export class CreateSchoolDto {
   })
   @IsString()
   @IsNotEmpty()
-  public address: String;
+  public address: string;
 
   @ApiProperty({
     type: String,
     description: "Addresse email de l'ecole",
   })
-  public email: String;
+  public email: string;
 
   @ApiProperty({
     type: String,
@@ -31,5 +31,5 @@ export class CreateSchoolDto {
   })
   @IsString()
   @IsNotEmpty()
-  public phoneNumber: String;
+  public phoneNumber: string;
 }

@@ -1,6 +1,6 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose/dist';
 import { Type } from 'class-transformer';
-import mongoose, { Types } from 'mongoose';
+import mongoose from 'mongoose';
 import { School } from 'src/school/entities/school.entity';
 
 export type StudentDocument = Student & Document;
