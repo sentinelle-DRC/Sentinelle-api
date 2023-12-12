@@ -47,7 +47,8 @@ export class SchoolService {
           populate: { path: 'option' },
         })
         .populate('students');
-      return school;
+      if (school.length < 1) return `there is no school with id ${id}`;
+      else return school;
     } catch (error) {
       console.log(error);
     }
