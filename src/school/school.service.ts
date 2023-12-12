@@ -46,7 +46,8 @@ export class SchoolService {
           path: 'classes',
           populate: { path: 'option' },
         })
-        .populate('students');
+        .populate('students')
+        .populate('teachers');
       if (school.length < 1) return `there is no school with id ${id}`;
       else return school;
     } catch (error) {

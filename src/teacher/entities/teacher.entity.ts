@@ -20,7 +20,7 @@ export class Teacher {
   courses: Course;
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'School' })
   @Type(() => School)
-  schools: mongoose.Schema.Types.ObjectId;
+  school: mongoose.Schema.Types.ObjectId;
 }
 
 export const TeacherSchema = SchemaFactory.createForClass(Teacher);
