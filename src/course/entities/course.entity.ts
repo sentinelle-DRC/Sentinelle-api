@@ -19,7 +19,7 @@ export class Course {
   @Prop({
     required: true,
     type: mongoose.Schema.Types.ObjectId,
-    ref: Teacher.name,
+    ref: 'Teacher',
   })
   @Type(() => Field)
   teacher: mongoose.Schema.Types.ObjectId;

@@ -18,9 +18,9 @@ export class Teacher {
   @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId }], ref: 'Course' })
   @Type(() => Course)
   courses: Course;
-  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: School.name })
+  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'School' })
   @Type(() => School)
-  schools: School;
+  schools: mongoose.Schema.Types.ObjectId;
 }
 
 export const TeacherSchema = SchemaFactory.createForClass(Teacher);
