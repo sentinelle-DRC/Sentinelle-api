@@ -2,7 +2,7 @@ import { Injectable, HttpStatus, HttpException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import mongoose, { Model } from 'mongoose';
 // import path from 'path';
-import { Student, StudentDocument } from 'src/student/entities/student.entity';
+// import { Student, StudentDocument } from 'src/student/entities/student.entity';
 import { CreateSchoolDto } from './dto/create-school.dto';
 import { UpdateSchoolDto } from './dto/update-school.dto';
 import { School, SchoolDocument } from './entities/school.entity';

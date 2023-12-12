@@ -7,7 +7,7 @@ import {
   Param,
   Delete,
   UseGuards,
-  Put,
+  // Put,
 } from '@nestjs/common';
 import { SchoolService } from './school.service';
 import { CreateSchoolDto } from './dto/create-school.dto';
