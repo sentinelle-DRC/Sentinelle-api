@@ -7,8 +7,11 @@ export type FieldDocument = Field & Document;
 
 @Schema()
 export class Field {
-  @Prop({ require: true })
-  name: String;
+  @Prop({ required: true })
+  name: string;
+  @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId }], ref: 'Course' })
+  @Type(() => Course)
+  courses: Course;
 }
 
 export const FieldSchema = SchemaFactory.createForClass(Field);

@@ -20,7 +20,7 @@ export class FieldService {
   }
 
   async findAll() {
-    const field = await this.field.find();
+    const field = await this.field.find().populate({ path: 'courses' });
     return field;
   }
 

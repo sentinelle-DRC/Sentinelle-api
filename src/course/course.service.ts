@@ -28,10 +28,9 @@ export class CourseService {
       })
       .catch((e) => {
         throw new HttpException({ error: 'error', e }, HttpStatus.BAD_REQUEST);
-        e;
       });
 
-    console.log(createCourseDto.teacher);
+    // console.log(createCourseDto.teacher);
 
     const updatedTeacher = await this.teacherService
       .addCourse(createCourseDto.teacher, newCourse)
