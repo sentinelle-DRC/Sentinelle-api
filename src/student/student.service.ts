@@ -38,8 +38,8 @@ export class StudentService {
 
     // this.schoolService.addStudent
     const newStudent = await student.save();
-
-    const addtoSchool = await this.schoolService.addStudent(
+    //adding to school
+    await this.schoolService.addStudent(
       createStudentDto.school,
       newStudent._id,
     );
@@ -49,8 +49,12 @@ export class StudentService {
     // });
   }
 
-  findAll() {
-    return `This action returns all student`;
+  async findAll() {
+    try {
+      return await this.studentModel.find().populate('school');
+    } catch (error) {
+      return error.message;
+    }
   }
 
   findOne(id: string): Promise<Student> | any {
