@@ -5,12 +5,14 @@ import { SchoolService } from 'src/school/school.service';
 import { CreateClassDto } from './dto/create-class.dto';
 import { UpdateClassDto } from './dto/update-class.dto';
 import { Class, ClassDocument } from './entities/class.entity';
+import { OptionService } from 'src/option/option.service';
 @Injectable()
 export class ClassService {
   constructor(
     @InjectModel(Class.name)
     private ClassModel: Model<ClassDocument>,
     private schoolService: SchoolService,
+    private optionService: OptionService,
   ) {}
 
   async create(createClassDto: CreateClassDto) {
@@ -19,10 +21,10 @@ export class ClassService {
     });
 
     const newClass = await classe.save();
-    const addtoSchool = await this.schoolService.addClass(
-      createClassDto.school,
-      newClass._id,
-    );
+    //  addtoSchool
+    await this.schoolService.addClass(createClassDto.school, newClass._id);
+    // addtoOption
+    await this.optionService.addClass(createClassDto.option, newClass._id);
     return newClass;
   }
 

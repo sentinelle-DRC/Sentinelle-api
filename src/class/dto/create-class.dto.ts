@@ -18,7 +18,7 @@ export class CreateClassDto {
   })
   @IsNotEmpty()
   @IsString()
-  option: string;
+  option: mongoose.Schema.Types.ObjectId;
 
   @ApiProperty({
     type: String,
