@@ -4,6 +4,7 @@ import { UpdateTeacherDto } from './dto/update-teacher.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { Teacher, TeacherDocument } from './entities/teacher.entity';
 import mongoose, { Model } from 'mongoose';
+import { SchoolService } from 'src/school/school.service';
 // import { CourseService } from 'src/course/course.service';
 
 @Injectable()
@@ -11,12 +12,18 @@ export class TeacherService {
   constructor(
     @InjectModel(Teacher.name)
     private teacher = Model<TeacherDocument>,
+    private schoolService: SchoolService,
   ) {}
 
-  create(createTeacherDto: CreateTeacherDto) {
-    const newTeacher = this.teacher.create({
+  async create(createTeacherDto: CreateTeacherDto) {
+    const newTeacher = await this.teacher.create({
       ...createTeacherDto,
     });
+    //add to school
+    await this.schoolService.addTeacher(
+      createTeacherDto.school,
+      newTeacher._id,
+    );
     return newTeacher;
   }
 
