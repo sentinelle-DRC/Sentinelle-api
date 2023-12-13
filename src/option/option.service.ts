@@ -17,8 +17,8 @@ export class OptionService {
     return option.save();
   }
 
-  findAll() {
-    return `This action returns all option`;
+  async findAll() {
+    return await this.OptionModel.find().populate('classes');
   }
 
   findOne(id: number) {

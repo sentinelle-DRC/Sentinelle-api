@@ -12,7 +12,7 @@ export class Class {
   @Prop({
     required: true,
     type: mongoose.Schema.Types.ObjectId,
-    ref: Option.name,
+    ref: 'Option',
   })
   @Type(() => Option)
   option: Option;
