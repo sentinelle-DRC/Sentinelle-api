@@ -42,6 +42,4 @@ export class SchoolController {
   remove(@Param('id') id: mongoose.Schema.Types.ObjectId) {
     return this.schoolService.remove(id);
   }
-  //add student
-  //add class
 }

@@ -70,21 +70,6 @@ export class SchoolService {
       return error.message;
     }
   }
-
-  async addStudent(id: mongoose.Schema.Types.ObjectId, student: any) {
-    const updatedSchool = await this.SchoolModel.updateOne(
-      { _id: id },
-      { $push: { students: student } },
-    );
-    return updatedSchool;
-  }
-  async addClass(id: string, classe: any) {
-    const updatedSchool = await this.SchoolModel.updateOne(
-      { _id: id },
-      { $push: { classes: classe } },
-    );
-    return updatedSchool;
-  }
   async remove(id: mongoose.Schema.Types.ObjectId): Promise<string> {
     try {
       const result = await this.SchoolModel.remove({ _id: id });
@@ -93,5 +78,27 @@ export class SchoolService {
     } catch (error) {
       console.log(error);
     }
+  }
+
+  async addStudent(id: mongoose.Schema.Types.ObjectId, student: any) {
+    const updatedSchool = await this.SchoolModel.updateOne(
+      { _id: id },
+      { $push: { students: student } },
+    );
+    return updatedSchool;
+  }
+  async addClass(id: mongoose.Schema.Types.ObjectId, classe: any) {
+    const updatedSchool = await this.SchoolModel.updateOne(
+      { _id: id },
+      { $push: { classes: classe } },
+    );
+    return updatedSchool;
+  }
+  async addTeacher(id: mongoose.Schema.Types.ObjectId, teacher: any) {
+    const updatedSchool = await this.SchoolModel.updateOne(
+      { _id: id },
+      { $push: { teachers: teacher } },
+    );
+    return updatedSchool;
   }
 }

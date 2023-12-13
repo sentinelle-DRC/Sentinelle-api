@@ -1,15 +1,9 @@
-import {
-  HttpException,
-  HttpStatus,
-  Inject,
-  Injectable,
-  forwardRef,
-} from '@nestjs/common';
+import { HttpException, HttpStatus, Inject, Injectable } from '@nestjs/common';
 import { CreateCourseDto } from './dto/create-course.dto';
 import { UpdateCourseDto } from './dto/update-course.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { Course, CourseDocument } from './entities/course.entity';
-import mongoose, { Model } from 'mongoose';
+import { Model } from 'mongoose';
 import { TeacherService } from 'src/teacher/teacher.service';
 
 @Injectable()
@@ -42,7 +36,10 @@ export class CourseService {
   }
 
   async findAll() {
-    const course = await this.course.find().populate({ path: 'field' });
+    const course = await this.course
+      .find()
+      .populate({ path: 'field' })
+      .populate({ path: 'teacher' });
 
     return course;
   }
