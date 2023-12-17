@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { CreateScheduleDto } from './dto/create-schedule.dto';
 import { UpdateScheduleDto } from './dto/update-schedule.dto';
 import { InjectModel } from '@nestjs/mongoose';
@@ -12,6 +12,7 @@ export class ScheduleService {
     private schedule: Model<ScheduleDocument>,
   ) {}
   async create(createScheduleDto: CreateScheduleDto) {
+    // console.log(createScheduleDto);
     try {
       const oldSchedule = await this.schedule.findOne({
         $and: [
@@ -21,8 +22,17 @@ export class ScheduleService {
       });
       if (oldSchedule) return 'shedull for this class exist';
       else {
-        const newSchedule = new this.schedule({ ...CreateScheduleDto });
-        return await newSchedule.save();
+        const newSchedull = await this.schedule
+          .create({
+            ...createScheduleDto,
+          })
+          .catch((e) => {
+            throw new HttpException(
+              { error: 'error', e },
+              HttpStatus.BAD_REQUEST,
+            );
+          });
+        return newSchedull;
       }
     } catch (error) {
       return error.message;
