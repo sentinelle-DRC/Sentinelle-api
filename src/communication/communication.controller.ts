@@ -10,6 +10,7 @@ import {
 import { CommunicationService } from './communication.service';
 import { CreateCommunicationDto } from './dto/create-communication.dto';
 import { UpdateCommunicationDto } from './dto/update-communication.dto';
+import mongoose from 'mongoose';
 
 @Controller('communication')
 export class CommunicationController {
@@ -25,7 +26,11 @@ export class CommunicationController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
+  findOne(@Param('id') id: mongoose.Schema.Types.ObjectId) {
+    return this.communicationService.findOne(id);
+  }
+  @Get('/class/:id')
+  findByClass(@Param('id') id: string) {
     return this.communicationService.findByClass(id);
   }
 
