@@ -12,5 +12,6 @@ import { CourseModule } from 'src/course/course.module';
   ],
   controllers: [FieldController],
   providers: [FieldService],
+  exports: [FieldService],
 })
 export class FieldModule {}
