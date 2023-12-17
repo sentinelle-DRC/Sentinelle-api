@@ -10,6 +10,7 @@ import {
 import { RessourceService } from './ressource.service';
 import { CreateRessourceDto } from './dto/create-ressource.dto';
 import { UpdateRessourceDto } from './dto/update-ressource.dto';
+import mongoose from 'mongoose';
 
 @Controller('ressource')
 export class RessourceController {
@@ -57,8 +58,8 @@ export class RessourceController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.ressourceService.findOne(+id);
+  findOne(@Param('id') id: mongoose.Schema.Types.ObjectId) {
+    return this.ressourceService.findOne(id);
   }
 
   @Patch(':id')

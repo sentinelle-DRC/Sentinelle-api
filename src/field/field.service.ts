@@ -41,4 +41,10 @@ export class FieldService {
       { $push: { courses: course } },
     );
   }
+  async addRessource(id: mongoose.Schema.Types.ObjectId, ressource: any) {
+    return await this.field.updateOne(
+      { _id: id },
+      { $push: { ressources: ressource } },
+    );
+  }
 }

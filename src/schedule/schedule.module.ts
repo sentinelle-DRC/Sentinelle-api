@@ -12,5 +12,6 @@ import { Schedule, ScheduleSchema } from './entities/schedule.entity';
   ],
   controllers: [ScheduleController],
   providers: [ScheduleService],
+  exports: [ScheduleService],
 })
 export class ScheduleModule {}
