@@ -73,18 +73,35 @@ export class StudentService {
   }
 
   async findOne(id: mongoose.Schema.Types.ObjectId): Promise<any> {
-    const resultat = await this.studentModel
-      .findOne({ _id: id })
-      .populate('school')
-      .populate('class');
-    return resultat;
+    try {
+      const resultat = await this.studentModel
+        .findOne({ _id: id })
+        .populate('school')
+        .populate('class');
+      return resultat;
+    } catch (error) {
+      return error.message;
+    }
   }
 
-  update(id: number, updateStudentDto: UpdateStudentDto) {
-    return `This action updates a #${id} student`;
+  update(
+    id: mongoose.Schema.Types.ObjectId,
+    updateStudentDto: UpdateStudentDto,
+  ) {
+    try {
+      return this.studentModel.updateOne({ _id: id }, { updateStudentDto });
+    } catch (error) {
+      return error.message;
+    }
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} student`;
+  async remove(id: mongoose.Schema.Types.ObjectId): Promise<string> {
+    try {
+      const result = await this.studentModel.deleteOne({ _id: id });
+      if (result.deletedCount == 0) return 'impossible to remove';
+      else return 'student removed successfully';
+    } catch (error) {
+      return error.message;
+    }
   }
 }

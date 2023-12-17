@@ -34,12 +34,15 @@ export class StudentController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateStudentDto: UpdateStudentDto) {
-    return this.studentService.update(+id, updateStudentDto);
+  update(
+    @Param('id') id: mongoose.Schema.Types.ObjectId,
+    @Body() updateStudentDto: UpdateStudentDto,
+  ) {
+    return this.studentService.update(id, updateStudentDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.studentService.remove(+id);
+  remove(@Param('id') id: mongoose.Schema.Types.ObjectId) {
+    return this.studentService.remove(id);
   }
 }
