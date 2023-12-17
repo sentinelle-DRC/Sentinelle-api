@@ -23,7 +23,8 @@ export class StudentService {
     @InjectModel(Student.name)
     private studentModel: Model<StudentDocument>,
     private schoolService: SchoolService,
-    private parentService: ParentService, // private classService: ClassService,
+    private parentService: ParentService,
+    private classService: ClassService,
   ) {}
 
   async create(createStudentDto: CreateStudentDto): Promise<any> {
@@ -52,7 +53,7 @@ export class StudentService {
       newStudent._id,
     );
     //adding to class
-    // await this.classService.addStudent(createStudentDto.class, newStudent._id);
+    await this.classService.addStudent(createStudentDto.class, newStudent._id);
 
     return newStudent;
     // return student.save().catch((e) => {
