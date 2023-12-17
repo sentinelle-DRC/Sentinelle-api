@@ -1,7 +1,7 @@
 import { HttpException, Injectable } from '@nestjs/common';
 import { CreateParentDto } from './dto/create-parent.dto';
 import { UpdateParentDto } from './dto/update-parent.dto';
-import { Model } from 'mongoose';
+import mongoose, { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose/dist/common';
 import { Parent, ParentDocument } from './entities/parent.entity';
 import * as bcrypt from 'bcrypt';
@@ -46,5 +46,12 @@ export class ParentService {
   }
   remove(id: number) {
     return `This action removes a #${id} parent`;
+  }
+  async addStudent(id: mongoose.Schema.Types.ObjectId, student: any) {
+    const updatedSchool = await this.parentModel.updateOne(
+      { _id: id },
+      { $push: { students: student } },
+    );
+    return updatedSchool;
   }
 }

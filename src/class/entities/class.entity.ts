@@ -3,6 +3,7 @@ import { Type } from 'class-transformer';
 import mongoose from 'mongoose';
 import { Option } from 'src/option/entities/option.entity';
 import { School } from 'src/school/entities/school.entity';
+import { Student } from 'src/student/entities/student.entity';
 
 export type ClassDocument = Class & Document;
 @Schema()
@@ -24,6 +25,10 @@ export class Class {
   })
   @Type(() => School)
   school: School;
+
+  @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId }], ref: 'Student' })
+  @Type(() => Student)
+  students: Student;
 }
 
 export const ClassSchema = SchemaFactory.createForClass(Class);

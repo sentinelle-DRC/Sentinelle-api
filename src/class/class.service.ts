@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Model } from 'mongoose';
+import mongoose, { Model } from 'mongoose';
 import { SchoolService } from 'src/school/school.service';
 import { CreateClassDto } from './dto/create-class.dto';
 import { UpdateClassDto } from './dto/update-class.dto';
@@ -45,5 +45,11 @@ export class ClassService {
 
   remove(id: number) {
     return `This action removes a #${id} class`;
+  }
+  async addStudent(id: mongoose.Schema.Types.ObjectId, student: any) {
+    return await this.ClassModel.updateOne(
+      { _id: id },
+      { $push: { students: student } },
+    );
   }
 }

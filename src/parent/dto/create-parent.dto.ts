@@ -5,7 +5,7 @@ import { IsNotEmpty, IsString, IsNumber, Length } from 'class-validator';
 export class CreateParentDto {
   @ApiProperty({
     type: String,
-    description: "Numéro de téléphone congolais à 10 chiffres"
+    description: 'Numéro de téléphone congolais à 10 chiffres',
   })
   @IsString()
   @IsNotEmpty()
@@ -34,7 +34,7 @@ export class CreateParentDto {
 
   @ApiProperty({
     type: String,
-    description: "Doit être M ou F"
+    description: 'Doit être M ou F',
   })
   @IsString()
   @IsNotEmpty()

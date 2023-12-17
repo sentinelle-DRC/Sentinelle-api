@@ -3,7 +3,7 @@ import { CreateFieldDto } from './dto/create-field.dto';
 import { UpdateFieldDto } from './dto/update-field.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { Field, FieldDocument } from './entities/field.entity';
-import { Model } from 'mongoose';
+import mongoose, { Model } from 'mongoose';
 
 @Injectable()
 export class FieldService {
@@ -34,5 +34,11 @@ export class FieldService {
 
   remove(id: number) {
     return `This action removes a #${id} field`;
+  }
+  async addCourse(id: mongoose.Schema.Types.ObjectId, course: any) {
+    return await this.field.updateOne(
+      { _id: id },
+      { $push: { courses: course } },
+    );
   }
 }

@@ -5,6 +5,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Course, CourseDocument } from './entities/course.entity';
 import { Model } from 'mongoose';
 import { TeacherService } from 'src/teacher/teacher.service';
+// import { FieldService } from 'src/field/field.service';
 
 @Injectable()
 export class CourseService {
@@ -12,7 +13,7 @@ export class CourseService {
     @InjectModel(Course.name)
     private course: Model<CourseDocument>,
     @Inject(TeacherService)
-    private teacherService: TeacherService,
+    private teacherService: TeacherService, // private fieldService: FieldService,
   ) {}
 
   async create(createCourseDto: CreateCourseDto) {
@@ -26,13 +27,18 @@ export class CourseService {
 
     // console.log(createCourseDto.teacher);
 
-    const updatedTeacher = await this.teacherService
-      .addCourse(createCourseDto.teacher, newCourse)
+    await this.teacherService
+      .addCourse(createCourseDto.teacher, newCourse._id)
       .catch((e) => {
         throw new HttpException({ error: 'error', e }, HttpStatus.BAD_REQUEST);
       });
+    // add to field list
+    // return await this.fieldService.addCourse(
+    //   createCourseDto.field,
+    //   newCourse._id,
+    // );
 
-    return updatedTeacher;
+    return newCourse;
   }
 
   async findAll() {

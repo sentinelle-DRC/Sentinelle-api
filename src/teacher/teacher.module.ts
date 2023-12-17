@@ -5,12 +5,14 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { Teacher, TeacherSchema } from './entities/teacher.entity';
 import { CourseModule } from 'src/course/course.module';
 import { SchoolModule } from 'src/school/school.module';
+// import { FieldModule } from 'src/field/field.module';
 
 @Module({
   imports: [
     MongooseModule.forFeature([{ name: Teacher.name, schema: TeacherSchema }]),
     forwardRef(() => CourseModule),
     SchoolModule,
+    // FieldModule,
   ],
   controllers: [TeacherController],
   providers: [TeacherService],
