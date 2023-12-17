@@ -7,7 +7,7 @@ import {
 } from '@nestjs/common';
 import { CreateStudentDto } from './dto/create-student.dto';
 import { UpdateStudentDto } from './dto/update-student.dto';
-import { Model } from 'mongoose';
+import mongoose, { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose/dist/common';
 import { Student, StudentDocument } from './entities/student.entity';
 import * as bcrypt from 'bcrypt';
@@ -63,14 +63,21 @@ export class StudentService {
 
   async findAll() {
     try {
-      return await this.studentModel.find().populate('school');
+      return await this.studentModel
+        .find()
+        .populate('school')
+        .populate('class');
     } catch (error) {
       return error.message;
     }
   }
 
-  findOne(id: string): Promise<Student> | any {
-    return `This action returns a #${id} student`;
+  async findOne(id: mongoose.Schema.Types.ObjectId): Promise<any> {
+    const resultat = await this.studentModel
+      .findOne({ _id: id })
+      .populate('school')
+      .populate('class');
+    return resultat;
   }
 
   update(id: number, updateStudentDto: UpdateStudentDto) {

@@ -11,6 +11,7 @@ import { StudentService } from './student.service';
 import { CreateStudentDto } from './dto/create-student.dto';
 import { UpdateStudentDto } from './dto/update-student.dto';
 import { ApiTags } from '@nestjs/swagger';
+import mongoose from 'mongoose';
 
 @ApiTags('Students')
 @Controller('student')
@@ -28,20 +29,8 @@ export class StudentController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return {
-      name: 'lokako',
-      class: '2eme primaire',
-      profile:
-        'https://www.blackenterprise.com/wp-content/blogs.dir/1/files/2012/11/Black_Student.jpg',
-      status: {
-        moyenne: 80,
-        absences: 4,
-        force: 'Français',
-        faiblesse: 'Anglais',
-      },
-    };
-    // return this.studentService.findOne(id);
+  findOne(@Param('id') id: mongoose.Schema.Types.ObjectId) {
+    return this.studentService.findOne(id);
   }
 
   @Patch(':id')
