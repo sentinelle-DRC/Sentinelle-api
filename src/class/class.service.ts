@@ -35,12 +35,17 @@ export class ClassService {
     return classes;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} class`;
+  async findOne(id: mongoose.Schema.Types.ObjectId) {
+    return await this.ClassModel.findOne({ _id: id })
+      .populate({ path: 'school', select: { _id: 1, name: 1 } })
+      .populate('option');
   }
 
-  update(id: number, updateClassDto: UpdateClassDto) {
-    return `This action updates a #${id} class`;
+  async update(
+    id: mongoose.Schema.Types.ObjectId,
+    updateClassDto: UpdateClassDto,
+  ) {
+    return await this.ClassModel.updateOne({ _id: id }, { updateClassDto });
   }
 
   remove(id: number) {
