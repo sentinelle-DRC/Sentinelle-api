@@ -38,11 +38,21 @@ export class NotificationService {
     }
   }
 
-  update(id: number, updateNotificationDto: UpdateNotificationDto) {
-    return `This action updates a #${id} notification`;
+  async update(
+    id: mongoose.Schema.Types.ObjectId,
+    updateNotificationDto: UpdateNotificationDto,
+  ) {
+    try {
+      return await this.notification.updateOne(
+        { _id: id },
+        { updateNotificationDto },
+      );
+    } catch (error) {
+      return error.message;
+    }
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} notification`;
+  async remove(id: mongoose.Schema.Types.ObjectId) {
+    return await this.notification.deleteOne({ _id: id });
   }
 }

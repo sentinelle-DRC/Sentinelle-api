@@ -33,14 +33,14 @@ export class NotificationController {
 
   @Patch(':id')
   update(
-    @Param('id') id: string,
+    @Param('id') id: mongoose.Schema.Types.ObjectId,
     @Body() updateNotificationDto: UpdateNotificationDto,
   ) {
-    return this.notificationService.update(+id, updateNotificationDto);
+    return this.notificationService.update(id, updateNotificationDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.notificationService.remove(+id);
+  remove(@Param('id') id: mongoose.Schema.Types.ObjectId) {
+    return this.notificationService.remove(id);
   }
 }
