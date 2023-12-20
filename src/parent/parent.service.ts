@@ -33,12 +33,12 @@ export class ParentService {
     });
   }
 
-  findAll() {
-    return `This action returns all parent`;
+  async findAll() {
+    return await this.parentModel.find().populate('students');
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} parent`;
+  async findOne(id: mongoose.Schema.Types.ObjectId) {
+    return await this.parentModel.findOne({ _id: id }).populate('students');
   }
 
   update(id: number, updateParentDto: UpdateParentDto) {
