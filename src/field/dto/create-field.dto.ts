@@ -7,5 +7,5 @@ export class CreateFieldDto {
   })
   @IsNotEmpty()
   @IsString()
-  name: string;
+  public name: string;
 }

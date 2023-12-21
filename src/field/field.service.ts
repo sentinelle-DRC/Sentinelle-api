@@ -4,6 +4,7 @@ import { UpdateFieldDto } from './dto/update-field.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { Field, FieldDocument } from './entities/field.entity';
 import mongoose, { Model } from 'mongoose';
+import path from 'path';
 
 @Injectable()
 export class FieldService {
@@ -20,16 +21,16 @@ export class FieldService {
   }
 
   async findAll() {
-    const field = await this.field.find().populate({ path: 'courses' });
+    const field = await this.field.find();
     return field;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} field`;
+  async findOne(id: mongoose.Schema.Types.ObjectId) {
+    return await this.field.findOne({ _id: id });
   }
 
-  update(id: number, updateFieldDto: UpdateFieldDto) {
-    return `This action updates a #${id} field`;
+  async update(id: string, updateFieldDto: UpdateFieldDto) {
+    return await this.field.updateOne({ _id: id }, { updateFieldDto });
   }
 
   remove(id: number) {

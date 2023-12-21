@@ -1,7 +1,16 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { FieldService } from './field.service';
 import { CreateFieldDto } from './dto/create-field.dto';
 import { UpdateFieldDto } from './dto/update-field.dto';
+import mongoose from 'mongoose';
 
 @Controller('field')
 export class FieldController {
@@ -18,13 +27,13 @@ export class FieldController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.fieldService.findOne(+id);
+  findOne(@Param('id') id: mongoose.Schema.Types.ObjectId) {
+    return this.fieldService.findOne(id);
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateFieldDto: UpdateFieldDto) {
-    return this.fieldService.update(+id, updateFieldDto);
+    return this.fieldService.update(id, updateFieldDto);
   }
 
   @Delete(':id')
