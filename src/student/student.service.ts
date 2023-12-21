@@ -73,7 +73,14 @@ export class StudentService {
       const resultat = await this.studentModel
         .findOne({ _id: id })
         .populate({ path: 'school', select: 'name' })
-        .populate({ path: 'class', select: 'name' })
+        .populate({
+          path: 'class',
+          select: 'level',
+          populate: {
+            path: 'option',
+            select: 'name',
+          },
+        })
         .populate({ path: 'parent', select: 'firstName' });
       return resultat;
     } catch (error) {

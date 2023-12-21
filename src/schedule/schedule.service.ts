@@ -46,9 +46,15 @@ export class ScheduleService {
   }
 
   async findOne(id: mongoose.Schema.Types.ObjectId) {
-    return await this.schedule
-      .findOne({ _id: id })
-      .populate({ path: 'class', select: 'level' });
+    return await this.schedule.findOne({ _id: id }).populate({
+      path: 'class',
+      select: 'level',
+      populate: {
+        path: 'option',
+        select: 'name',
+      },
+    });
+    // .populate({ path: 'class', select: 'level' });
   }
 
   async update(
