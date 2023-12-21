@@ -104,4 +104,10 @@ export class StudentService {
       return error.message;
     }
   }
+  async addNotification(id: mongoose.Schema.Types.ObjectId, notification: any) {
+    return await this.studentModel.updateOne(
+      { _id: id },
+      { $push: { notifications: notification } },
+    );
+  }
 }

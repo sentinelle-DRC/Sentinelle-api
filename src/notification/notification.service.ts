@@ -7,16 +7,26 @@ import {
   NotificationDocument,
 } from './entities/notification.entity';
 import mongoose, { Model } from 'mongoose';
+import { StudentService } from 'src/student/student.service';
 
 @Injectable()
 export class NotificationService {
   constructor(
     @InjectModel(Notification.name)
     private notification: Model<NotificationDocument>,
+    private studentService: StudentService,
   ) {}
   async create(createNotificationDto: CreateNotificationDto) {
     try {
-      return await this.notification.create({ ...createNotificationDto });
+      const newNotif = await this.notification.create({
+        ...createNotificationDto,
+      });
+      //add to student list
+      await this.studentService.addNotification(
+        createNotificationDto.student,
+        newNotif._id,
+      );
+      return newNotif;
     } catch (error) {
       return error.message;
     }
@@ -24,7 +34,7 @@ export class NotificationService {
 
   async findAll() {
     try {
-      return await this.notification.find().populate('student');
+      return await this.notification.find();
     } catch (error) {
       return error.message;
     }
@@ -32,7 +42,9 @@ export class NotificationService {
 
   async findOne(id: mongoose.Schema.Types.ObjectId) {
     try {
-      return await this.notification.findOne({ _id: id }).populate('student');
+      return await this.notification
+        .findOne({ _id: id })
+        .populate({ path: 'student', select: ['firstName', 'lastName'] });
     } catch (error) {
       return error.message;
     }

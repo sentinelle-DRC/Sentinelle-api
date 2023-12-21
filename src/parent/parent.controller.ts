@@ -34,8 +34,11 @@ export class ParentController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateParentDto: UpdateParentDto) {
-    return this.parentService.update(+id, updateParentDto);
+  update(
+    @Param('id') id: mongoose.Schema.Types.ObjectId,
+    @Body() updateParentDto: UpdateParentDto,
+  ) {
+    return this.parentService.update(id, updateParentDto);
   }
 
   @Delete(':id')

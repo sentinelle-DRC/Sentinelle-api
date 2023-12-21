@@ -10,7 +10,7 @@ export class Notification {
   title: string;
   @Prop({ required: true })
   description: string;
-  @Prop({ required: true })
+  @Prop({ required: true, default: Date.now() })
   date: Date;
   @Prop({
     required: true,

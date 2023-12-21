@@ -34,15 +34,29 @@ export class ParentService {
   }
 
   async findAll() {
-    return await this.parentModel.find().populate('students');
+    try {
+      const listParent = await this.parentModel.find();
+      if (listParent.length < 1) return 'Aucun parent trouvé';
+      else {
+        return listParent;
+      }
+    } catch (error) {
+      return error.message;
+    }
+    // return await this.parentModel.find();
   }
 
   async findOne(id: mongoose.Schema.Types.ObjectId) {
-    return await this.parentModel.findOne({ _id: id }).populate('students');
+    return await this.parentModel
+      .findOne({ _id: id })
+      .populate({ path: 'students', select: ['firstName', 'lastName', 'sex'] });
   }
 
-  update(id: number, updateParentDto: UpdateParentDto) {
-    return `This action updates a #${id} parent`;
+  async update(
+    id: mongoose.Schema.Types.ObjectId,
+    updateParentDto: UpdateParentDto,
+  ) {
+    return await this.parentModel.updateOne({ _id: id }, { updateParentDto });
   }
   remove(id: number) {
     return `This action removes a #${id} parent`;

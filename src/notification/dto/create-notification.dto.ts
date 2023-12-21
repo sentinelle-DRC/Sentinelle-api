@@ -13,18 +13,14 @@ export class CreateNotificationDto {
     type: String,
     description: '',
   })
-  @ApiProperty({
-    type: Date,
-    description: '',
-  })
   @IsString()
-  date: Date;
-  @ApiProperty({
-    type: String,
-    description: '',
-  })
-  @IsString()
-  type: string;
+  description: string;
+  // @ApiProperty({
+  //   type: Date,
+  //   description: '',
+  // })
+  // @IsString()
+  // date: Date;
   @ApiProperty({
     type: mongoose.Schema.Types.ObjectId,
     description: 'lid du student concerné',

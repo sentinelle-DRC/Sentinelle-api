@@ -6,12 +6,14 @@ import {
   Notification,
   NotificationSchema,
 } from './entities/notification.entity';
+import { StudentModule } from 'src/student/student.module';
 
 @Module({
   imports: [
     MongooseModule.forFeature([
       { name: Notification.name, schema: NotificationSchema },
     ]),
+    StudentModule,
   ],
   controllers: [NotificationController],
   providers: [NotificationService],
