@@ -48,8 +48,8 @@ export class CourseService {
   async findOne(id: mongoose.Schema.Types.ObjectId) {
     const course = await this.course
       .findOne({ _id: id })
-      .populate({ path: 'field' })
-      .populate({ path: 'teacher' });
+      .populate({ path: 'field', select: 'name' })
+      .populate({ path: 'teacher', select: ['firstName', 'lastName'] });
 
     return course;
   }

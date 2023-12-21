@@ -18,19 +18,41 @@ export class OptionService {
   }
 
   async findAll() {
-    return await this.OptionModel.find().populate('classes');
+    try {
+      return await this.OptionModel.find();
+    } catch (error) {
+      return error;
+    }
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} option`;
+  async findOne(id: mongoose.Schema.Types.ObjectId) {
+    try {
+      return await this.OptionModel.findOne({ _id: id }).populate({
+        path: 'classes',
+        select: 'level',
+      });
+    } catch (error) {
+      return error;
+    }
   }
 
-  update(id: number, updateOptionDto: UpdateOptionDto) {
-    return `This action updates a #${id} option`;
+  async update(
+    id: mongoose.Schema.Types.ObjectId,
+    updateOptionDto: UpdateOptionDto,
+  ) {
+    try {
+      return await this.OptionModel.updateOne({ _id: id }, { updateOptionDto });
+    } catch (error) {
+      return error;
+    }
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} option`;
+  async remove(id: mongoose.Schema.Types.ObjectId) {
+    try {
+      return await this.OptionModel.deleteOne({ _id: id });
+    } catch (error) {
+      return error;
+    }
   }
   async addClass(id: mongoose.Schema.Types.ObjectId, classe: any) {
     return await this.OptionModel.updateOne(
