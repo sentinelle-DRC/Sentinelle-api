@@ -43,7 +43,7 @@ export class CommunicationController {
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.communicationService.remove(+id);
+  remove(@Param('id') id: mongoose.Schema.Types.ObjectId) {
+    return this.communicationService.remove(id);
   }
 }

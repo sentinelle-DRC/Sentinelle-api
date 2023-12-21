@@ -40,7 +40,7 @@ export class CommunicationService {
   }
 
   async findOne(id: mongoose.Schema.Types.ObjectId) {
-    return this.CommunicationModel.findOne({
+    return await this.CommunicationModel.findOne({
       _id: id,
     }).populate({
       path: 'class',
@@ -52,7 +52,7 @@ export class CommunicationService {
     return `This action updates a #${id} communication`;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} communication`;
+  async remove(id: mongoose.Schema.Types.ObjectId) {
+    return await this.CommunicationModel.deleteOne({ _id: id });
   }
 }
