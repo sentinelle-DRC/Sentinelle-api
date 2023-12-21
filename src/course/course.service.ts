@@ -60,6 +60,12 @@ export class CourseService {
   ) {
     return await this.course.updateOne({ _id: id }, { updateCourseDto });
   }
+  async addWork(id: mongoose.Schema.Types.ObjectId, course: any) {
+    return await this.course.updateOne(
+      { _id: id },
+      { $push: { courses: course } },
+    );
+  }
 
   remove(id: number) {
     return `This action removes a #${id} course`;

@@ -4,18 +4,21 @@ import { UpdateWorkDto } from './dto/update-work.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { Work, WorkDocument } from './entities/work.entity';
 import mongoose, { Model } from 'mongoose';
+import { CourseService } from 'src/course/course.service';
 
 @Injectable()
 export class WorkService {
   constructor(
     @InjectModel(Work.name)
     private work: Model<WorkDocument>,
+    private courseService: CourseService,
   ) {}
   async create(createWorkDto: CreateWorkDto) {
     try {
-      return await this.work.create({ ...createWorkDto }).catch((e) => {
-        throw new HttpException({ error: 'error', e }, HttpStatus.BAD_REQUEST);
-      });
+      const newWork = await this.work.create({ ...createWorkDto });
+      // add to course
+      await this.courseService.addWork(createWorkDto.course, newWork._id);
+      return newWork;
     } catch (error) {
       return error.message;
     }
@@ -23,7 +26,7 @@ export class WorkService {
 
   async findAll() {
     try {
-      return await this.work.find().populate('course');
+      return await this.work.find();
     } catch (error) {
       return error.message;
     }
@@ -31,7 +34,14 @@ export class WorkService {
 
   async findOne(id: mongoose.Schema.Types.ObjectId) {
     try {
-      return await this.work.findOne({ _id: id }).populate('course');
+      return await this.work.findOne({ _id: id }).populate({
+        path: 'course',
+        select: ['field', 'teacher'],
+        populate: [
+          { path: 'field', select: 'name' },
+          { path: 'teacher', select: 'firstName' },
+        ],
+      });
     } catch (error) {
       return error.message;
     }
