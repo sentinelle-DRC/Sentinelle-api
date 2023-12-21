@@ -1,10 +1,5 @@
-import {
-  forwardRef,
-  HttpException,
-  HttpStatus,
-  Inject,
-  Injectable,
-} from '@nestjs/common';
+/* eslint-disable @typescript-eslint/no-unused-vars */
+import { Injectable } from '@nestjs/common';
 import { CreateStudentDto } from './dto/create-student.dto';
 import { UpdateStudentDto } from './dto/update-student.dto';
 import mongoose, { Model } from 'mongoose';
@@ -65,8 +60,9 @@ export class StudentService {
     try {
       return await this.studentModel
         .find()
-        .populate('school')
-        .populate('class');
+        .populate({ path: 'school', select: 'name' })
+        .populate({ path: 'class', select: 'name' })
+        .populate({ path: 'parent', select: 'firstName' });
     } catch (error) {
       return error.message;
     }
@@ -76,8 +72,9 @@ export class StudentService {
     try {
       const resultat = await this.studentModel
         .findOne({ _id: id })
-        .populate('school')
-        .populate('class');
+        .populate({ path: 'school', select: 'name' })
+        .populate({ path: 'class', select: 'name' })
+        .populate({ path: 'parent', select: 'firstName' });
       return resultat;
     } catch (error) {
       return error.message;
@@ -110,4 +107,7 @@ export class StudentService {
       { $push: { notifications: notification } },
     );
   }
+}
+function populate(arg0: { path: string; select: string }) {
+  throw new Error('Function not implemented.');
 }
