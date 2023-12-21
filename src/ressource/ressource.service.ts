@@ -4,23 +4,28 @@ import { UpdateRessourceDto } from './dto/update-ressource.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { Ressource, RessourceDcoument } from './entities/ressource.entity';
 import mongoose, { Model } from 'mongoose';
+import { FieldService } from 'src/field/field.service';
 
 @Injectable()
 export class RessourceService {
   constructor(
     @InjectModel(Ressource.name)
     private ressource: Model<RessourceDcoument>,
+    private fieldservice: FieldService,
   ) {}
   async create(createRessourceDto: CreateRessourceDto) {
     try {
-      return await this.ressource
-        .create({ ...createRessourceDto })
-        .catch((e) => {
-          throw new HttpException(
-            { error: 'error', e },
-            HttpStatus.BAD_REQUEST,
-          );
-        });
+      // eslint-disable-next-line prettier/prettier
+      const newRessource = await this.ressource.create({ ...createRessourceDto ,});
+      // await this.field.create({
+      //   ...createFieldDto,
+      // });
+      //add to field
+      await this.fieldservice.addRessource(
+        createRessourceDto.field,
+        newRessource._id,
+      );
+      return newRessource;
     } catch (error) {
       return error.message;
     }
@@ -28,7 +33,7 @@ export class RessourceService {
 
   async findAll() {
     try {
-      return await this.ressource.find().populate('field');
+      return await this.ressource.find();
     } catch (error) {
       return error.message;
     }
@@ -36,17 +41,22 @@ export class RessourceService {
 
   async findOne(id: mongoose.Schema.Types.ObjectId) {
     try {
-      return await this.ressource.findOne({ _id: id }).populate('field');
+      return await this.ressource
+        .findOne({ _id: id })
+        .populate({ path: 'field', select: 'name' });
     } catch (error) {
       return error.message;
     }
   }
 
-  update(id: number, updateRessourceDto: UpdateRessourceDto) {
-    return `This action updates a #${id} ressource`;
+  async update(
+    id: mongoose.Schema.Types.ObjectId,
+    updateRessourceDto: UpdateRessourceDto,
+  ) {
+    return await this.ressource.deleteOne({ _id: id }, { updateRessourceDto });
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} ressource`;
+  async remove(id: mongoose.Schema.Types.ObjectId) {
+    return await this.ressource.deleteOne({ _id: id });
   }
 }
