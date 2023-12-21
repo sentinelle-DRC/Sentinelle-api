@@ -14,6 +14,7 @@ import { CourseService } from './course.service';
 import { CreateCourseDto } from './dto/create-course.dto';
 import { UpdateCourseDto } from './dto/update-course.dto';
 import { ApiTags } from '@nestjs/swagger';
+import mongoose from 'mongoose';
 
 @ApiTags('Courses')
 @Controller('course')
@@ -31,13 +32,16 @@ export class CourseController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.courseService.findOne(+id);
+  findOne(@Param('id') id: mongoose.Schema.Types.ObjectId) {
+    return this.courseService.findOne(id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateCourseDto: UpdateCourseDto) {
-    return this.courseService.update(+id, updateCourseDto);
+  update(
+    @Param('id') id: mongoose.Schema.Types.ObjectId,
+    @Body() updateCourseDto: UpdateCourseDto,
+  ) {
+    return this.courseService.update(id, updateCourseDto);
   }
 
   @Delete(':id')
