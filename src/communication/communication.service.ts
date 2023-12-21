@@ -22,15 +22,13 @@ export class CommunicationService {
     return newCommunication.save();
   }
 
-  findAll() {
-    const communications = this.CommunicationModel.find().populate({
-      path: 'class',
-    });
+  async findAll() {
+    const communications = await this.CommunicationModel.find();
     return communications;
   }
 
-  findByClass(id: string) {
-    const communications = this.CommunicationModel.find({
+  async findByClass(id: string) {
+    const communications = await this.CommunicationModel.find({
       class: id,
     }).populate({
       path: 'class',

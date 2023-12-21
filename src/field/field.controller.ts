@@ -32,7 +32,10 @@ export class FieldController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateFieldDto: UpdateFieldDto) {
+  update(
+    @Param('id') id: mongoose.Schema.Types.ObjectId,
+    @Body() updateFieldDto: UpdateFieldDto,
+  ) {
     return this.fieldService.update(id, updateFieldDto);
   }
 

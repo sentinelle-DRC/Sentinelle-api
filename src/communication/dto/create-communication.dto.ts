@@ -8,7 +8,7 @@ export class CreateCommunicationDto {
   })
   @IsNotEmpty()
   @IsString()
-  title: String;
+  public title: string;
 
   @ApiProperty({
     type: String,
@@ -16,14 +16,14 @@ export class CreateCommunicationDto {
   })
   @IsNotEmpty()
   @IsString()
-  content: String;
+  public content: string;
 
   @ApiProperty({
     type: String,
     description: "Le lien de l'image de couverture",
   })
   @IsString()
-  cover: String;
+  public cover: string;
 
   @ApiProperty({
     type: String,
@@ -31,5 +31,5 @@ export class CreateCommunicationDto {
   })
   @IsNotEmpty()
   @IsString()
-  class: String;
+  public class: string;
 }

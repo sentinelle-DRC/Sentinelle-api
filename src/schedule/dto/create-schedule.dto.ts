@@ -9,31 +9,31 @@ export class CreateScheduleDto {
   })
   @IsNotEmpty()
   @IsString()
-  day: string;
+  public day: string;
   @ApiProperty({
     type: Number,
     description: 'hour for biggininig course',
   })
   @IsNotEmpty()
   @IsNumber()
-  startHour: number;
+  public startHour: number;
   @ApiProperty({
     type: Number,
     description: 'hour for stopping course',
   })
   @IsNotEmpty()
   @IsNumber()
-  endHour: number;
+  public endHour: number;
   @ApiProperty({
     type: mongoose.Schema.Types.ObjectId,
     description: 'lid de la classe concernee',
   })
   @IsNotEmpty()
-  class: mongoose.Schema.Types.ObjectId;
+  public class: mongoose.Schema.Types.ObjectId;
   @ApiProperty({
     type: mongoose.Schema.Types.ObjectId,
     description: 'lid du cours  concernee',
   })
   @IsNotEmpty()
-  course: mongoose.Schema.Types.ObjectId;
+  public course: mongoose.Schema.Types.ObjectId;
 }

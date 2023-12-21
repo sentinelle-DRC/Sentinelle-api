@@ -40,14 +40,15 @@ export class ScheduleService {
   }
 
   async findAll() {
-    return await this.schedule.find().populate('class').populate('course');
+    return await this.schedule
+      .find()
+      .populate({ path: 'class', select: 'level' });
   }
 
   async findOne(id: mongoose.Schema.Types.ObjectId) {
     return await this.schedule
       .findOne({ _id: id })
-      .populate('class')
-      .populate('course');
+      .populate({ path: 'class', select: 'level' });
   }
 
   async update(

@@ -29,7 +29,10 @@ export class FieldService {
     return await this.field.findOne({ _id: id });
   }
 
-  async update(id: string, updateFieldDto: UpdateFieldDto) {
+  async update(
+    id: mongoose.Schema.Types.ObjectId,
+    updateFieldDto: UpdateFieldDto,
+  ) {
     return await this.field.updateOne({ _id: id }, { updateFieldDto });
   }
 
