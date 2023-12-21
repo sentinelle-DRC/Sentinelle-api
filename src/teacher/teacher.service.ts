@@ -30,29 +30,19 @@ export class TeacherService {
   async findAll() {
     const teachers = await this.teacher
       .find()
-      .populate('school')
-      .populate({
-        path: 'courses',
-        select: { field: 1 },
-        populate: { path: 'field' },
-      });
-    // .populate({
-    //   path: 'school',
-    //   // select: { field: 1 },
-    //   // populate: { path: 'field' },
-    // });
+      .populate({ path: 'school', select: 'name' });
     return teachers;
   }
 
   async findOne(id: mongoose.Schema.Types.ObjectId) {
     const teacher = await this.teacher
       .findOne({ _id: id })
+      .populate({ path: 'school', select: 'name' })
       .populate({
         path: 'courses',
-        select: { field: 1 },
-        populate: { path: 'field' },
-      })
-      .populate('school');
+        select: 'field',
+        populate: { path: 'field', select: 'name' },
+      });
     return teacher;
   }
 

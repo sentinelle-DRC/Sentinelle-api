@@ -10,17 +10,17 @@ export type TeacherDocument = Teacher & Document;
 @Schema()
 export class Teacher {
   @Prop({ required: true })
-  firstName: string;
+  public firstName: string;
   @Prop({ required: true })
-  lastName: string;
+  public lastName: string;
   @Prop({ required: true })
-  phoneNumber: string;
+  public phoneNumber: string;
   @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId }], ref: 'Course' })
   @Type(() => Course)
-  courses: Course;
+  public courses: Course;
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'School' })
   @Type(() => School)
-  school: mongoose.Schema.Types.ObjectId;
+  public school: mongoose.Schema.Types.ObjectId;
 }
 
 export const TeacherSchema = SchemaFactory.createForClass(Teacher);
