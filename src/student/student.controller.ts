@@ -6,13 +6,16 @@ import {
   Patch,
   Param,
   Delete,
+  UseGuards,
 } from '@nestjs/common';
 import { StudentService } from './student.service';
 import { CreateStudentDto } from './dto/create-student.dto';
 import { UpdateStudentDto } from './dto/update-student.dto';
 import { ApiTags } from '@nestjs/swagger';
 import mongoose from 'mongoose';
+import { JwtAuthGuard } from 'src/auth/jwt.auth.guard';
 
+@UseGuards(JwtAuthGuard)
 @ApiTags('Students')
 @Controller('student')
 export class StudentController {

@@ -19,7 +19,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   async validate(payload: payloadInterface) {
     console.log(payload);
 
-    const user = await this.studentService.findOne(payload.id);
+    const user = await this.studentService.findOne(payload.userId);
     //  await this.studentModel.findOne({
     //   phoneNumber: payload.phoneNumber,
     // });
@@ -30,5 +30,6 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     } else {
       throw new UnauthorizedException();
     }
+    return null;
   }
 }
