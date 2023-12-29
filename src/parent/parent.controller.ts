@@ -11,11 +11,12 @@ import { ParentService } from './parent.service';
 import { CreateParentDto } from './dto/create-parent.dto';
 import { UpdateParentDto } from './dto/update-parent.dto';
 import { ApiTags } from '@nestjs/swagger';
+import mongoose from 'mongoose';
 
-@ApiTags("Parents")
+@ApiTags('Parents')
 @Controller('parent')
 export class ParentController {
-  constructor(private readonly parentService: ParentService) { }
+  constructor(private readonly parentService: ParentService) {}
 
   @Post()
   create(@Body() createParentDto: CreateParentDto) {
@@ -28,13 +29,16 @@ export class ParentController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.parentService.findOne(+id);
+  findOne(@Param('id') id: mongoose.Schema.Types.ObjectId) {
+    return this.parentService.findOne(id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateParentDto: UpdateParentDto) {
-    return this.parentService.update(+id, updateParentDto);
+  update(
+    @Param('id') id: mongoose.Schema.Types.ObjectId,
+    @Body() updateParentDto: UpdateParentDto,
+  ) {
+    return this.parentService.update(id, updateParentDto);
   }
 
   @Delete(':id')

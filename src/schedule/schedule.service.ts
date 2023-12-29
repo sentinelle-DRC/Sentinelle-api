@@ -1,23 +1,77 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { CreateScheduleDto } from './dto/create-schedule.dto';
 import { UpdateScheduleDto } from './dto/update-schedule.dto';
+import { InjectModel } from '@nestjs/mongoose';
+import { Schedule, ScheduleDocument } from './entities/schedule.entity';
+import mongoose, { Model } from 'mongoose';
 
 @Injectable()
 export class ScheduleService {
-  create(createScheduleDto: CreateScheduleDto) {
-    return 'This action adds a new schedule';
+  constructor(
+    @InjectModel(Schedule.name)
+    private schedule: Model<ScheduleDocument>,
+  ) {}
+  async create(createScheduleDto: CreateScheduleDto) {
+    // console.log(createScheduleDto);
+    try {
+      const oldSchedule = await this.schedule.findOne({
+        $and: [
+          { class: createScheduleDto.class },
+          { course: createScheduleDto.course },
+        ],
+      });
+      if (oldSchedule) return 'shedull for this class exist';
+      else {
+        const newSchedull = await this.schedule
+          .create({
+            ...createScheduleDto,
+          })
+          .catch((e) => {
+            throw new HttpException(
+              { error: 'error', e },
+              HttpStatus.BAD_REQUEST,
+            );
+          });
+        return newSchedull;
+      }
+    } catch (error) {
+      return error.message;
+    }
   }
 
-  findAll() {
-    return `This action returns all schedule`;
+  async findAll() {
+    return await this.schedule
+      .find()
+      .populate({ path: 'class', select: 'level' });
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} schedule`;
+  async findOne(id: mongoose.Schema.Types.ObjectId) {
+    return await this.schedule
+      .findOne({ _id: id })
+      .populate({
+        path: 'class',
+        select: 'level',
+        populate: {
+          path: 'option',
+          select: 'name',
+        },
+      })
+      .populate({
+        path: 'course',
+        select: '',
+        populate: [
+          { path: 'field', select: 'name' },
+          { path: 'teacher', select: ['firstName', 'lastName'] },
+        ],
+      });
+    // .populate({ path: 'class', select: 'level' });
   }
 
-  update(id: number, updateScheduleDto: UpdateScheduleDto) {
-    return `This action updates a #${id} schedule`;
+  async update(
+    id: mongoose.Schema.Types.ObjectId,
+    updateScheduleDto: UpdateScheduleDto,
+  ) {
+    return await this.schedule.updateOne({ _id: id }, { updateScheduleDto });
   }
 
   remove(id: number) {

@@ -50,6 +50,7 @@ export class AuthService {
         secret: process.env.TOKEN_SECRET,
       });
 
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { password, ...newUser } = user._doc;
 
       return {

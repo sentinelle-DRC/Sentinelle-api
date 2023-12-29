@@ -16,12 +16,13 @@ import { ParentModule } from 'src/parent/parent.module';
       { name: Student.name, schema: StudentSchema },
       { name: Parent.name, schema: ParentSchema },
     ]),
-    PassportModule.register({
-      defaultStrategy: 'jwt',
-      session: false,
-    }),
+    PassportModule,
+    // PassportModule.register({
+    //   defaultStrategy: 'jwt',
+    //   session: false,
+    // }),
     JwtModule.register({
-      secret: process.env.TOKEN_URI,
+      secret: process.env.TOKEN_SECRET,
       signOptions: {
         expiresIn: 3600,
       },
@@ -31,6 +32,6 @@ import { ParentModule } from 'src/parent/parent.module';
   ],
   controllers: [AuthController],
   providers: [AuthService, JwtStrategy],
-  exports: [PassportModule],
+  exports: [PassportModule, JwtStrategy],
 })
 export class AuthModule {}

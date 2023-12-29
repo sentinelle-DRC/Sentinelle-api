@@ -4,11 +4,13 @@ import { Injectable } from '@nestjs/common';
 import { payloadInterface } from './payload.interface';
 import { UnauthorizedException } from '@nestjs/common/exceptions';
 import { StudentService } from 'src/student/student.service';
+import { ParentService } from 'src/parent/parent.service';
 
 @Injectable()
 export class JwtStrategy extends PassportStrategy(Strategy) {
   constructor(
     private studentService: StudentService, // @InjectModel(Student.name) // private studentModel: Model<StudentDocument>,
+    private parentService: ParentService,
   ) {
     super({
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
@@ -19,16 +21,21 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   async validate(payload: payloadInterface) {
     console.log(payload);
 
-    const user = await this.studentService.findOne(payload.id);
+    const student = await this.studentService.findOne(payload.userId);
+    const parent = await this.parentService.findOne(payload.userId);
     //  await this.studentModel.findOne({
     //   phoneNumber: payload.phoneNumber,
     // });
 
-    if (user) {
-      const { password, ...result } = user;
+    if (student) {
+      const { password, ...result } = student;
+      return result;
+    } else if (parent) {
+      const { password, ...result } = parent;
       return result;
     } else {
       throw new UnauthorizedException();
     }
+    return null;
   }
 }

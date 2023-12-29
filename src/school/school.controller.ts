@@ -7,6 +7,7 @@ import {
   Param,
   Delete,
   UseGuards,
+  // Put,
 } from '@nestjs/common';
 import { SchoolService } from './school.service';
 import { CreateSchoolDto } from './dto/create-school.dto';
@@ -38,7 +39,7 @@ export class SchoolController {
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.schoolService.remove(+id);
+  remove(@Param('id') id: mongoose.Schema.Types.ObjectId) {
+    return this.schoolService.remove(id);
   }
 }

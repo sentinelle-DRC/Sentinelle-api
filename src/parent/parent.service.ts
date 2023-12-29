@@ -1,7 +1,7 @@
 import { HttpException, Injectable } from '@nestjs/common';
 import { CreateParentDto } from './dto/create-parent.dto';
 import { UpdateParentDto } from './dto/update-parent.dto';
-import { Model } from 'mongoose';
+import mongoose, { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose/dist/common';
 import { Parent, ParentDocument } from './entities/parent.entity';
 import * as bcrypt from 'bcrypt';
@@ -33,18 +33,39 @@ export class ParentService {
     });
   }
 
-  findAll() {
-    return `This action returns all parent`;
+  async findAll() {
+    try {
+      const listParent = await this.parentModel.find();
+      if (listParent.length < 1) return 'Aucun parent trouvé';
+      else {
+        return listParent;
+      }
+    } catch (error) {
+      return error.message;
+    }
+    // return await this.parentModel.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} parent`;
+  async findOne(id: mongoose.Schema.Types.ObjectId) {
+    return await this.parentModel
+      .findOne({ _id: id })
+      .populate({ path: 'students', select: ['firstName', 'lastName', 'sex'] });
   }
 
-  update(id: number, updateParentDto: UpdateParentDto) {
-    return `This action updates a #${id} parent`;
+  async update(
+    id: mongoose.Schema.Types.ObjectId,
+    updateParentDto: UpdateParentDto,
+  ) {
+    return await this.parentModel.updateOne({ _id: id }, { updateParentDto });
   }
   remove(id: number) {
     return `This action removes a #${id} parent`;
+  }
+  async addStudent(id: mongoose.Schema.Types.ObjectId, student: any) {
+    const updatedSchool = await this.parentModel.updateOne(
+      { _id: id },
+      { $push: { students: student } },
+    );
+    return updatedSchool;
   }
 }
