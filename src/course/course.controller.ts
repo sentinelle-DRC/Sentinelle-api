@@ -15,7 +15,7 @@ import { CreateCourseDto } from './dto/create-course.dto';
 import { UpdateCourseDto } from './dto/update-course.dto';
 import { ApiTags } from '@nestjs/swagger';
 import mongoose from 'mongoose';
-
+@UseGuards(JwtAuthGuard)
 @ApiTags('Courses')
 @Controller('course')
 export class CourseController {
