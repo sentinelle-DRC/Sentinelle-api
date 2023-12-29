@@ -17,6 +17,7 @@ import { WorkModule } from './work/work.module';
 import { NotificationModule } from './notification/notification.module';
 import { RessourceModule } from './ressource/ressource.module';
 import { FieldModule } from './field/field.module';
+import { UserModule } from './user/user.module';
 
 @Module({
   imports: [
@@ -38,6 +39,7 @@ import { FieldModule } from './field/field.module';
     NotificationModule,
     RessourceModule,
     FieldModule,
+    UserModule,
   ],
   controllers: [AppController],
   providers: [AppService],
