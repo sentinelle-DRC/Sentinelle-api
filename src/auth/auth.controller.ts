@@ -4,6 +4,7 @@ import { CreateStudentDto } from 'src/student/dto/create-student.dto';
 import { AuthService } from './auth.service';
 import { SignInDto } from './dto/signIn.dto';
 import { ApiTags } from '@nestjs/swagger';
+import { CreateUserDto } from 'src/user/dto/create-user.dto';
 
 @ApiTags('Auth')
 @Controller('auth')
@@ -28,5 +29,9 @@ export class AuthController {
   @Post('signup/parent')
   signUpParent(@Body() createParentDto: CreateParentDto) {
     return this.authService.signUpParent(createParentDto);
+  }
+  @Post('signup/user')
+  signupUser(@Body() createUserDto: CreateUserDto) {
+    return this.authService.signUpUser(createUserDto);
   }
 }

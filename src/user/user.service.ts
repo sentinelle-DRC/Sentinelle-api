@@ -27,6 +27,13 @@ export class UserService {
 
     return await user.save();
   }
+  async findAll() {
+    try {
+      return await this.userModel.find();
+    } catch (error) {
+      return error.message;
+    }
+  }
   async findOne(id: mongoose.Schema.Types.ObjectId): Promise<any> {
     try {
       const resultat = await this.userModel.findOne({ _id: id });
