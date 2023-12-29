@@ -3,7 +3,8 @@ import { CreateFieldDto } from './dto/create-field.dto';
 import { UpdateFieldDto } from './dto/update-field.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { Field, FieldDocument } from './entities/field.entity';
-import { Model } from 'mongoose';
+import mongoose, { Model } from 'mongoose';
+import path from 'path';
 
 @Injectable()
 export class FieldService {
@@ -24,15 +25,30 @@ export class FieldService {
     return field;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} field`;
+  async findOne(id: mongoose.Schema.Types.ObjectId) {
+    return await this.field.findOne({ _id: id });
   }
 
-  update(id: number, updateFieldDto: UpdateFieldDto) {
-    return `This action updates a #${id} field`;
+  async update(
+    id: mongoose.Schema.Types.ObjectId,
+    updateFieldDto: UpdateFieldDto,
+  ) {
+    return await this.field.updateOne({ _id: id }, { updateFieldDto });
   }
 
   remove(id: number) {
     return `This action removes a #${id} field`;
+  }
+  async addCourse(id: mongoose.Schema.Types.ObjectId, course: any) {
+    return await this.field.updateOne(
+      { _id: id },
+      { $push: { courses: course } },
+    );
+  }
+  async addRessource(id: mongoose.Schema.Types.ObjectId, ressource: any) {
+    return await this.field.updateOne(
+      { _id: id },
+      { $push: { ressources: ressource } },
+    );
   }
 }

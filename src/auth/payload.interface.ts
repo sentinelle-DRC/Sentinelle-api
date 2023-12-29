@@ -1,5 +1,7 @@
+import mongoose from 'mongoose';
+
 export interface payloadInterface {
-  id: string;
+  userId: mongoose.Schema.Types.ObjectId;
   phoneNumber: string;
   password: string;
 }

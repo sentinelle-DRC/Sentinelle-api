@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsString, IsNotEmpty } from 'class-validator';
+import mongoose from 'mongoose';
 
 export class CreateTeacherDto {
   @ApiProperty({
@@ -25,4 +26,12 @@ export class CreateTeacherDto {
   @IsString()
   @IsNotEmpty()
   phoneNumber: string;
+
+  @ApiProperty({
+    type: String,
+    description: 'lid de lecole',
+  })
+  @IsString()
+  @IsNotEmpty()
+  school: mongoose.Schema.Types.ObjectId;
 }

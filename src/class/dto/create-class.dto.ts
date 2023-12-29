@@ -1,5 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
+import mongoose from 'mongoose';
 export class CreateClassDto {
   @ApiProperty({
     type: Number,
@@ -17,7 +18,7 @@ export class CreateClassDto {
   })
   @IsNotEmpty()
   @IsString()
-  option: string;
+  option: mongoose.Schema.Types.ObjectId;
 
   @ApiProperty({
     type: String,
@@ -25,5 +26,5 @@ export class CreateClassDto {
   })
   @IsNotEmpty()
   @IsString()
-  school: string;
+  school: mongoose.Schema.Types.ObjectId;
 }

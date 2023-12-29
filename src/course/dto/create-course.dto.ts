@@ -5,7 +5,7 @@ import mongoose from 'mongoose';
 export class CreateCourseDto {
   @ApiProperty({
     type: String,
-    description: " l'id du la filière du cours",
+    description: " l'id de la filière du cours",
   })
   @IsNotEmpty()
   @IsString()

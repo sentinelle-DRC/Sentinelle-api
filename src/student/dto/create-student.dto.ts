@@ -68,4 +68,10 @@ export class CreateStudentDto {
   @IsString()
   @IsNotEmpty()
   public school: mongoose.Schema.Types.ObjectId;
+  @IsString()
+  @IsNotEmpty()
+  public parent: mongoose.Schema.Types.ObjectId;
+  @IsString()
+  @IsNotEmpty()
+  public class: mongoose.Schema.Types.ObjectId;
 }
