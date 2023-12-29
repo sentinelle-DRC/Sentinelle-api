@@ -10,6 +10,9 @@ import { CreateStudentDto } from 'src/student/dto/create-student.dto';
 import { StudentService } from 'src/student/student.service';
 import { CreateParentDto } from 'src/parent/dto/create-parent.dto';
 import { ParentService } from 'src/parent/parent.service';
+import { User, UserDocument } from 'src/user/entites/user.entity';
+import { CreateUserDto } from 'src/user/dto/create-user.dto';
+import { UserService } from 'src/user/user.service';
 
 @Injectable()
 export class AuthService {
@@ -18,9 +21,12 @@ export class AuthService {
     private StudentModel: Model<StudentDocument>,
     @InjectModel(Parent.name)
     private ParentModel: Model<ParentDocument>,
+    @InjectModel(User.name)
+    private UserModel: Model<UserDocument>,
 
     private studentService: StudentService,
     private parentService: ParentService,
+    private userService: UserService,
     private jwtService: JwtService,
   ) {}
 
@@ -35,7 +41,13 @@ export class AuthService {
       }).catch((e) => e);
 
       if (!user) {
-        throw new HttpException('User not found', HttpStatus.NOT_FOUND);
+        user = await this.UserModel.findOne({
+          phoneNumber: signInDto.phoneNumber,
+        }).catch((e) => e);
+
+        if (!user) {
+          throw new HttpException('User not found', HttpStatus.NOT_FOUND);
+        }
       }
     }
 
@@ -76,5 +88,8 @@ export class AuthService {
 
   async signUpParent(createParentDto: CreateParentDto) {
     return this.parentService.create(createParentDto);
+  }
+  async signUpUser(createUserDto: CreateUserDto) {
+    return this.userService.create(createUserDto);
   }
 }

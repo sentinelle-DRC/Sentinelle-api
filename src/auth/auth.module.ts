@@ -9,12 +9,15 @@ import { MongooseModule } from '@nestjs/mongoose';
 import { Student, StudentSchema } from 'src/student/entities/student.entity';
 import { Parent, ParentSchema } from 'src/parent/entities/parent.entity';
 import { ParentModule } from 'src/parent/parent.module';
+import { UserModule } from 'src/user/user.module';
+import { User, UserSchema } from 'src/user/entites/user.entity';
 
 @Module({
   imports: [
     MongooseModule.forFeature([
       { name: Student.name, schema: StudentSchema },
       { name: Parent.name, schema: ParentSchema },
+      { name: User.name, schema: UserSchema },
     ]),
     PassportModule,
     // PassportModule.register({
@@ -29,6 +32,7 @@ import { ParentModule } from 'src/parent/parent.module';
     }),
     StudentModule,
     ParentModule,
+    UserModule,
   ],
   controllers: [AuthController],
   providers: [AuthService, JwtStrategy],
