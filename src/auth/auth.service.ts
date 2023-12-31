@@ -47,7 +47,7 @@ export class AuthService {
 
         if (!user) {
           user = await this.StudentModel.findOne({
-            phoneNumber: signInDto.code,
+            code: signInDto.code,
           }).catch((e) => e);
           if (!user) {
             throw new HttpException('User not found', HttpStatus.NOT_FOUND);
