@@ -5,8 +5,8 @@ export class SignInDto {
   @ApiProperty({
     type: String,
   })
-  @IsNotEmpty()
-  @IsString()
+  // @IsNotEmpty()
+  // @IsString()
   public phoneNumber: string;
 
   @ApiProperty({
@@ -17,6 +17,6 @@ export class SignInDto {
   public password: string;
 
   // @IsNotEmpty()
-  @IsString()
+  // @IsString()
   public code: string;
 }

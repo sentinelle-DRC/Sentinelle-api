@@ -6,9 +6,9 @@ export class CreateStudentDto {
     type: String,
     description: 'Numéro de téléphone congolais à 10 chiffres',
   })
-  @IsString()
+  // @IsString()
   // @IsNotEmpty()
-  @Length(10, 10, { message: 'Le numero doit être au format de 10 chiffres' })
+  // @Length(10, 10, { message: 'Le numero doit être au format de 10 chiffres' })
   public phoneNumber: string;
 
   @ApiProperty({
@@ -37,8 +37,8 @@ export class CreateStudentDto {
     description:
       'code generé lors de la crétion du compte de letudiant par lecole',
   })
-  @IsString()
-  @IsNotEmpty()
+  // @IsString()
+  // @IsNotEmpty()
   // @Length(10, 10, { message: 'Le numero doit être au format de 10 chiffres' })
   public code: string;
 
@@ -46,7 +46,7 @@ export class CreateStudentDto {
     type: String,
     description: 'Doit être soit M, soit F',
   })
-  @IsString()
+  // @IsString()
   // @IsNotEmpty()
   @Length(1, 1, { message: 'sex can only be M or F' })
   public sex: string;
@@ -54,21 +54,21 @@ export class CreateStudentDto {
   @ApiProperty({
     type: String,
   })
-  @IsString()
+  // @IsString()
   // @IsNotEmpty()
   public birthDate: string;
 
   @ApiProperty({
     type: String,
   })
-  @IsString()
+  // @IsString()
   // @IsNotEmpty()
   public nationality: string;
 
   @ApiProperty({
     type: String,
   })
-  @IsString()
+  // @IsString()
   @IsNotEmpty()
   public password: string;
 
