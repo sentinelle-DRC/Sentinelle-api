@@ -15,4 +15,8 @@ export class SignInDto {
   @IsNotEmpty()
   @IsString()
   public password: string;
+
+  // @IsNotEmpty()
+  @IsString()
+  public code: string;
 }

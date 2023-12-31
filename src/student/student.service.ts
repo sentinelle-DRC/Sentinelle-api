@@ -22,13 +22,18 @@ export class StudentService {
     private classService: ClassService,
   ) {}
 
+  generateCode(): string {
+    let code = '';
+    const chaaracters =
+      'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrsstuvwxyz0123456789';
+    for (let i = 0; i < 10; i++) {
+      const randomIndex = Math.floor(Math.random() * chaaracters.length);
+      code += chaaracters.charAt(randomIndex);
+    }
+    return code;
+  }
   async create(createStudentDto: CreateStudentDto): Promise<any> {
-    const studentIdentity: string =
-      createStudentDto.firstName + createStudentDto.lastName;
     const password: string = createStudentDto.password;
-    const codehash: string = await bcrypt
-      .hash(studentIdentity, this.saltOrRounds)
-      .catch((e) => e);
     const hash: string = await bcrypt
       .hash(password, this.saltOrRounds)
       .catch((e) => e);
@@ -39,7 +44,7 @@ export class StudentService {
     const student = new this.studentModel({
       ...createStudentDto,
       password: hash,
-      code: codehash,
+      code: this.generateCode(),
     });
 
     // this.schoolService.addStudent
