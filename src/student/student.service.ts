@@ -23,16 +23,23 @@ export class StudentService {
   ) {}
 
   async create(createStudentDto: CreateStudentDto): Promise<any> {
+    const studentIdentity: string =
+      createStudentDto.firstName + createStudentDto.lastName;
     const password: string = createStudentDto.password;
+    const codehash: string = await bcrypt
+      .hash(studentIdentity, this.saltOrRounds)
+      .catch((e) => e);
     const hash: string = await bcrypt
       .hash(password, this.saltOrRounds)
       .catch((e) => e);
 
     delete createStudentDto.password;
+    delete createStudentDto.code;
 
     const student = new this.studentModel({
       ...createStudentDto,
       password: hash,
+      code: codehash,
     });
 
     // this.schoolService.addStudent

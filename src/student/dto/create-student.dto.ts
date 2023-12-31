@@ -34,6 +34,16 @@ export class CreateStudentDto {
 
   @ApiProperty({
     type: String,
+    description:
+      'code generé lors de la crétion du compte de letudiant par lecole',
+  })
+  @IsString()
+  @IsNotEmpty()
+  // @Length(10, 10, { message: 'Le numero doit être au format de 10 chiffres' })
+  public code: string;
+
+  @ApiProperty({
+    type: String,
     description: 'Doit être soit M, soit F',
   })
   @IsString()
