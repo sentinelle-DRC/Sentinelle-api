@@ -9,21 +9,21 @@ import { School } from 'src/school/entities/school.entity';
 export type StudentDocument = Student & Document;
 @Schema()
 export class Student {
-  @Prop({ required: true, unique: true })
+  @Prop({ unique: true })
   phoneNumber: string;
   @Prop({ required: true })
   firstName: string;
   @Prop({ required: true })
   lastName: string;
-  @Prop({ required: true })
+  @Prop()
   middleName: string;
   @Prop({ required: true, unique: true })
   code: string;
-  @Prop({ required: true, enum: ['F', 'M'] })
+  @Prop({ enum: ['F', 'M'] })
   sex: string;
-  @Prop({ required: true })
+  @Prop()
   birthDate: string;
-  @Prop({ required: true })
+  @Prop()
   nationality: string;
   @Prop({ required: true })
   password: string;

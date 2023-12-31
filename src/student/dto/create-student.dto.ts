@@ -7,7 +7,7 @@ export class CreateStudentDto {
     description: 'Numéro de téléphone congolais à 10 chiffres',
   })
   @IsString()
-  @IsNotEmpty()
+  // @IsNotEmpty()
   @Length(10, 10, { message: 'Le numero doit être au format de 10 chiffres' })
   public phoneNumber: string;
 
@@ -29,7 +29,7 @@ export class CreateStudentDto {
     type: String,
   })
   @IsString()
-  @IsNotEmpty()
+  // @IsNotEmpty()
   public middleName: string;
 
   @ApiProperty({
@@ -47,7 +47,7 @@ export class CreateStudentDto {
     description: 'Doit être soit M, soit F',
   })
   @IsString()
-  @IsNotEmpty()
+  // @IsNotEmpty()
   @Length(1, 1, { message: 'sex can only be M or F' })
   public sex: string;
 
@@ -55,14 +55,14 @@ export class CreateStudentDto {
     type: String,
   })
   @IsString()
-  @IsNotEmpty()
+  // @IsNotEmpty()
   public birthDate: string;
 
   @ApiProperty({
     type: String,
   })
   @IsString()
-  @IsNotEmpty()
+  // @IsNotEmpty()
   public nationality: string;
 
   @ApiProperty({
