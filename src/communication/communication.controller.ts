@@ -21,6 +21,19 @@ export class CommunicationController {
   create(@Body() createCommunicationDto: CreateCommunicationDto) {
     return this.communicationService.create(createCommunicationDto);
   }
+  //for chatbot
+  @Get('/chat')
+  findAllForChat() {
+    return this.communicationService.findAllForChat();
+  }
+  @Get('/chat/class/:id')
+  findByClassForChat(@Param('id') id: mongoose.Schema.Types.ObjectId) {
+    return this.communicationService.findByClassForChat(id);
+  }
+  @Get('/chat/:id')
+  findOneForChat(@Param('id') id: mongoose.Schema.Types.ObjectId) {
+    return this.communicationService.findOneForChat(id);
+  }
 
   @Get()
   findAll() {
@@ -32,7 +45,7 @@ export class CommunicationController {
     return this.communicationService.findOne(id);
   }
   @Get('/class/:id')
-  findByClass(@Param('id') id: string) {
+  findByClass(@Param('id') id: mongoose.Schema.Types.ObjectId) {
     return this.communicationService.findByClass(id);
   }
 
@@ -48,4 +61,17 @@ export class CommunicationController {
   remove(@Param('id') id: mongoose.Schema.Types.ObjectId) {
     return this.communicationService.remove(id);
   }
+  //for chatbot
+  // @Get('/chat')
+  // findAllForChat() {
+  //   return this.communicationService.findAllForChat();
+  // }
+  // @Get('/chat/class/:id')
+  // findByClassForChat(@Param('id') id: mongoose.Schema.Types.ObjectId) {
+  //   return this.communicationService.findByClassForChat(id);
+  // }
+  // @Get('/chat/:id')
+  // findOneForChat(@Param('id') id: mongoose.Schema.Types.ObjectId) {
+  //   return this.communicationService.findOneForChat(id);
+  // }
 }

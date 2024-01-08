@@ -26,17 +26,20 @@ export class CommunicationService {
     const communications = await this.CommunicationModel.find();
     return communications;
   }
-
-  async findByClass(id: string) {
+  async findByClass(id: mongoose.Schema.Types.ObjectId) {
     const communications = await this.CommunicationModel.find({
       class: id,
     }).populate({
       path: 'class',
+      select: 'level',
       match: { _id: id },
+      populate: {
+        path: 'option',
+        select: 'name',
+      },
     });
     return communications;
   }
-
   async findOne(id: mongoose.Schema.Types.ObjectId) {
     return await this.CommunicationModel.findOne({
       _id: id,
@@ -44,6 +47,57 @@ export class CommunicationService {
       path: 'class',
       // match: { _id: id },
     });
+  }
+  //find for cham with limit 5
+  async findAllForChat() {
+    try {
+      const communications = await this.CommunicationModel.find()
+        .limit(5)
+        .populate({
+          path: 'class',
+          select: 'level',
+          populate: {
+            path: 'option',
+            select: 'name',
+          },
+        });
+      return communications;
+    } catch (error) {
+      return error;
+    }
+  }
+
+  async findByClassForChat(id: mongoose.Schema.Types.ObjectId) {
+    const communications = await this.CommunicationModel.find({
+      class: id,
+    })
+      .limit(5)
+      .populate({
+        path: 'class',
+        select: 'level',
+        match: { _id: id },
+        populate: {
+          path: 'option',
+          select: 'name',
+        },
+      });
+    return communications;
+  }
+
+  async findOneForChat(id: mongoose.Schema.Types.ObjectId) {
+    return await this.CommunicationModel.findOne({
+      _id: id,
+    })
+      .limit(5)
+      .populate({
+        path: 'class',
+        select: 'level',
+        match: { _id: id },
+        populate: {
+          path: 'option',
+          select: 'name',
+        },
+      });
   }
 
   update(id: number, updateCommunicationDto: UpdateCommunicationDto) {
