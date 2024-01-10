@@ -12,6 +12,11 @@ export class ResultController {
   create(@Body() createResultDto: CreateResultDto) {
     return this.resultService.create(createResultDto);
   }
+  //gett all results for chat
+  @Get('/chat/:id')
+  chatGetAllresult(@Param('id') id: mongoose.Schema.Types.ObjectId) {
+    return this.resultService.findResultForAllCourseForOneStudentChat(id);
+  }
   @Get('/:studentId')
   findAllResultForAllCourseForStudent(
     @Param('studentId') studentId: mongoose.Schema.Types.ObjectId,

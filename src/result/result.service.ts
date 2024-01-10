@@ -29,6 +29,37 @@ export class ResultService {
       return error;
     }
   }
+  //-----------------------for chat-----------------------------------------------------------------
+  /**
+   *
+   * @param id l'id du student
+   * @returns array of results for all courses
+   */
+  async findResultForAllCourseForOneStudentChat(
+    id: mongoose.Schema.Types.ObjectId,
+  ) {
+    try {
+      const listOfResult = await this.result
+        .find({ student: id })
+        .limit(5)
+        .select(['cote', 'max'])
+        .populate({
+          path: 'work',
+          select: ['title', 'about'],
+          populate: [
+            {
+              path: 'course',
+              select: ['field'],
+              populate: [{ path: 'field', select: 'name' }],
+            },
+          ],
+        });
+      return listOfResult;
+    } catch (error) {
+      return error;
+    }
+  }
+  //-----------------------for chat-----------------------------------------------------------------
   /**
    *
    * @param id l'id du student
