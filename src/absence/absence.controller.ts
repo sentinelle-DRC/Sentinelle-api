@@ -11,21 +11,14 @@ export class AbsenceController {
     return this.absenceService.create(createAbsenceDto);
   }
   //-------------for chat-----------------------
-  @Get('/chat')
-  findAllForChat() {
-    return this.absenceService.findAllForChat();
-  }
+
   @Get('/chat/:id')
-  findOneForChat(@Param('id') id: mongoose.Schema.Types.ObjectId) {
-    return this.absenceService.findOneForChat(id);
+  findAllForChat(@Param('id') id: mongoose.Schema.Types.ObjectId) {
+    return this.absenceService.findAllForChat(id);
   }
   //-------------for chat-----------------------
-  @Get()
-  findAll() {
-    return this.absenceService.findAll();
-  }
   @Get('/:id')
-  findOne(@Param('id') id: mongoose.Schema.Types.ObjectId) {
-    return this.absenceService.findOne(id);
+  findAll(@Param('id') id: mongoose.Schema.Types.ObjectId) {
+    return this.absenceService.findAll(id);
   }
 }

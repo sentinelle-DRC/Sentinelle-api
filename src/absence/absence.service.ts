@@ -22,38 +22,36 @@ export class AbsenceService {
         createAbsenceDto.student,
         newAbsence._id,
       );
+      return newAbsence;
     } catch (error) {
       return error;
     }
   }
 
   //-----------------for chat--------------------------------------
-  async findAllForChat() {
-    try {
-      const students = await this.absence.find().limit(5).populate({
-        path: 'student',
-        select: 'firstName',
-      });
-      return students;
-    } catch (error) {
-      return error;
-    }
-  }
+  //   async findAllForChat() {
+  //     try {
+  //       const students = await this.absence.find().limit(5).populate({
+  //         path: 'student',
+  //         select: 'firstName',
+  //       });
+  //       return students;
+  //     } catch (error) {
+  //       return error;
+  //     }
+  //   }
   //by id of student please
   /**
    *
    * @param id {id of student}
    * @returns student object
    */
-  async findOneForChat(id: mongoose.Schema.Types.ObjectId) {
+  async findAllForChat(id: mongoose.Schema.Types.ObjectId) {
     try {
       const student = await this.absence
-        .findOne({ student: id })
+        .find({ student: id })
         .limit(5)
-        .populate({
-          path: 'student',
-          select: 'firstName',
-        });
+        .populate({ path: 'student', select: ['firstName', 'lastName'] });
       return student;
     } catch (error) {
       return error;
@@ -62,23 +60,25 @@ export class AbsenceService {
 
   //-----------------for chat--------------------------------------
 
-  async findAll() {
-    try {
-      const students = await this.absence.find();
-      return students;
-    } catch (error) {
-      return error;
-    }
-  }
+  //   async findAll() {
+  //     try {
+  //       const students = await this.absence.find();
+  //       return students;
+  //     } catch (error) {
+  //       return error;
+  //     }
+  //   }
   //by id of student please
   /**
    *
    * @param id {id of student}
    * @returns student object
    */
-  async findOne(id: mongoose.Schema.Types.ObjectId) {
+  async findAll(id: mongoose.Schema.Types.ObjectId) {
     try {
-      const student = await this.absence.findOne({ student: id });
+      const student = await this.absence
+        .find({ student: id })
+        .populate({ path: 'student', select: ['firstName', 'lastName'] });
       return student;
     } catch (error) {
       return error;
