@@ -3,6 +3,7 @@ import { AbsenceService } from './absence.service';
 import { AbsenceController } from './absence.controller';
 import { MongooseModule } from '@nestjs/mongoose';
 import { Absence, AbsenceSchema } from './entities/absence.entity';
+import { StudentModule } from 'src/student/student.module';
 
 @Module({
   imports: [
@@ -12,6 +13,7 @@ import { Absence, AbsenceSchema } from './entities/absence.entity';
         schema: AbsenceSchema,
       },
     ]),
+    StudentModule,
   ],
   providers: [AbsenceService],
   controllers: [AbsenceController],

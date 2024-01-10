@@ -126,6 +126,12 @@ export class StudentService {
       { $push: { notifications: notification } },
     );
   }
+  async addAbsence(id: mongoose.Schema.Types.ObjectId, absence: any) {
+    return await this.studentModel.updateOne(
+      { _id: id },
+      { $push: { absnces: absence } },
+    );
+  }
 }
 function populate(arg0: { path: string; select: string }) {
   throw new Error('Function not implemented.');
