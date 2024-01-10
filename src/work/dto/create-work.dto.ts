@@ -25,4 +25,9 @@ export class CreateWorkDto {
   @IsNotEmpty()
   @IsString()
   course: mongoose.Schema.Types.ObjectId;
+  @ApiProperty({
+    type: String,
+    description: 'List des resultats  pour cet eleve a un cours ',
+  })
+  public results: [{ type: mongoose.Schema.Types.ObjectId }];
 }

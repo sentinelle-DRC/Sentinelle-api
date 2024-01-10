@@ -54,4 +54,10 @@ export class WorkService {
   remove(id: number) {
     return `This action removes a #${id} work`;
   }
+  async addResult(id: mongoose.Schema.Types.ObjectId, result: any) {
+    return await this.work.updateOne(
+      { _id: id },
+      { $push: { results: result } },
+    );
+  }
 }
