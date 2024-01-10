@@ -18,6 +18,7 @@ import { NotificationModule } from './notification/notification.module';
 import { RessourceModule } from './ressource/ressource.module';
 import { FieldModule } from './field/field.module';
 import { UserModule } from './user/user.module';
+import { AbsenceModule } from './absence/absence.module';
 
 @Module({
   imports: [
@@ -40,6 +41,7 @@ import { UserModule } from './user/user.module';
     RessourceModule,
     FieldModule,
     UserModule,
+    AbsenceModule,
   ],
   controllers: [AppController],
   providers: [AppService],
