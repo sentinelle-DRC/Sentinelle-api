@@ -1,8 +1,9 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
 import { AbsenceService } from './absence.service';
 import { CreateAbsenceDto } from './dto/create-absence.dto';
 import mongoose from 'mongoose';
-
+import { JwtAuthGuard } from 'src/auth/jwt.auth.guard';
+@UseGuards(JwtAuthGuard)
 @Controller('absence')
 export class AbsenceController {
   constructor(private readonly absenceService: AbsenceService) {}
