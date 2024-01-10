@@ -19,6 +19,7 @@ import { RessourceModule } from './ressource/ressource.module';
 import { FieldModule } from './field/field.module';
 import { UserModule } from './user/user.module';
 import { AbsenceModule } from './absence/absence.module';
+import { ResultModule } from './result/result.module';
 
 @Module({
   imports: [
@@ -42,6 +43,7 @@ import { AbsenceModule } from './absence/absence.module';
     FieldModule,
     UserModule,
     AbsenceModule,
+    ResultModule,
   ],
   controllers: [AppController],
   providers: [AppService],

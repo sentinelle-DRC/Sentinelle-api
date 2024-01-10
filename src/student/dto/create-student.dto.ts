@@ -81,7 +81,26 @@ export class CreateStudentDto {
   @IsString()
   @IsNotEmpty()
   public parent: mongoose.Schema.Types.ObjectId;
+  @ApiProperty({
+    type: String,
+    description: 'id de la class ',
+  })
   @IsString()
   @IsNotEmpty()
   public class: mongoose.Schema.Types.ObjectId;
+  @ApiProperty({
+    type: String,
+    description: 'List de notifs pour cet eleve',
+  })
+  public notifications: [type: mongoose.Schema.Types.ObjectId];
+  @ApiProperty({
+    type: String,
+    description: 'List des absences pour cet eleve',
+  })
+  public absences: [type: mongoose.Schema.Types.ObjectId];
+  @ApiProperty({
+    type: String,
+    description: 'List des resultats  pour cet eleve a un cours ',
+  })
+  public results: [type: mongoose.Schema.Types.ObjectId];
 }

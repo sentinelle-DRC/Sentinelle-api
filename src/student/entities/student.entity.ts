@@ -5,6 +5,7 @@ import { Absence } from 'src/absence/entities/absence.entity';
 import { Class } from 'src/class/entities/class.entity';
 import { Notification } from 'src/notification/entities/notification.entity';
 import { Parent } from 'src/parent/entities/parent.entity';
+import { Result } from 'src/result/entities/result.entity';
 import { School } from 'src/school/entities/school.entity';
 
 export type StudentDocument = Student & Document;
@@ -62,6 +63,12 @@ export class Student {
   })
   @Type(() => Absence)
   absences: Absence;
+  @Prop({
+    type: [{ type: mongoose.Schema.Types.ObjectId }],
+    ref: 'Result',
+  })
+  @Type(() => Result)
+  results: Result;
 }
 
 export const StudentSchema = SchemaFactory.createForClass(Student);

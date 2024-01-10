@@ -129,7 +129,13 @@ export class StudentService {
   async addAbsence(id: mongoose.Schema.Types.ObjectId, absence: any) {
     return await this.studentModel.updateOne(
       { _id: id },
-      { $push: { absnces: absence } },
+      { $push: { absences: absence } },
+    );
+  }
+  async addResult(id: mongoose.Schema.Types.ObjectId, result: any) {
+    return await this.studentModel.updateOne(
+      { _id: id },
+      { $push: { results: result } },
     );
   }
 }
