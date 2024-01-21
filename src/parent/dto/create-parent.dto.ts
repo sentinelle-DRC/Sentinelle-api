@@ -47,4 +47,8 @@ export class CreateParentDto {
   @IsString()
   @IsNotEmpty()
   public password: string;
+  @ApiProperty({
+    description: 'list of codes students',
+  })
+  public codes: string[];
 }

@@ -25,5 +25,7 @@ export class Parent {
   @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId }], ref: 'Student' })
   @Type(() => Student)
   students: Student;
+  @Prop()
+  codes: string[];
 }
 export const ParentSchema = SchemaFactory.createForClass(Parent);
