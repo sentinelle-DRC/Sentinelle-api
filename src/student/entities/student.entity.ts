@@ -11,7 +11,8 @@ import { School } from 'src/school/entities/school.entity';
 export type StudentDocument = Student & Document;
 @Schema()
 export class Student {
-  @Prop({ unique: true })
+  // @Prop({ unique: true })
+  @Prop()
   phoneNumber: string;
   @Prop({ required: true })
   firstName: string;
@@ -21,7 +22,8 @@ export class Student {
   middleName: string;
   @Prop({ required: true, unique: true })
   code: string;
-  @Prop({ enum: ['F', 'M'] })
+  // @Prop({ enum: ['F', 'M'] })
+  @Prop()
   sex: string;
   @Prop()
   birthDate: string;

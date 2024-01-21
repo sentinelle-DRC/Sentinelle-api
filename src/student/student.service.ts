@@ -40,11 +40,13 @@ export class StudentService {
 
     delete createStudentDto.password;
     delete createStudentDto.code;
+    delete createStudentDto.phoneNumber;
 
     const student = new this.studentModel({
       ...createStudentDto,
       password: hash,
       code: this.generateCode(),
+      phoneNumber: ' ',
     });
 
     // this.schoolService.addStudent

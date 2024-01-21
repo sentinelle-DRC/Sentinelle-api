@@ -48,7 +48,7 @@ export class CreateStudentDto {
   })
   // @IsString()
   // @IsNotEmpty()
-  @Length(1, 1, { message: 'sex can only be M or F' })
+  // @Length(1, 1, { message: 'sex can only be M or F' })
   public sex: string;
 
   @ApiProperty({

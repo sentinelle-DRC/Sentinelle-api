@@ -15,7 +15,8 @@ export class Parent {
   firstName: string;
   @Prop({ required: true })
   lastName: string;
-  @Prop({ enum: ['F', 'M'] })
+  // @Prop({ enum: ['F', 'M'] })
+  @Prop()
   sex: string;
   @Prop()
   address: string;

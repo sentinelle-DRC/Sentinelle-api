@@ -15,7 +15,7 @@ export class CreateParentDto {
   @ApiProperty({
     type: String,
   })
-  @IsEmailTidy()
+  // @IsEmailTidy()
   public email: string;
 
   @ApiProperty({
@@ -38,7 +38,7 @@ export class CreateParentDto {
   })
   // @IsString()
   // @IsNotEmpty()
-  @Length(1, 1, { message: 'sex can only be M or F' })
+  // @Length(1, 1, { message: 'sex can only be M or F' })
   public sex: string;
 
   @ApiProperty({
