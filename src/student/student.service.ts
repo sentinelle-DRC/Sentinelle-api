@@ -33,7 +33,7 @@ export class StudentService {
     return code;
   }
   async create(createStudentDto: CreateStudentDto): Promise<any> {
-    const password: string = createStudentDto.password;
+    const password: string = this.generateCode();
     const hash: string = await bcrypt
       .hash(password, this.saltOrRounds)
       .catch((e) => e);
@@ -46,7 +46,7 @@ export class StudentService {
       ...createStudentDto,
       password: hash,
       code: this.generateCode(),
-      phoneNumber: ' ',
+      phoneNumber: password,
     });
 
     // this.schoolService.addStudent
@@ -64,7 +64,12 @@ export class StudentService {
     //adding to class
     await this.classService.addStudent(createStudentDto.class, newStudent._id);
 
-    return newStudent;
+    return {
+      firstName: newStudent.firstName,
+      lastName: newStudent.lastName,
+      code: newStudent.code,
+      password: newStudent.phoneNumber,
+    };
     // return student.save().catch((e) => {
     //   throw new HttpException(e.message, HttpStatus.BAD_REQUEST);
     // });
