@@ -36,8 +36,8 @@ export class CreateParentDto {
     type: String,
     description: 'Doit être M ou F',
   })
-  @IsString()
-  @IsNotEmpty()
+  // @IsString()
+  // @IsNotEmpty()
   @Length(1, 1, { message: 'sex can only be M or F' })
   public sex: string;
 
