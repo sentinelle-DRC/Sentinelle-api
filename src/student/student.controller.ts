@@ -15,7 +15,7 @@ import { ApiTags } from '@nestjs/swagger';
 import mongoose from 'mongoose';
 import { JwtAuthGuard } from 'src/auth/jwt.auth.guard';
 
-@UseGuards(JwtAuthGuard)
+// @UseGuards(JwtAuthGuard)
 @ApiTags('Students')
 @Controller('student')
 export class StudentController {
@@ -23,14 +23,15 @@ export class StudentController {
 
   @Post()
   create(@Body() createStudentDto: CreateStudentDto) {
+    console.log(createStudentDto, 'dto');
     return this.studentService.create(createStudentDto);
   }
-
+  @UseGuards(JwtAuthGuard)
   @Get()
   findAll() {
     return this.studentService.findAll();
   }
-
+  @UseGuards(JwtAuthGuard)
   @Get(':id')
   findOne(@Param('id') id: mongoose.Schema.Types.ObjectId) {
     return this.studentService.findOne(id);

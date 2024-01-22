@@ -28,7 +28,7 @@ export class CreateStudentDto {
   @ApiProperty({
     type: String,
   })
-  @IsString()
+  // @IsString()
   // @IsNotEmpty()
   public middleName: string;
 
@@ -69,7 +69,7 @@ export class CreateStudentDto {
     type: String,
   })
   // @IsString()
-  @IsNotEmpty()
+  // @IsNotEmpty()
   public password: string;
 
   @ApiProperty({

@@ -21,10 +21,10 @@ export class AuthController {
     return this.authService.login(signInDto);
   }
 
-  @Post('signup/student')
-  signUpStudent(@Body() createStudentDto: CreateStudentDto) {
-    return this.authService.signUpStudent(createStudentDto);
-  }
+  // @Post('signup/student')
+  // signUpStudent(@Body() createStudentDto: CreateStudentDto) {
+  //   return this.authService.signUpStudent(createStudentDto);
+  // }
 
   @Post('signup/parent')
   signUpParent(@Body() createParentDto: CreateParentDto) {

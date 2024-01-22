@@ -87,9 +87,9 @@ export class AuthService {
     }
   }
 
-  async signUpStudent(createStudentDto: CreateStudentDto) {
-    return this.studentService.create(createStudentDto);
-  }
+  // async signUpStudent(createStudentDto: CreateStudentDto) {
+  //   return this.studentService.create(createStudentDto);
+  // }
 
   async signUpParent(createParentDto: CreateParentDto) {
     return this.parentService.create(createParentDto);
