@@ -6,6 +6,7 @@ import { InjectModel } from '@nestjs/mongoose/dist/common';
 import { Parent, ParentDocument } from './entities/parent.entity';
 import * as bcrypt from 'bcrypt';
 import { StudentService } from 'src/student/student.service';
+import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class ParentService {
@@ -15,6 +16,7 @@ export class ParentService {
     private parentModel: Model<ParentDocument>,
     // @Inject(forwardRef(() => StudentService))
     private stuedntService: StudentService,
+    private jwtService: JwtService,
   ) {}
 
   async create(createParentDto: CreateParentDto) {
@@ -32,6 +34,14 @@ export class ParentService {
 
     const newParent = await parent.save();
 
+    const payload = {
+      userId: newParent._id,
+      phoneNumber: newParent.phoneNumber,
+    };
+    const token = this.jwtService.sign(payload, {
+      secret: process.env.TOKEN_SECRET,
+    });
+
     newParent.codes?.map(async (code) => {
       await this.stuedntService.GetIdParent(code, newParent._id);
 
@@ -39,7 +49,7 @@ export class ParentService {
       await this.addStudent(newParent._id, id);
     });
 
-    return newParent;
+    return { parent: newParent, token: `Bearer ${token}` };
   }
 
   async findAll() {
