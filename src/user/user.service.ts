@@ -5,6 +5,7 @@ import { Model } from 'mongoose';
 import { CreateUserDto } from './dto/create-user.dto';
 import * as bcrypt from 'bcrypt';
 import mongoose from 'mongoose';
+import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class UserService {
@@ -12,6 +13,7 @@ export class UserService {
   constructor(
     @InjectModel(User.name)
     private userModel: Model<UserDocument>,
+    private jwtService: JwtService,
   ) {}
   async create(createuserdto: CreateUserDto) {
     const password: string = createuserdto.password;
@@ -25,7 +27,16 @@ export class UserService {
       password: hash,
     });
 
-    return await user.save();
+    const newUser = await user.save();
+
+    const payload = {
+      userId: newUser._id,
+      phoneNumber: newUser.phoneNumber,
+    };
+    const token = this.jwtService.sign(payload, {
+      secret: process.env.TOKEN_SECRET,
+    });
+    return { user: newUser, token: `Bearer ${token}` };
   }
   async findAll() {
     try {
