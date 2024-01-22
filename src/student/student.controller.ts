@@ -20,10 +20,9 @@ import { JwtAuthGuard } from 'src/auth/jwt.auth.guard';
 @Controller('student')
 export class StudentController {
   constructor(private readonly studentService: StudentService) {}
-
+  @UseGuards(JwtAuthGuard)
   @Post()
   create(@Body() createStudentDto: CreateStudentDto) {
-    console.log(createStudentDto, 'dto');
     return this.studentService.create(createStudentDto);
   }
   @UseGuards(JwtAuthGuard)
