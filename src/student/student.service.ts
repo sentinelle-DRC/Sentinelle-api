@@ -7,7 +7,7 @@ import { InjectModel } from '@nestjs/mongoose/dist/common';
 import { Student, StudentDocument } from './entities/student.entity';
 import * as bcrypt from 'bcrypt';
 import { SchoolService } from 'src/school/school.service';
-import { ParentService } from 'src/parent/parent.service';
+// import { ParentService } from 'src/parent/parent.service';
 import { ClassService } from 'src/class/class.service';
 
 @Injectable()
@@ -18,7 +18,7 @@ export class StudentService {
     @InjectModel(Student.name)
     private studentModel: Model<StudentDocument>,
     private schoolService: SchoolService,
-    private parentService: ParentService,
+    // private parentService: ParentService,
     private classService: ClassService,
   ) {}
 
@@ -57,10 +57,10 @@ export class StudentService {
       newStudent._id,
     );
     //adding to Parent
-    await this.parentService.addStudent(
-      createStudentDto.parent,
-      newStudent._id,
-    );
+    // await this.parentService.addStudent(
+    //   createStudentDto.parent,
+    //   newStudent._id,
+    // );
     //adding to class
     await this.classService.addStudent(createStudentDto.class, newStudent._id);
 
@@ -144,6 +144,17 @@ export class StudentService {
       { _id: id },
       { $push: { results: result } },
     );
+  }
+  //put id of parent
+  async GetIdParent(code: string, id: mongoose.Schema.Types.ObjectId) {
+    return await this.studentModel.findOneAndUpdate(
+      { code: code },
+      { parent: id },
+    );
+  }
+  async findBycode(code: string) {
+    const student = await this.studentModel.findOne({ code });
+    return student._id;
   }
 }
 function populate(arg0: { path: string; select: string }) {

@@ -1,10 +1,11 @@
-import { HttpException, Injectable } from '@nestjs/common';
+import { HttpException, Inject, Injectable, forwardRef } from '@nestjs/common';
 import { CreateParentDto } from './dto/create-parent.dto';
 import { UpdateParentDto } from './dto/update-parent.dto';
 import mongoose, { Model } from 'mongoose';
 import { InjectModel } from '@nestjs/mongoose/dist/common';
 import { Parent, ParentDocument } from './entities/parent.entity';
 import * as bcrypt from 'bcrypt';
+import { StudentService } from 'src/student/student.service';
 
 @Injectable()
 export class ParentService {
@@ -12,6 +13,8 @@ export class ParentService {
   constructor(
     @InjectModel(Parent.name)
     private parentModel: Model<ParentDocument>,
+    // @Inject(forwardRef(() => StudentService))
+    private stuedntService: StudentService,
   ) {}
 
   async create(createParentDto: CreateParentDto) {
@@ -26,11 +29,17 @@ export class ParentService {
       ...createParentDto,
       password: hash,
     });
-    return parent.save().catch((e) => {
-      throw new HttpException({ error: e }, 400, {
-        cause: new Error(e),
-      });
+
+    const newParent = await parent.save();
+
+    newParent.codes?.map(async (code) => {
+      await this.stuedntService.GetIdParent(code, newParent._id);
+
+      const id = await this.stuedntService.findBycode(code);
+      await this.addStudent(newParent._id, id);
     });
+
+    return newParent;
   }
 
   async findAll() {

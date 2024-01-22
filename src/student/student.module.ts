@@ -10,8 +10,11 @@ import { ClassModule } from 'src/class/class.module';
 @Module({
   imports: [
     MongooseModule.forFeature([{ name: Student.name, schema: StudentSchema }]),
+    // forwardRef(() => ParentModule),
+    // forwardRef(() => SchoolModule),
+    // forwardRef(() => ClassModule),
+    // ParentModule,
     SchoolModule,
-    ParentModule,
     ClassModule,
   ],
   controllers: [StudentController],
