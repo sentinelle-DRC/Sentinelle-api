@@ -87,9 +87,121 @@ export class AuthService {
     }
   }
 
-  // async signUpStudent(createStudentDto: CreateStudentDto) {
-  //   return this.studentService.create(createStudentDto);
-  // }
+  async loginParent(signInDto: SignInDto): Promise<any> {
+    const user = await this.ParentModel.findOne({
+      phoneNumber: signInDto.phoneNumber,
+    }).catch((e) => e);
+
+    if (!user) {
+      throw new HttpException('Parent not found', HttpStatus.NOT_FOUND);
+    }
+
+    const isValidPassword = await bcrypt.compare(
+      signInDto.password,
+      user.password,
+    );
+
+    if (isValidPassword) {
+      const payload = { userId: user.id, phoneNumber: user.phoneNumber };
+      const token = this.jwtService.sign(payload, {
+        secret: process.env.TOKEN_SECRET,
+      });
+
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const { password, ...newUser } = user._doc;
+
+      return {
+        success: true,
+        data: {
+          userInfo: newUser,
+          token: `Bearer ${token}`,
+        },
+      };
+    } else if (!isValidPassword) {
+      throw new HttpException('incorect password', HttpStatus.UNAUTHORIZED);
+    } else {
+      throw new HttpException(
+        'un probleme est survenu',
+        HttpStatus.INTERNAL_SERVER_ERROR,
+      );
+    }
+  }
+
+  async loginStudent(signInDto: SignInDto): Promise<any> {
+    if (!signInDto.code) {
+      const user = await this.StudentModel.findOne({
+        phoneNumber: signInDto.phoneNumber,
+      }).catch((e) => e);
+      if (!user) {
+        throw new HttpException('Student not found', HttpStatus.NOT_FOUND);
+      } else {
+        const isValidPassword = await bcrypt.compare(
+          signInDto.password,
+          user.password,
+        );
+        if (isValidPassword) {
+          const payload = { userId: user.id, phoneNumber: user.phoneNumber };
+          const token = this.jwtService.sign(payload, {
+            secret: process.env.TOKEN_SECRET,
+          });
+
+          // eslint-disable-next-line @typescript-eslint/no-unused-vars
+          const { password, ...newUser } = user._doc;
+
+          return {
+            success: true,
+            data: {
+              userInfo: newUser,
+              token: `Bearer ${token}`,
+            },
+          };
+        } else if (!isValidPassword) {
+          throw new HttpException('incorect password', HttpStatus.UNAUTHORIZED);
+        } else {
+          throw new HttpException(
+            'un probleme est survenu',
+            HttpStatus.INTERNAL_SERVER_ERROR,
+          );
+        }
+      }
+    } else if (!signInDto.phoneNumber) {
+      const user = await this.StudentModel.findOne({
+        code: signInDto.code,
+      }).catch((e) => e);
+      if (!user) {
+        throw new HttpException('Student not found', HttpStatus.NOT_FOUND);
+      } else {
+        const isValidPassword = await bcrypt.compare(
+          signInDto.password,
+          user.password,
+        );
+        if (isValidPassword) {
+          const payload = { userId: user.id, phoneNumber: user.phoneNumber };
+          const token = this.jwtService.sign(payload, {
+            secret: process.env.TOKEN_SECRET,
+          });
+
+          // eslint-disable-next-line @typescript-eslint/no-unused-vars
+          const { password, ...newUser } = user._doc;
+
+          return {
+            success: true,
+            data: {
+              userInfo: newUser,
+              token: `Bearer ${token}`,
+            },
+          };
+        } else if (!isValidPassword) {
+          throw new HttpException('incorect password', HttpStatus.UNAUTHORIZED);
+        } else {
+          throw new HttpException(
+            'un probleme est survenu',
+            HttpStatus.INTERNAL_SERVER_ERROR,
+          );
+        }
+      }
+    } else return 'taper votre code ou numero';
+  }
 
   async signUpParent(createParentDto: CreateParentDto) {
     return this.parentService.create(createParentDto);
