@@ -30,30 +30,70 @@ export class AuthService {
     private jwtService: JwtService,
   ) {}
 
-  async login(signInDto: SignInDto): Promise<any> {
-    let user = await this.StudentModel.findOne({
+  // async login(signInDto: SignInDto): Promise<any> {
+  //   let user = await this.StudentModel.findOne({
+  //     phoneNumber: signInDto.phoneNumber,
+  //   }).catch((e) => e);
+
+  //   if (!user) {
+  //     user = await this.ParentModel.findOne({
+  //       phoneNumber: signInDto.phoneNumber,
+  //     }).catch((e) => e);
+
+  //     if (!user) {
+  //       user = await this.UserModel.findOne({
+  //         phoneNumber: signInDto.phoneNumber,
+  //       }).catch((e) => e);
+
+  //       if (!user) {
+  //         user = await this.StudentModel.findOne({
+  //           code: signInDto.code,
+  //         }).catch((e) => e);
+  //         if (!user) {
+  //           throw new HttpException('User not found', HttpStatus.NOT_FOUND);
+  //         }
+  //       }
+  //     }
+  //   }
+
+  //   const isValidPassword = await bcrypt.compare(
+  //     signInDto.password,
+  //     user.password,
+  //   );
+
+  //   if (isValidPassword) {
+  //     const payload = { userId: user.id, phoneNumber: user.phoneNumber };
+  //     const token = this.jwtService.sign(payload, {
+  //       secret: process.env.TOKEN_SECRET,
+  //     });
+
+  //     // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  //     const { password, ...newUser } = user._doc;
+
+  //     return {
+  //       success: true,
+  //       data: {
+  //         userInfo: newUser,
+  //         token: `Bearer ${token}`,
+  //       },
+  //     };
+  //   } else if (!isValidPassword) {
+  //     throw new HttpException('incorect password', HttpStatus.UNAUTHORIZED);
+  //   } else {
+  //     throw new HttpException(
+  //       'un probleme est survenu',
+  //       HttpStatus.INTERNAL_SERVER_ERROR,
+  //     );
+  //   }
+  // }
+
+  async loginParent(signInDto: SignInDto): Promise<any> {
+    const user = await this.ParentModel.findOne({
       phoneNumber: signInDto.phoneNumber,
     }).catch((e) => e);
 
     if (!user) {
-      user = await this.ParentModel.findOne({
-        phoneNumber: signInDto.phoneNumber,
-      }).catch((e) => e);
-
-      if (!user) {
-        user = await this.UserModel.findOne({
-          phoneNumber: signInDto.phoneNumber,
-        }).catch((e) => e);
-
-        if (!user) {
-          user = await this.StudentModel.findOne({
-            code: signInDto.code,
-          }).catch((e) => e);
-          if (!user) {
-            throw new HttpException('User not found', HttpStatus.NOT_FOUND);
-          }
-        }
-      }
+      throw new HttpException('Parent not found', HttpStatus.NOT_FOUND);
     }
 
     const isValidPassword = await bcrypt.compare(
@@ -86,14 +126,13 @@ export class AuthService {
       );
     }
   }
-
-  async loginParent(signInDto: SignInDto): Promise<any> {
-    const user = await this.ParentModel.findOne({
+  async loginUser(signInDto: SignInDto): Promise<any> {
+    const user = await this.UserModel.findOne({
       phoneNumber: signInDto.phoneNumber,
     }).catch((e) => e);
 
     if (!user) {
-      throw new HttpException('Parent not found', HttpStatus.NOT_FOUND);
+      throw new HttpException('User not found', HttpStatus.NOT_FOUND);
     }
 
     const isValidPassword = await bcrypt.compare(
