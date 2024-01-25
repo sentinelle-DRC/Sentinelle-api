@@ -132,7 +132,10 @@ export class AuthService {
     }).catch((e) => e);
 
     if (!user) {
-      throw new HttpException('User not found', HttpStatus.NOT_FOUND);
+      throw new HttpException(
+        "Cet utilisateur n'est pas trouvé",
+        HttpStatus.NOT_FOUND,
+      );
     }
 
     const isValidPassword = await bcrypt.compare(
@@ -157,7 +160,10 @@ export class AuthService {
         },
       };
     } else if (!isValidPassword) {
-      throw new HttpException('incorect password', HttpStatus.UNAUTHORIZED);
+      throw new HttpException(
+        'Mot de passe incorrect',
+        HttpStatus.UNAUTHORIZED,
+      );
     } else {
       throw new HttpException(
         'un probleme est survenu',
