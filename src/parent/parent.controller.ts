@@ -14,7 +14,7 @@ import { UpdateParentDto } from './dto/update-parent.dto';
 import { ApiTags } from '@nestjs/swagger';
 import mongoose from 'mongoose';
 import { JwtAuthGuard } from 'src/auth/jwt.auth.guard';
-@UseGuards(JwtAuthGuard)
+// @UseGuards(JwtAuthGuard)
 @ApiTags('Parents')
 @Controller('parent')
 export class ParentController {

@@ -157,6 +157,7 @@ export class AuthService {
         data: {
           userInfo: newUser,
           token: `Bearer ${token}`,
+          message: 'connexion réussie',
         },
       };
     } else if (!isValidPassword) {
