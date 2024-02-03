@@ -13,7 +13,7 @@ import { CreateClassDto } from './dto/create-class.dto';
 import { UpdateClassDto } from './dto/update-class.dto';
 import mongoose from 'mongoose';
 import { JwtAuthGuard } from 'src/auth/jwt.auth.guard';
-@UseGuards(JwtAuthGuard)
+// @UseGuards(JwtAuthGuard)
 @Controller('class')
 export class ClassController {
   constructor(private readonly classService: ClassService) {}
@@ -39,6 +39,13 @@ export class ClassController {
     @Body() updateClassDto: UpdateClassDto,
   ) {
     return this.classService.update(id, updateClassDto);
+  }
+  @Get('school/:schoolId')
+  findBySchool(
+    // @Param('optionId') optionId: mongoose.Schema.Types.ObjectId,
+    @Param('schoolId') schoolId: mongoose.Schema.Types.ObjectId,
+  ) {
+    return this.classService.findBySchool(schoolId);
   }
 
   @Delete(':id')

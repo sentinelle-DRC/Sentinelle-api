@@ -32,6 +32,19 @@ export class ClassService {
     const classes = await this.ClassModel.find()
       .populate({ path: 'school', select: { _id: 1, name: 1 } })
       .populate('option');
+    return classes.length;
+  }
+
+  async findBySchool(
+    // optionId: mongoose.Schema.Types.ObjectId,
+    schoolId: mongoose.Schema.Types.ObjectId,
+  ) {
+    // const classes = await this.ClassModel.find({
+    //   $or: [{ option: optionId }, { school: schoolId }],
+    // })
+    const classes = await this.ClassModel.find({ school: schoolId })
+      .populate({ path: 'school', select: { _id: 1, name: 1 } })
+      .populate({ path: 'option', select: ['_id', 'name'] });
     return classes;
   }
 
