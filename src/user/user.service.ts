@@ -16,15 +16,19 @@ export class UserService {
     private jwtService: JwtService,
   ) {}
   async create(createuserdto: CreateUserDto) {
+    // console.log(createuserdto);
     const password: string = createuserdto.password;
+    const school = createuserdto.role === 'user' ? createuserdto.school : null;
     const hash: string = await bcrypt
       .hash(password, this.saltOrRounds)
       .catch((e) => e);
 
     delete createuserdto.password;
+    delete createuserdto.school;
     const user = new this.userModel({
       ...createuserdto,
       password: hash,
+      school: school,
     });
 
     const newUser = await user.save();

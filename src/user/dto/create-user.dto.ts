@@ -1,5 +1,6 @@
 import { IsNotEmpty, IsString, Length } from 'class-validator';
 import { ApiProperty } from '@nestjs/swagger';
+import mongoose from 'mongoose';
 
 export class CreateUserDto {
   @ApiProperty({
@@ -34,9 +35,10 @@ export class CreateUserDto {
 
   @ApiProperty({
     type: String,
-    description: 'admin-ecole , admin-sentinelle',
+    description: 'admin or user',
   })
   @IsString()
   @IsNotEmpty()
   public role: string;
+  public school: mongoose.Schema.Types.ObjectId;
 }
