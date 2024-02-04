@@ -38,4 +38,8 @@ export class AuthController {
   signupUser(@Body() createUserDto: CreateUserDto) {
     return this.authService.signUpUser(createUserDto);
   }
+  @Post('verifyPhoneNumber')
+  verify(@Body() signInDto: SignInDto) {
+    return this.authService.verifyNumber(signInDto);
+  }
 }

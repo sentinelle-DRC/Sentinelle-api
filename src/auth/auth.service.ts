@@ -255,4 +255,36 @@ export class AuthService {
   async signUpUser(createUserDto: CreateUserDto) {
     return this.userService.create(createUserDto);
   }
+  async verifyNumber(signInDto: SignInDto) {
+    try {
+      let user = await this.ParentModel.findOne({
+        phoneNumber: signInDto.phoneNumber,
+      });
+      if (!user) {
+        user = await this.StudentModel.findOne({
+          phoneNumber: signInDto.phoneNumber,
+        });
+        if (!user) {
+          user = await this.UserModel.findOne({
+            phoneNumber: signInDto.phoneNumber,
+          });
+          if (!user) {
+            return 'phoneNumber is never used';
+          } else
+            return new HttpException(
+              'phonenumber already used',
+              HttpStatus.CONFLICT,
+            );
+        } else
+          return new HttpException(
+            'phonenumber already used',
+            HttpStatus.CONFLICT,
+          );
+      } else
+        return new HttpException(
+          'phonenumber already used',
+          HttpStatus.CONFLICT,
+        );
+    } catch (error) {}
+  }
 }
