@@ -32,7 +32,7 @@ export class ClassService {
     const classes = await this.ClassModel.find()
       .populate({ path: 'school', select: { _id: 1, name: 1 } })
       .populate('option');
-    return classes.length;
+    return classes;
   }
 
   async findBySchool(
