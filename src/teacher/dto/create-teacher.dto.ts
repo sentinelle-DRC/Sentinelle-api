@@ -31,7 +31,7 @@ export class CreateTeacherDto {
     type: String,
     description: 'lid de lecole',
   })
-  @IsString()
+  // @IsString()
   @IsNotEmpty()
   school: mongoose.Schema.Types.ObjectId;
 }
