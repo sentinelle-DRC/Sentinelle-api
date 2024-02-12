@@ -30,7 +30,7 @@ export class ClassService {
 
   async findAll() {
     const classes = await this.ClassModel.find()
-      .populate({ path: 'school', select: { _id: 1, name: 1 } })
+      // .populate({ path: 'school', select: { _id: 1, name: 1 } })
       .populate('option');
     return classes;
   }
@@ -43,14 +43,16 @@ export class ClassService {
     //   $or: [{ option: optionId }, { school: schoolId }],
     // })
     const classes = await this.ClassModel.find({ school: schoolId })
-      .populate({ path: 'school', select: { _id: 1, name: 1 } })
+      // .populate({ path: 'school', select: { _id: 1, name: 1 } })
+      .populate({ path: 'school' })
       .populate({ path: 'option', select: ['_id', 'name'] });
     return classes;
   }
 
   async findOne(id: mongoose.Schema.Types.ObjectId) {
     return await this.ClassModel.findOne({ _id: id })
-      .populate({ path: 'school', select: { _id: 1, name: 1 } })
+      // .populate({ path: 'school', select: { _id: 1, name: 1 } })
+      .populate({ path: 'school' })
       .populate('option');
   }
 
