@@ -30,6 +30,12 @@ export class StudentController {
   findAll() {
     return this.studentService.findAll();
   }
+
+  @Get('class:classId')
+  findByClass(@Param('classId') classId: mongoose.Schema.Types.ObjectId) {
+    return this.studentService.findByClass(classId);
+  }
+
   @UseGuards(JwtAuthGuard)
   @Get(':id')
   findOne(@Param('id') id: mongoose.Schema.Types.ObjectId) {

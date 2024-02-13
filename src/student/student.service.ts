@@ -107,6 +107,30 @@ export class StudentService {
     }
   }
 
+  async findByClass(classId: mongoose.Schema.Types.ObjectId): Promise<any> {
+    try {
+      const resultat = await this.studentModel
+        .find({ class: classId })
+        .populate({ path: 'school', select: 'name' })
+        // .populate({
+        //   path: 'class',
+        //   select: 'level',
+        //   populate: {
+        //     path: 'option',
+        //     select: 'name',
+        //   },
+        // })
+        .populate({ path: 'parent', select: 'firstName' })
+        .populate({
+          path: 'absences',
+          select: 'date',
+        });
+      return resultat;
+    } catch (error) {
+      return error.message;
+    }
+  }
+
   update(
     id: mongoose.Schema.Types.ObjectId,
     updateStudentDto: UpdateStudentDto,
