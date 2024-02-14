@@ -31,7 +31,7 @@ export class StudentController {
     return this.studentService.findAll();
   }
 
-  @Get('class:classId')
+  @Get('class/:classId')
   findByClass(@Param('classId') classId: mongoose.Schema.Types.ObjectId) {
     return this.studentService.findByClass(classId);
   }

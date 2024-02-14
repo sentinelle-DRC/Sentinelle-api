@@ -32,6 +32,10 @@ export class TeacherController {
   findOne(@Param('id') id: mongoose.Schema.Types.ObjectId) {
     return this.teacherService.findOne(id);
   }
+  @Get('school/:schoolId')
+  findAllbySchool(@Param('schoolId') schoolId: mongoose.Schema.Types.ObjectId) {
+    return this.teacherService.findAllBySchooll(schoolId);
+  }
 
   @Patch(':id')
   update(

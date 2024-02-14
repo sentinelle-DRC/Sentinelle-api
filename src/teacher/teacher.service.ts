@@ -46,6 +46,11 @@ export class TeacherService {
     return teacher;
   }
 
+  async findAllBySchooll(schoolId: mongoose.Schema.Types.ObjectId) {
+    const teacher = await this.teacher.findOne({ school: schoolId });
+    return teacher;
+  }
+
   async update(
     id: mongoose.Schema.Types.ObjectId,
     updateTeacherDto: UpdateTeacherDto,
