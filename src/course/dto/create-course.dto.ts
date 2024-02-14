@@ -4,6 +4,11 @@ import mongoose from 'mongoose';
 
 export class CreateCourseDto {
   @ApiProperty({
+    type: Number,
+    description: 'ponderation du cours',
+  })
+  max: number;
+  @ApiProperty({
     type: String,
     description: " l'id de la filière du cours",
   })

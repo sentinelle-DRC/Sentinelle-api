@@ -8,6 +8,8 @@ export type CourseDocument = Course & Document;
 
 @Schema()
 export class Course {
+  @Prop()
+  max: number;
   @Prop({
     required: true,
     type: mongoose.Schema.Types.ObjectId,
