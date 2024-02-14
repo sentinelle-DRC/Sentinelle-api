@@ -47,7 +47,7 @@ export class TeacherService {
   }
 
   async findAllBySchooll(schoolId: mongoose.Schema.Types.ObjectId) {
-    const teacher = await this.teacher.findOne({ school: schoolId });
+    const teacher = await this.teacher.find({ school: schoolId });
     return teacher;
   }
 
