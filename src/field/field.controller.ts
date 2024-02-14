@@ -21,7 +21,6 @@ export class FieldController {
 
   @Post()
   create(@Body() createFieldDto: CreateFieldDto) {
-    console.log(createFieldDto);
     return this.fieldService.create(createFieldDto);
   }
 
