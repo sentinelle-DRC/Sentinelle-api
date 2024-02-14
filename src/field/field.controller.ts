@@ -14,13 +14,14 @@ import { UpdateFieldDto } from './dto/update-field.dto';
 import mongoose from 'mongoose';
 import { JwtAuthGuard } from 'src/auth/jwt.auth.guard';
 
-@UseGuards(JwtAuthGuard)
+// @UseGuards(JwtAuthGuard)
 @Controller('field')
 export class FieldController {
   constructor(private readonly fieldService: FieldService) {}
 
   @Post()
   create(@Body() createFieldDto: CreateFieldDto) {
+    console.log(createFieldDto);
     return this.fieldService.create(createFieldDto);
   }
 
