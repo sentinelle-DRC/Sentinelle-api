@@ -14,10 +14,14 @@ export class FieldService {
   ) {}
 
   async create(createFieldDto: CreateFieldDto) {
-    const newField = await this.field.create({
-      ...createFieldDto,
-    });
-    return newField;
+    const oldField = await this.field.findOne({ name: createFieldDto.name });
+    if (oldField) return oldField;
+    else {
+      const newField = await this.field.create({
+        ...createFieldDto,
+      });
+      return newField;
+    }
   }
 
   async findAll() {
