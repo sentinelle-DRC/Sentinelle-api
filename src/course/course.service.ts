@@ -46,7 +46,9 @@ export class CourseService {
   }
 
   async findAllByClass(classe: mongoose.Schema.Types.ObjectId) {
-    const course = await this.course.find({ class: classe });
+    const course = await this.course
+      .find({ class: classe })
+      .populate({ path: 'field', select: ['name'] });
 
     return course;
   }
