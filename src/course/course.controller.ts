@@ -30,6 +30,10 @@ export class CourseController {
   findAll() {
     return this.courseService.findAll();
   }
+  @Get('/class/:classId')
+  findAllByclass(@Param('classId') classId: mongoose.Schema.Types.ObjectId) {
+    return this.courseService.findAllByClass(classId);
+  }
 
   @Get(':id')
   findOne(@Param('id') id: mongoose.Schema.Types.ObjectId) {

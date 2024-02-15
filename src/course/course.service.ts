@@ -45,6 +45,12 @@ export class CourseService {
     return course;
   }
 
+  async findAllByClass(classe: mongoose.Schema.Types.ObjectId) {
+    const course = await this.course.find({ class: classe });
+
+    return course;
+  }
+
   async findOne(id: mongoose.Schema.Types.ObjectId) {
     const course = await this.course
       .findOne({ _id: id })
