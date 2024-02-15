@@ -22,7 +22,7 @@ export class Course {
   @Prop({
     required: true,
     type: mongoose.Schema.Types.ObjectId,
-    ref: Class.name,
+    ref: 'Class',
   })
   @Type(() => Class)
   class: mongoose.Schema.Types.ObjectId;
