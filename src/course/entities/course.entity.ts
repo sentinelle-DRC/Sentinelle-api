@@ -1,7 +1,9 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Type } from 'class-transformer';
 import mongoose from 'mongoose';
+import { Class } from 'src/class/entities/class.entity';
 import { Field } from 'src/field/entities/field.entity';
+import { Teacher } from 'src/teacher/entities/teacher.entity';
 // import { Teacher } from 'src/teacher/entities/teacher.entity';
 
 export type CourseDocument = Course & Document;
@@ -18,12 +20,15 @@ export class Course {
   @Type(() => Field)
   field: mongoose.Schema.Types.ObjectId;
 
+  @Type(() => Class)
+  class: mongoose.Schema.Types.ObjectId;
+
   @Prop({
     required: true,
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Teacher',
   })
-  @Type(() => Field)
+  @Type(() => Teacher)
   teacher: mongoose.Schema.Types.ObjectId;
 }
 

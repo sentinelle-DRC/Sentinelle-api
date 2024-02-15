@@ -22,5 +22,8 @@ export class CreateCourseDto {
   })
   @IsNotEmpty()
   @IsString()
+  class: mongoose.Schema.Types.ObjectId;
+  @IsNotEmpty()
+  @IsString()
   teacher: mongoose.Schema.Types.ObjectId;
 }
