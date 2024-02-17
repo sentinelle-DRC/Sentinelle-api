@@ -41,14 +41,14 @@ export class SchoolService {
 
   async findOne(id: mongoose.Schema.Types.ObjectId) {
     try {
-      const school = await this.SchoolModel.find({ _id: id })
+      const school = await this.SchoolModel.findOne({ _id: id })
         .populate({
           path: 'classes',
           populate: { path: 'option' },
         })
         .populate('students')
         .populate('teachers');
-      if (school.length < 1) return `there is no school with id ${id}`;
+      if (!school) return `there is no school with id ${id}`;
       else return school;
     } catch (error) {
       console.log(error);
