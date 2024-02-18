@@ -22,7 +22,7 @@ export class CreateCommunicationDto {
     type: String,
     description: "Le lien de l'image de couverture",
   })
-  @IsString()
+  // @IsString()
   public cover: string;
 
   @ApiProperty({
