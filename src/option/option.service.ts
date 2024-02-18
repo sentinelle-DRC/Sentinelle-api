@@ -19,7 +19,10 @@ export class OptionService {
 
   async findAll() {
     try {
-      return await this.OptionModel.find();
+      return await this.OptionModel.find().populate({
+        path: 'classes',
+        populate: { path: 'school', select: '_id' },
+      });
     } catch (error) {
       return error;
     }

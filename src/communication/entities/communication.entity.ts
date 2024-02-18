@@ -10,7 +10,7 @@ export class Communication {
   title: string;
   @Prop({ required: true })
   content: string;
-  @Prop({ required: true })
+  @Prop()
   cover: string;
   @Prop({
     require: true,
