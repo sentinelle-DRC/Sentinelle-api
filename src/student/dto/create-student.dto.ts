@@ -103,4 +103,9 @@ export class CreateStudentDto {
     description: 'List des resultats  pour cet eleve a un cours ',
   })
   public results: [{ type: mongoose.Schema.Types.ObjectId }];
+  @ApiProperty({
+    type: Boolean,
+    description: 'abonnement du student',
+  })
+  public abonnement: boolean;
 }
