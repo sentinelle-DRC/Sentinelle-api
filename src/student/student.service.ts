@@ -100,7 +100,7 @@ export class StudentService {
             select: 'name',
           },
         })
-        .populate({ path: 'parent', select: 'firstName' });
+        .populate({ path: 'parent' });
       return resultat;
     } catch (error) {
       return error.message;

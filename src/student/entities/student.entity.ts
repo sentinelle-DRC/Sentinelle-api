@@ -28,6 +28,8 @@ export class Student {
   @Prop()
   birthDate: string;
   @Prop()
+  birthPlace: string;
+  @Prop()
   abonnement: boolean;
   @Prop()
   nationality: string;

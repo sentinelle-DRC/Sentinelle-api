@@ -61,6 +61,11 @@ export class CreateStudentDto {
   @ApiProperty({
     type: String,
   })
+  public birthPlace: string;
+
+  @ApiProperty({
+    type: String,
+  })
   // @IsString()
   // @IsNotEmpty()
   public nationality: string;

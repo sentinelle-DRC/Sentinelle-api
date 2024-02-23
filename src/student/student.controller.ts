@@ -36,7 +36,7 @@ export class StudentController {
     return this.studentService.findByClass(classId);
   }
 
-  @UseGuards(JwtAuthGuard)
+  // @UseGuards(JwtAuthGuard)
   @Get(':id')
   findOne(@Param('id') id: mongoose.Schema.Types.ObjectId) {
     return this.studentService.findOne(id);
