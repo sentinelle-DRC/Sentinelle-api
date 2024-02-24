@@ -69,6 +69,7 @@ export class ParentService {
     return await this.parentModel.findOne({ _id: id }).populate({
       path: 'students',
       populate: [
+        { path: 'school', select: 'name' },
         {
           path: 'class',
           select: 'level',
