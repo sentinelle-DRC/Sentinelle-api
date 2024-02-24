@@ -66,9 +66,22 @@ export class ParentService {
   }
 
   async findOne(id: mongoose.Schema.Types.ObjectId) {
-    return await this.parentModel
-      .findOne({ _id: id })
-      .populate({ path: 'students', select: ['firstName', 'lastName', 'sex'] });
+    return await this.parentModel.findOne({ _id: id }).populate({
+      path: 'students',
+      populate: [
+        {
+          path: 'class',
+          select: 'level',
+          populate: {
+            path: 'option',
+            select: 'name',
+          },
+        },
+        { path: 'notifications' },
+        { path: 'results' },
+        { path: 'absences' },
+      ],
+    });
   }
 
   async update(
