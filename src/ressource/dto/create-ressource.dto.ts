@@ -2,6 +2,10 @@ import { ApiProperty } from '@nestjs/swagger';
 import { IsNotEmpty, IsString } from 'class-validator';
 import mongoose from 'mongoose';
 
+enum RessourceType {
+  video,
+  pdf,
+}
 export class CreateRessourceDto {
   @ApiProperty({
     type: String,
@@ -20,7 +24,7 @@ export class CreateRessourceDto {
     description: '',
   })
   @IsString()
-  type: string;
+  type: RessourceType;
   @ApiProperty({
     type: mongoose.Schema.Types.ObjectId,
     description: 'field',
