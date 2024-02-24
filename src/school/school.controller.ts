@@ -14,7 +14,9 @@ import { CreateSchoolDto } from './dto/create-school.dto';
 import { UpdateSchoolDto } from './dto/update-school.dto';
 import mongoose from 'mongoose';
 import { JwtAuthGuard } from 'src/auth/jwt.auth.guard';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('School')
 // @UseGuards(JwtAuthGuard)
 @Controller('school')
 export class SchoolController {
