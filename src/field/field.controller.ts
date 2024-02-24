@@ -13,8 +13,11 @@ import { CreateFieldDto } from './dto/create-field.dto';
 import { UpdateFieldDto } from './dto/update-field.dto';
 import mongoose from 'mongoose';
 import { JwtAuthGuard } from 'src/auth/jwt.auth.guard';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 
-// @UseGuards(JwtAuthGuard)
+@UseGuards(JwtAuthGuard)
+@ApiTags('Field')
+@ApiBearerAuth()
 @Controller('field')
 export class FieldController {
   constructor(private readonly fieldService: FieldService) {}

@@ -13,7 +13,10 @@ import { CreateOptionDto } from './dto/create-option.dto';
 import { UpdateOptionDto } from './dto/update-option.dto';
 import mongoose from 'mongoose';
 import { JwtAuthGuard } from 'src/auth/jwt.auth.guard';
-// @UseGuards(JwtAuthGuard)
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+@UseGuards(JwtAuthGuard)
+@ApiTags('option')
+@ApiBearerAuth()
 @Controller('option')
 export class OptionController {
   constructor(private readonly optionService: OptionService) {}

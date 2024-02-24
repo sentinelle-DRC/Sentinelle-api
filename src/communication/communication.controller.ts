@@ -13,7 +13,10 @@ import { CreateCommunicationDto } from './dto/create-communication.dto';
 import { UpdateCommunicationDto } from './dto/update-communication.dto';
 import mongoose from 'mongoose';
 import { JwtAuthGuard } from 'src/auth/jwt.auth.guard';
-// @UseGuards(JwtAuthGuard)
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+@UseGuards(JwtAuthGuard)
+@ApiTags('Communication')
+@ApiBearerAuth()
 @Controller('communication')
 export class CommunicationController {
   constructor(private readonly communicationService: CommunicationService) {}

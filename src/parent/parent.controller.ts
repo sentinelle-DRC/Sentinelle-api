@@ -14,7 +14,7 @@ import { UpdateParentDto } from './dto/update-parent.dto';
 import { ApiTags } from '@nestjs/swagger';
 import mongoose from 'mongoose';
 import { JwtAuthGuard } from 'src/auth/jwt.auth.guard';
-// @UseGuards(JwtAuthGuard)
+
 @ApiTags('Parents')
 @Controller('parent')
 export class ParentController {
@@ -24,12 +24,12 @@ export class ParentController {
   create(@Body() createParentDto: CreateParentDto) {
     return this.parentService.create(createParentDto);
   }
-
+  @UseGuards(JwtAuthGuard)
   @Get()
   findAll() {
     return this.parentService.findAll();
   }
-
+  @UseGuards(JwtAuthGuard)
   @Get(':id')
   findOne(@Param('id') id: mongoose.Schema.Types.ObjectId) {
     return this.parentService.findOne(id);

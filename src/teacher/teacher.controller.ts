@@ -13,9 +13,10 @@ import { CreateTeacherDto } from './dto/create-teacher.dto';
 import { UpdateTeacherDto } from './dto/update-teacher.dto';
 import mongoose from 'mongoose';
 import { JwtAuthGuard } from 'src/auth/jwt.auth.guard';
-import { ApiTags } from '@nestjs/swagger';
-// @UseGuards(JwtAuthGuard)
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+@UseGuards(JwtAuthGuard)
 @ApiTags('Teacher')
+@ApiBearerAuth()
 @Controller('teacher')
 export class TeacherController {
   constructor(private readonly teacherService: TeacherService) {}

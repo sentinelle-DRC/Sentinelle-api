@@ -13,7 +13,10 @@ import { CreateWorkDto } from './dto/create-work.dto';
 import { UpdateWorkDto } from './dto/update-work.dto';
 import mongoose from 'mongoose';
 import { JwtAuthGuard } from 'src/auth/jwt.auth.guard';
-// @UseGuards(JwtAuthGuard)
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+@UseGuards(JwtAuthGuard)
+@ApiTags('Work')
+@ApiBearerAuth()
 @Controller('work')
 export class WorkController {
   constructor(private readonly workService: WorkService) {}

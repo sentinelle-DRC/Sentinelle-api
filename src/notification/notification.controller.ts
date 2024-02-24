@@ -13,7 +13,10 @@ import { CreateNotificationDto } from './dto/create-notification.dto';
 import { UpdateNotificationDto } from './dto/update-notification.dto';
 import mongoose from 'mongoose';
 import { JwtAuthGuard } from 'src/auth/jwt.auth.guard';
-// @UseGuards(JwtAuthGuard)
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
+@UseGuards(JwtAuthGuard)
+@ApiTags('Notifications')
+@ApiBearerAuth()
 @Controller('notification')
 export class NotificationController {
   constructor(private readonly notificationService: NotificationService) {}

@@ -13,9 +13,10 @@ import { CreateRessourceDto } from './dto/create-ressource.dto';
 import { UpdateRessourceDto } from './dto/update-ressource.dto';
 import mongoose from 'mongoose';
 import { JwtAuthGuard } from 'src/auth/jwt.auth.guard';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 @UseGuards(JwtAuthGuard)
 @ApiTags('Ressources')
+@ApiBearerAuth()
 @Controller('ressource')
 export class RessourceController {
   constructor(private readonly ressourceService: RessourceService) {}

@@ -13,10 +13,11 @@ import { JwtAuthGuard } from 'src/auth/jwt.auth.guard';
 import { CourseService } from './course.service';
 import { CreateCourseDto } from './dto/create-course.dto';
 import { UpdateCourseDto } from './dto/update-course.dto';
-import { ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import mongoose from 'mongoose';
-// @UseGuards(JwtAuthGuard)
+@UseGuards(JwtAuthGuard)
 @ApiTags('Courses')
+@ApiBearerAuth()
 @Controller('course')
 export class CourseController {
   constructor(private readonly courseService: CourseService) {}
