@@ -14,7 +14,7 @@ import { UpdateRessourceDto } from './dto/update-ressource.dto';
 import mongoose from 'mongoose';
 import { JwtAuthGuard } from 'src/auth/jwt.auth.guard';
 import { ApiTags } from '@nestjs/swagger';
-// @UseGuards(JwtAuthGuard)
+@UseGuards(JwtAuthGuard)
 @ApiTags('Ressources')
 @Controller('ressource')
 export class RessourceController {
