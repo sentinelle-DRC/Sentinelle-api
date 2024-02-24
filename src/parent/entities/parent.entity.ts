@@ -20,6 +20,8 @@ export class Parent {
   sex: string;
   @Prop()
   address: string;
+  @Prop()
+  profil: string;
   @Prop({ required: true })
   password: string;
   @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId }], ref: 'Student' })

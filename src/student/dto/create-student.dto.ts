@@ -53,6 +53,12 @@ export class CreateStudentDto {
 
   @ApiProperty({
     type: String,
+    description: 'Lien de la photo',
+  })
+  public profil: string;
+
+  @ApiProperty({
+    type: String,
   })
   // @IsString()
   // @IsNotEmpty()

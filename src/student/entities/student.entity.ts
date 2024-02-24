@@ -35,6 +35,8 @@ export class Student {
   nationality: string;
   @Prop({ required: true })
   password: string;
+  @Prop()
+  profil: string;
   @Prop({
     required: true,
     type: mongoose.Schema.Types.ObjectId,

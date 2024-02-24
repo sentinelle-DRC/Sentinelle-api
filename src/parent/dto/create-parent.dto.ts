@@ -43,6 +43,12 @@ export class CreateParentDto {
 
   @ApiProperty({
     type: String,
+    description: 'le lien de la photo',
+  })
+  public profil: string;
+
+  @ApiProperty({
+    type: String,
   })
   @IsString()
   @IsNotEmpty()
