@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import mongoose, { Model } from 'mongoose';
 import { CreateOptionDto } from './dto/create-option.dto';
@@ -11,10 +11,17 @@ export class OptionService {
     private OptionModel: Model<OptionDocument>,
   ) {}
   async create(createOptionDto: CreateOptionDto) {
-    const option = new this.OptionModel({
-      ...createOptionDto,
+    const oldOption = await this.OptionModel.findOne({
+      name: createOptionDto.name,
     });
-    return option.save();
+    if (oldOption)
+      return new HttpException('Student not found', HttpStatus.CONFLICT);
+    else {
+      const option = new this.OptionModel({
+        ...createOptionDto,
+      });
+      return option.save();
+    }
   }
 
   async findAll() {

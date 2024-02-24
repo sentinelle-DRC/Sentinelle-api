@@ -8,7 +8,7 @@ export type AbsenceDocument = Absence & Document;
 export class Absence {
   @Prop()
   justification: string;
-  @Prop({ required: true, default: Date.now() })
+  @Prop({ required: true })
   date: Date;
   @Prop({
     required: true,

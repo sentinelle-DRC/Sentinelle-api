@@ -4,7 +4,7 @@ import { CreateAbsenceDto } from './dto/create-absence.dto';
 import mongoose from 'mongoose';
 import { JwtAuthGuard } from 'src/auth/jwt.auth.guard';
 import { ApiTags } from '@nestjs/swagger';
-@UseGuards(JwtAuthGuard)
+// @UseGuards(JwtAuthGuard)
 @ApiTags('Absences')
 @Controller('absence')
 export class AbsenceController {
