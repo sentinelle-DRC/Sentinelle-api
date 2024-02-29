@@ -24,12 +24,12 @@ export class ParentController {
   create(@Body() createParentDto: CreateParentDto) {
     return this.parentService.create(createParentDto);
   }
-  @UseGuards(JwtAuthGuard)
+  // @UseGuards(JwtAuthGuard)
   @Get()
   findAll() {
     return this.parentService.findAll();
   }
-  @UseGuards(JwtAuthGuard)
+  // @UseGuards(JwtAuthGuard)
   @Get(':id')
   findOne(@Param('id') id: mongoose.Schema.Types.ObjectId) {
     return this.parentService.findOne(id);

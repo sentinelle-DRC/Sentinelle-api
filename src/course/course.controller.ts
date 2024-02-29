@@ -15,7 +15,7 @@ import { CreateCourseDto } from './dto/create-course.dto';
 import { UpdateCourseDto } from './dto/update-course.dto';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import mongoose from 'mongoose';
-@UseGuards(JwtAuthGuard)
+// @UseGuards(JwtAuthGuard)
 @ApiTags('Courses')
 @ApiBearerAuth()
 @Controller('course')

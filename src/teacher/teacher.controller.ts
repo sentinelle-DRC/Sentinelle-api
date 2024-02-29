@@ -14,7 +14,7 @@ import { UpdateTeacherDto } from './dto/update-teacher.dto';
 import mongoose from 'mongoose';
 import { JwtAuthGuard } from 'src/auth/jwt.auth.guard';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
-@UseGuards(JwtAuthGuard)
+// @UseGuards(JwtAuthGuard)
 @ApiTags('Teacher')
 @ApiBearerAuth()
 @Controller('teacher')

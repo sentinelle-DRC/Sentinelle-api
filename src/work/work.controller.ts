@@ -14,7 +14,7 @@ import { UpdateWorkDto } from './dto/update-work.dto';
 import mongoose from 'mongoose';
 import { JwtAuthGuard } from 'src/auth/jwt.auth.guard';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
-@UseGuards(JwtAuthGuard)
+// @UseGuards(JwtAuthGuard)
 @ApiTags('Work')
 @ApiBearerAuth()
 @Controller('work')

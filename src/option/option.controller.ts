@@ -14,7 +14,7 @@ import { UpdateOptionDto } from './dto/update-option.dto';
 import mongoose from 'mongoose';
 import { JwtAuthGuard } from 'src/auth/jwt.auth.guard';
 import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
-@UseGuards(JwtAuthGuard)
+// @UseGuards(JwtAuthGuard)
 @ApiTags('option')
 @ApiBearerAuth()
 @Controller('option')

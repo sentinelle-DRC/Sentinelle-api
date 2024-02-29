@@ -15,7 +15,7 @@ import { ApiBearerAuth, ApiTags } from '@nestjs/swagger';
 import mongoose from 'mongoose';
 import { JwtAuthGuard } from 'src/auth/jwt.auth.guard';
 
-@UseGuards(JwtAuthGuard)
+// @UseGuards(JwtAuthGuard)
 @ApiTags('Students')
 @ApiBearerAuth()
 @Controller('student')
