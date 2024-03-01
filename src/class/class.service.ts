@@ -45,7 +45,8 @@ export class ClassService {
     const classes = await this.ClassModel.find({ school: schoolId })
       // .populate({ path: 'school', select: { _id: 1, name: 1 } })
       .populate({ path: 'school' })
-      .populate({ path: 'option', select: ['_id', 'name'] });
+      .populate({ path: 'option', select: ['_id', 'name'] })
+      .populate({ path: 'students' });
     return classes;
   }
 

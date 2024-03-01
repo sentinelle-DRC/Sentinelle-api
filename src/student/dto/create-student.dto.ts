@@ -91,6 +91,10 @@ export class CreateStudentDto {
   public school: mongoose.Schema.Types.ObjectId;
   // @IsString()
   // @IsNotEmpty()
+  @ApiProperty({
+    type: String,
+    description: 'id de du parent ',
+  })
   public parent: mongoose.Schema.Types.ObjectId;
   @ApiProperty({
     type: String,

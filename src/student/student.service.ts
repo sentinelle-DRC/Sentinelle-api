@@ -47,6 +47,7 @@ export class StudentService {
       password: hash,
       code: this.generateCode(),
       phoneNumber: password,
+      parent: null,
     });
 
     // this.schoolService.addStudent
@@ -63,7 +64,6 @@ export class StudentService {
     // );
     //adding to class
     await this.classService.addStudent(createStudentDto.class, newStudent._id);
-
     return {
       firstName: newStudent.firstName,
       lastName: newStudent.lastName,
