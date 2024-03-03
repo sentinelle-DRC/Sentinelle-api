@@ -48,9 +48,9 @@ export class ParentService {
       const id = await this.stuedntService.findBycode(code);
       await this.addStudent(newParent._id, id);
     });
-
-    return {
-      parent: newParent.populate({
+    const parentSavved = await this.parentModel
+      .findOne({ _id: newParent._id })
+      .populate({
         path: 'students',
         populate: [
           { path: 'school', select: 'name' },
@@ -66,7 +66,9 @@ export class ParentService {
           { path: 'results' },
           { path: 'absences' },
         ],
-      }),
+      });
+    return {
+      parent: parentSavved,
       token: `Bearer ${token}`,
     };
   }
