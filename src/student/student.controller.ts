@@ -31,6 +31,10 @@ export class StudentController {
   findAll() {
     return this.studentService.findAll();
   }
+  @Get('parent/:parentId')
+  findByParent(@Param('parentId') parentId: mongoose.Schema.Types.ObjectId) {
+    return this.studentService.findByparent(parentId);
+  }
 
   @Get('class/:classId')
   findByClass(@Param('classId') classId: mongoose.Schema.Types.ObjectId) {
