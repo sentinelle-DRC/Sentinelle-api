@@ -49,7 +49,26 @@ export class ParentService {
       await this.addStudent(newParent._id, id);
     });
 
-    return { parent: newParent, token: `Bearer ${token}` };
+    return {
+      parent: newParent.populate({
+        path: 'students',
+        populate: [
+          { path: 'school', select: 'name' },
+          {
+            path: 'class',
+            select: 'level',
+            populate: {
+              path: 'option',
+              select: 'name',
+            },
+          },
+          { path: 'notifications' },
+          { path: 'results' },
+          { path: 'absences' },
+        ],
+      }),
+      token: `Bearer ${token}`,
+    };
   }
 
   async findAll() {
