@@ -5,7 +5,7 @@ import { CreateResultDto } from './dto/create-result.dto';
 import mongoose from 'mongoose';
 
 @Controller('result')
-@ApiTags('Students')
+@ApiTags('results')
 export class ResultController {
   constructor(private resultService: ResultService) {}
   @Post()

@@ -26,7 +26,7 @@ export class WorkService {
 
   async findAll() {
     try {
-      return await this.work.find();
+      return await this.work.find().populate({ path: 'course' });
     } catch (error) {
       return error.message;
     }
