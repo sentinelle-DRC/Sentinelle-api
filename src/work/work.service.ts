@@ -46,6 +46,20 @@ export class WorkService {
       return error.message;
     }
   }
+  async findByClass(id: mongoose.Schema.Types.ObjectId) {
+    try {
+      return await this.work.find({ class: id }).populate({
+        path: 'course',
+        select: ['field', 'teacher'],
+        populate: [
+          { path: 'field', select: 'name' },
+          { path: 'teacher', select: 'firstName' },
+        ],
+      });
+    } catch (error) {
+      return error.message;
+    }
+  }
 
   update(id: number, updateWorkDto: UpdateWorkDto) {
     return `This action updates a #${id} work`;

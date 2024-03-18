@@ -30,4 +30,14 @@ export class CreateWorkDto {
     description: 'List des resultats  pour cet eleve a un cours ',
   })
   public results: [{ type: mongoose.Schema.Types.ObjectId }];
+  @ApiProperty({
+    type: String,
+    description: "l'id de classe",
+  })
+  public class: mongoose.Schema.Types.ObjectId;
+  @ApiProperty({
+    type: String,
+    description: 'le max du travail',
+  })
+  public max: number;
 }

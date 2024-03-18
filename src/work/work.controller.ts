@@ -35,6 +35,10 @@ export class WorkController {
   findOne(@Param('id') id: mongoose.Schema.Types.ObjectId) {
     return this.workService.findOne(id);
   }
+  @Get('/classe/:id')
+  findByClass(@Param('id') id: mongoose.Schema.Types.ObjectId) {
+    return this.workService.findByClass(id);
+  }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateWorkDto: UpdateWorkDto) {
