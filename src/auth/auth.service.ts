@@ -13,6 +13,8 @@ import { ParentService } from 'src/parent/parent.service';
 import { User, UserDocument } from 'src/user/entites/user.entity';
 import { CreateUserDto } from 'src/user/dto/create-user.dto';
 import { UserService } from 'src/user/user.service';
+import { School, SchoolDocument } from 'src/school/entities/school.entity';
+import { SchoolService } from 'src/school/school.service';
 
 @Injectable()
 export class AuthService {
@@ -23,10 +25,13 @@ export class AuthService {
     private ParentModel: Model<ParentDocument>,
     @InjectModel(User.name)
     private UserModel: Model<UserDocument>,
+    @InjectModel(School.name)
+    private SchoolModel: Model<SchoolDocument>,
 
     private studentService: StudentService,
     private parentService: ParentService,
     private userService: UserService,
+    private schoolService: SchoolService,
     private jwtService: JwtService,
   ) {}
 
@@ -170,6 +175,7 @@ export class AuthService {
 
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { password, ...newUser } = user._doc;
+      // const school = await this.ParentModel.findById(newUser.school);
 
       return {
         success: true,
@@ -177,6 +183,7 @@ export class AuthService {
           userInfo: newUser,
           token: `Bearer ${token}`,
           message: 'connexion réussie',
+          // school: ,
         },
       };
     } else if (!isValidPassword) {
@@ -212,11 +219,10 @@ export class AuthService {
 
           // eslint-disable-next-line @typescript-eslint/no-unused-vars
           const { password, ...newUser } = user._doc;
-
           return {
             success: true,
             data: {
-              userInfo: newUser,
+              userInfo: newUser.populate('school'),
               token: `Bearer ${token}`,
             },
           };

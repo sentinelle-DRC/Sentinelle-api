@@ -11,6 +11,8 @@ import { Parent, ParentSchema } from 'src/parent/entities/parent.entity';
 import { ParentModule } from 'src/parent/parent.module';
 import { UserModule } from 'src/user/user.module';
 import { User, UserSchema } from 'src/user/entites/user.entity';
+import { SchoolModule } from 'src/school/school.module';
+import { School, SchoolSchema } from 'src/school/entities/school.entity';
 
 @Module({
   imports: [
@@ -18,6 +20,7 @@ import { User, UserSchema } from 'src/user/entites/user.entity';
       { name: Student.name, schema: StudentSchema },
       { name: Parent.name, schema: ParentSchema },
       { name: User.name, schema: UserSchema },
+      { name: School.name, schema: SchoolSchema },
     ]),
     PassportModule,
     // PassportModule.register({
@@ -33,6 +36,7 @@ import { User, UserSchema } from 'src/user/entites/user.entity';
     StudentModule,
     ParentModule,
     UserModule,
+    SchoolModule,
   ],
   controllers: [AuthController],
   providers: [AuthService, JwtStrategy],

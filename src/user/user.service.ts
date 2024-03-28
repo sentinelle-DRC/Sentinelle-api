@@ -6,9 +6,7 @@ import { CreateUserDto } from './dto/create-user.dto';
 import * as bcrypt from 'bcrypt';
 import mongoose from 'mongoose';
 import { JwtService } from '@nestjs/jwt';
-import { StudentService } from 'src/student/student.service';
-import { StudentDocument } from 'src/student/entities/student.entity';
-import { SchoolDocument } from 'src/school/entities/school.entity';
+// import { SchoolDocument } from 'src/school/entities/school.entity';
 
 @Injectable()
 export class UserService {
@@ -16,9 +14,8 @@ export class UserService {
   constructor(
     @InjectModel(User.name)
     private userModel: Model<UserDocument>,
-    private studentservice: StudentService,
-    private studentModel: Model<StudentDocument>,
-    private schoolModel: Model<SchoolDocument>,
+    // private studentModel: Model<StudentDocument>,
+    // private schoolModel: Model<SchoolDocument>,
     private jwtService: JwtService,
   ) {}
   async create(createuserdto: CreateUserDto) {
@@ -57,15 +54,8 @@ export class UserService {
   }
   async findOne(id: mongoose.Schema.Types.ObjectId): Promise<any> {
     try {
-      const resultat = await this.userModel
-        .findOne({ _id: id })
-        .populate({ path: 'school' })
-        .populate('option');
-      if (resultat.school !== null) {
-        const school = await this.schoolModel.findOne({ _id: resultat.school });
-        return { resultat, school };
-      } else return { resultat, school: null };
-      return 'ok';
+      const resultat = await this.userModel.findOne({ _id: id });
+      return resultat;
     } catch (error) {
       return error.message;
     }

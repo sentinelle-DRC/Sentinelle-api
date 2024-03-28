@@ -4,6 +4,7 @@ import mongoose from 'mongoose';
 import { Class } from 'src/class/entities/class.entity';
 import { Student } from 'src/student/entities/student.entity';
 import { Teacher } from 'src/teacher/entities/teacher.entity';
+import { User } from 'src/user/entites/user.entity';
 
 export type SchoolDocument = School & Document;
 @Schema()
@@ -25,6 +26,9 @@ export class School {
   @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId }], ref: 'Teacher' })
   @Type(() => Teacher)
   teachers: Teacher;
+  @Prop({ type: [{ type: mongoose.Schema.Types.ObjectId }], ref: 'User' })
+  @Type(() => User)
+  users: User;
 }
 
 export const SchoolSchema = SchemaFactory.createForClass(School);

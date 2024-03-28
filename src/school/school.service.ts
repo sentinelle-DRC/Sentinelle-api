@@ -48,7 +48,22 @@ export class SchoolService {
         })
         .populate('students')
         .populate('teachers');
-      if (!school) return `there is no school with id ${id}`;
+      if (!school) return null;
+      else return school;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+  async findOneByUser(user: mongoose.Schema.Types.ObjectId) {
+    try {
+      const school = await this.SchoolModel.findOne({ user })
+        .populate({
+          path: 'classes',
+          populate: { path: 'option' },
+        })
+        .populate('students')
+        .populate('teachers');
+      if (!school) return null;
       else return school;
     } catch (error) {
       console.log(error);
