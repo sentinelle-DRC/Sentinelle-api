@@ -30,7 +30,7 @@ import { School, SchoolSchema } from 'src/school/entities/school.entity';
     JwtModule.register({
       secret: process.env.TOKEN_SECRET,
       signOptions: {
-        expiresIn: 3600,
+        expiresIn: '365d',
       },
     }),
     StudentModule,
