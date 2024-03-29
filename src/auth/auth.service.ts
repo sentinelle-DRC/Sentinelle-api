@@ -176,11 +176,16 @@ export class AuthService {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { password, ...newUser } = user._doc;
       // const school = await this.ParentModel.findById(newUser.school);
+      const userFound = await this.UserModel.findOne({
+        _id: newUser._id,
+      }).populate({
+        path: 'school',
+      });
 
       return {
         success: true,
         data: {
-          userInfo: newUser,
+          userInfo: userFound,
           token: `Bearer ${token}`,
           message: 'connexion réussie',
           // school: ,

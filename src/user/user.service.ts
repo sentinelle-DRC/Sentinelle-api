@@ -54,7 +54,9 @@ export class UserService {
   }
   async findOne(id: mongoose.Schema.Types.ObjectId): Promise<any> {
     try {
-      const resultat = await this.userModel.findOne({ _id: id });
+      const resultat = await this.userModel.findOne({ _id: id }).populate({
+        path: 'school',
+      });
       return resultat;
     } catch (error) {
       return error.message;
