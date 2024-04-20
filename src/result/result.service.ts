@@ -69,7 +69,7 @@ export class ResultService {
       return error;
     }
   }
-  //-----------------------for chat-----------------------------------------------------------------
+  //-----------------------for app-----------------------------------------------------------------
   /**
    *
    * @param id l'id du student
@@ -94,6 +94,28 @@ export class ResultService {
           ],
         });
       return listOfResult;
+    } catch (error) {
+      return error;
+    }
+  }
+
+  /**
+   *
+   * @param id l'id du student
+   * @returns array of results for all courses
+   */
+  async findResultForAllCourseForOneStudentByCourse(
+    studentId: mongoose.Schema.Types.ObjectId,
+    courseId:mongoose.Schema.Types.ObjectId
+  ) {
+    try {
+      const listOfResult = await this.result
+        .find({ student: studentId})
+        .populate({
+          path: 'work',
+          match: {course: courseId}
+        });
+      return listOfResult.filter(e => e.work);
     } catch (error) {
       return error;
     }

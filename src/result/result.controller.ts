@@ -30,13 +30,21 @@ export class ResultController {
     return this.resultService.findResultForAllCourseForOneStudent(studentId);
   }
 
+  @Get('/:studentId/course/:courseId')
+  findAllResultForAllCourseForStudentByCourse(
+    @Param('studentId') studentId: mongoose.Schema.Types.ObjectId,
+    @Param('courseId') courseId: mongoose.Schema.Types.ObjectId
+  ) {
+    return this.resultService.findResultForAllCourseForOneStudentByCourse(studentId,courseId);
+  }
+
   @Get('/average/:studentId')
   findAllAverageResultForAllCourseForStudent(
     @Param('studentId') studentId: string,
   ) {
     return this.resultService.findAverageResultForAllCourseForOneStudent(studentId);
   }
-  @Get('/:studentId/:workId')
+  @Get('/:studentId/work/:workId')
   findOneResult(
     @Param('studentId') studentId: mongoose.Schema.Types.ObjectId,
     @Param('workId') workId: mongoose.Schema.Types.ObjectId,
