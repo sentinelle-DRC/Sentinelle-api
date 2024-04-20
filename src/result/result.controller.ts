@@ -12,6 +12,12 @@ export class ResultController {
   create(@Body() createResultDto: CreateResultDto) {
     return this.resultService.create(createResultDto);
   }
+  //get all results
+  @Get("/")
+  getAllResut()
+  {
+    return this.resultService.findAllResult()
+  }
   //gett all results for chat
   @Get('/chat/:id')
   chatGetAllresult(@Param('id') id: mongoose.Schema.Types.ObjectId) {
@@ -22,6 +28,13 @@ export class ResultController {
     @Param('studentId') studentId: mongoose.Schema.Types.ObjectId,
   ) {
     return this.resultService.findResultForAllCourseForOneStudent(studentId);
+  }
+
+  @Get('/average/:studentId')
+  findAllAverageResultForAllCourseForStudent(
+    @Param('studentId') studentId: string,
+  ) {
+    return this.resultService.findAverageResultForAllCourseForOneStudent(studentId);
   }
   @Get('/:studentId/:workId')
   findOneResult(

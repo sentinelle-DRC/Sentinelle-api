@@ -29,6 +29,16 @@ export class ResultService {
       return error;
     }
   }
+
+  async findAllResult(){
+    try{
+      const listOfResult = await this.result.find()
+      return listOfResult
+    } catch(error){
+      return error
+    }
+    
+  }
   //-----------------------for chat-----------------------------------------------------------------
   /**
    *
@@ -84,6 +94,35 @@ export class ResultService {
           ],
         });
       return listOfResult;
+    } catch (error) {
+      return error;
+    }
+  }
+
+  async findAverageResultForAllCourseForOneStudent(
+    id: string,
+
+  ) {
+  
+    try {
+      const newId = new mongoose.Types.ObjectId(id)
+      const listOfResult = await this.result
+
+      .aggregate(
+        [
+          {$match:{
+            student: newId
+          }},
+          {
+          
+          $group:{
+            _id:id,
+            totalmax:{$sum:"$max"},
+            totalCote:{$sum:"$cote"}
+          }
+        }]
+      )
+        return (listOfResult[0].totalCote/listOfResult[0].totalmax)*10;
     } catch (error) {
       return error;
     }
