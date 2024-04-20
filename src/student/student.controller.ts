@@ -55,6 +55,14 @@ export class StudentController {
     return this.studentService.update(id, updateStudentDto);
   }
 
+  @Patch('/average/:id')
+  updateAverage(
+    @Param('id') id: mongoose.Schema.Types.ObjectId,
+    @Body() average: number,
+  ) {
+    return this.studentService.updateAverage(id, average);
+  }
+
   @Delete(':id')
   remove(@Param('id') id: mongoose.Schema.Types.ObjectId) {
     return this.studentService.remove(id);

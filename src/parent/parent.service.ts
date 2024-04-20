@@ -1,4 +1,4 @@
-import { HttpException, Inject, Injectable, forwardRef } from '@nestjs/common';
+  import { HttpException, Inject, Injectable, forwardRef } from '@nestjs/common';
 import { CreateParentDto } from './dto/create-parent.dto';
 import { UpdateParentDto } from './dto/update-parent.dto';
 import mongoose, { Model } from 'mongoose';
@@ -121,5 +121,17 @@ export class ParentService {
       { $push: { students: student } },
     );
     return updatedSchool;
+  }
+  async addNewStudent(parentId: mongoose.Schema.Types.ObjectId, studentId: any) {
+    try{
+    const updatedSchool = await this.parentModel.updateOne(
+      { _id: parentId },
+      { $push: { students: studentId } },
+    );
+    return updatedSchool;
+    }
+    catch(error){
+      return error
+    }
   }
 }

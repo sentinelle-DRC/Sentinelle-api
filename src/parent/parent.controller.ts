@@ -12,7 +12,7 @@ import { ParentService } from './parent.service';
 import { CreateParentDto } from './dto/create-parent.dto';
 import { UpdateParentDto } from './dto/update-parent.dto';
 import { ApiTags } from '@nestjs/swagger';
-import mongoose from 'mongoose';
+import mongoose, { Schema } from 'mongoose';
 import { JwtAuthGuard } from 'src/auth/jwt.auth.guard';
 
 @ApiTags('Parents')
@@ -41,6 +41,15 @@ export class ParentController {
     @Body() updateParentDto: UpdateParentDto,
   ) {
     return this.parentService.update(id, updateParentDto);
+  }
+
+  @Post('addStudent/:parentId/:studentId')
+  addNewStudent(
+    @Param('parentId') parentId: mongoose.Schema.Types.ObjectId,
+    @Param('studentId') studentId: Schema.Types.ObjectId
+    // @Body() updateParentDto: UpdateParentDto,
+  ) {
+    return this.parentService.addNewStudent(parentId,studentId);
   }
 
   @Delete(':id')

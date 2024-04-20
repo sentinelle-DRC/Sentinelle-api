@@ -41,12 +41,14 @@ export class StudentService {
     delete createStudentDto.password;
     delete createStudentDto.code;
     delete createStudentDto.phoneNumber;
+    delete createStudentDto.average;
 
     const student = new this.studentModel({
       ...createStudentDto,
       password: hash,
       code: this.generateCode(),
       phoneNumber: password,
+      average:0,
       parent: null,
     });
 
@@ -205,7 +207,24 @@ export class StudentService {
     const student = await this.studentModel.findOne({ code });
     return student._id;
   }
+
+  async updateAverage(id:mongoose.Schema.Types.ObjectId,average:number){
+    try{
+      const updatedStudent = await this.studentModel.updateOne(
+        { _id: id },
+        {average : average}
+      )
+      return updatedStudent
+    }
+    catch(error){
+      return error
+    }
+  }
+
 }
+
+
+
 function populate(arg0: { path: string; select: string }) {
   throw new Error('Function not implemented.');
 }
