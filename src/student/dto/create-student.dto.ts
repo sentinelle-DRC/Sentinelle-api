@@ -123,4 +123,9 @@ export class CreateStudentDto {
     description: 'abonnement du student',
   })
   public abonnement: boolean;
+  @ApiProperty({
+    type: Number,
+    description: "Moyenne de l'élève ",
+  })
+  public average:number
 }

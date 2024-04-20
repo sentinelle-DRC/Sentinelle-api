@@ -77,6 +77,11 @@ export class Student {
   })
   @Type(() => Result)
   results: Result;
+
+  @Prop({
+    required:false
+  })
+  average:number
 }
 
 export const StudentSchema = SchemaFactory.createForClass(Student);

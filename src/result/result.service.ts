@@ -127,6 +127,8 @@ export class ResultService {
       return error;
     }
   }
+
+
   /**
    *
    * @param studentId id of the student
