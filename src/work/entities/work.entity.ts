@@ -6,7 +6,7 @@ import { Course } from 'src/course/entities/course.entity';
 import { Result } from 'src/result/entities/result.entity';
 
 export type WorkDocument = Work & Document;
-@Schema({timestamps:true})
+@Schema({ timestamps: true })
 export class Work {
   @Prop({ required: true })
   title: string;
@@ -34,6 +34,5 @@ export class Work {
   })
   @Type(() => Class)
   class: Class;
-  
 }
 export const WorkSchema = SchemaFactory.createForClass(Work);
