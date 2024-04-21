@@ -14,6 +14,7 @@ import { UpdateScheduleDto } from './dto/update-schedule.dto';
 import mongoose from 'mongoose';
 import { JwtAuthGuard } from 'src/auth/jwt.auth.guard';
 import { ApiTags } from '@nestjs/swagger';
+import { get } from 'http';
 // @UseGuards(JwtAuthGuard)
 @ApiTags('Schedule')
 @Controller('schedule')
@@ -33,6 +34,11 @@ export class ScheduleController {
   @Get(':id')
   findOne(@Param('id') id: mongoose.Schema.Types.ObjectId) {
     return this.scheduleService.findOne(id);
+  }
+
+  @Get('class/:classId')
+  findByClass(@Param('classId') classId: mongoose.Schema.Types.ObjectId){
+    return this.scheduleService.findByClass(classId)
   }
 
   @Patch(':id')
