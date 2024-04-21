@@ -37,8 +37,8 @@ export class ScheduleController {
   }
 
   @Get('class/:classId')
-  findByClass(@Param('classId') classId: mongoose.Schema.Types.ObjectId){
-    return this.scheduleService.findByClass(classId)
+  findByClass(@Param('classId') classId: mongoose.Schema.Types.ObjectId) {
+    return this.scheduleService.findByClass(classId);
   }
 
   @Patch(':id')

@@ -45,15 +45,14 @@ export class ScheduleService {
       .populate({ path: 'class', select: 'level' });
   }
 
- async findByClass(classId: mongoose.Schema.Types.ObjectId){
-  try{
-    const schedule = await this.schedule.find({class:classId})
-    return schedule
+  async findByClass(classId: mongoose.Schema.Types.ObjectId) {
+    try {
+      const schedule = await this.schedule.find({ class: classId });
+      return schedule;
+    } catch (error) {
+      return error;
+    }
   }
-  catch(error){
-    return error
-  }
- }
 
   async findOne(id: mongoose.Schema.Types.ObjectId) {
     return await this.schedule
