@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable prefer-const */
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { CreateScheduleDto } from './dto/create-schedule.dto';
 import { UpdateScheduleDto } from './dto/update-schedule.dto';
@@ -58,7 +60,85 @@ export class ScheduleService {
             // { path: 'teacher', select: 'firstname' },
           ],
         });
-      return schedule;
+
+      let lundi = [];
+      let mardi = [];
+      let mercredi = [];
+      let jeudi = [];
+      let vendredi = [];
+      let samedi = [];
+      let newSchedull = [];
+
+      schedule
+        .filter((a) => a.day === 'lundi')
+        .map((d) => {
+          lundi.push({
+            day: d.day,
+            startHour: d?.startHour,
+            endHour: d?.endHour,
+            cours: d?.course?.field,
+          });
+        });
+      schedule
+        .filter((a) => a.day === 'mardi')
+        .map((d) => {
+          mardi.push({
+            day: d.day,
+            startHour: d?.startHour,
+            endHour: d?.endHour,
+            cours: d?.course?.field,
+          });
+        });
+      schedule
+        .filter((a) => a.day === 'mercredi')
+        .map((d) => {
+          mercredi.push({
+            day: d.day,
+            startHour: d?.startHour,
+            endHour: d?.endHour,
+            cours: d?.course?.field,
+          });
+        });
+      schedule
+        .filter((a) => a.day === 'jeudi')
+        .map((d) => {
+          jeudi.push({
+            day: d.day,
+            startHour: d?.startHour,
+            endHour: d?.endHour,
+            cours: d?.course?.field,
+          });
+        });
+      schedule
+        .filter((a) => a.day === 'vendredi')
+        .map((d) => {
+          vendredi.push({
+            day: d.day,
+            startHour: d?.startHour,
+            endHour: d?.endHour,
+            cours: d?.course?.field,
+          });
+        });
+      schedule
+        .filter((a) => a.day === 'samedi')
+        .map((d) => {
+          samedi.push({
+            day: d.day,
+            startHour: d?.startHour,
+            endHour: d?.endHour,
+            cours: d?.course?.field,
+          });
+        });
+
+      newSchedull.push(lundi);
+      newSchedull.push(mardi);
+      newSchedull.push(mercredi);
+      newSchedull.push(jeudi);
+      newSchedull.push(vendredi);
+      newSchedull.push(samedi);
+
+      return newSchedull;
+      // return schedule;
     } catch (error) {
       return error;
     }
