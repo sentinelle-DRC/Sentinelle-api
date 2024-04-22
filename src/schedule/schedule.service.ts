@@ -61,29 +61,31 @@ export class ScheduleService {
           ],
         });
 
-      let lundi = [];
+      let lundi = [{ day: 'lundi', course: [] }];
       let mardi = [];
       let mercredi = [];
       let jeudi = [];
       let vendredi = [];
       let samedi = [];
       let newSchedull = [];
+      let course = [];
 
       schedule
         .filter((a) => a.day === 'lundi')
         .map((d) => {
-          lundi.push({
-            day: d.day,
-            startHour: d?.startHour,
-            endHour: d?.endHour,
-            cours: d?.course?.field,
-          });
+          let aleatCourse = d?.course?.field;
+          aleatCourse['startHour'] = 1;
+          // Object.assign(aleatCourse, { startHour: d?.startHour });
+          // Object.assign(aleatCourse, { endHour: d?.endHour });
+          course.push(aleatCourse);
+          console.log(aleatCourse, 'oo');
         });
+      lundi[0].course = course;
       schedule
         .filter((a) => a.day === 'mardi')
         .map((d) => {
+          mardi.push({ day: d.day });
           mardi.push({
-            day: d.day,
             startHour: d?.startHour,
             endHour: d?.endHour,
             cours: d?.course?.field,
@@ -92,8 +94,8 @@ export class ScheduleService {
       schedule
         .filter((a) => a.day === 'mercredi')
         .map((d) => {
+          mercredi.push({ day: d.day });
           mercredi.push({
-            day: d.day,
             startHour: d?.startHour,
             endHour: d?.endHour,
             cours: d?.course?.field,
@@ -102,8 +104,8 @@ export class ScheduleService {
       schedule
         .filter((a) => a.day === 'jeudi')
         .map((d) => {
+          jeudi.push({ day: d.day });
           jeudi.push({
-            day: d.day,
             startHour: d?.startHour,
             endHour: d?.endHour,
             cours: d?.course?.field,
@@ -112,8 +114,8 @@ export class ScheduleService {
       schedule
         .filter((a) => a.day === 'vendredi')
         .map((d) => {
+          vendredi.push({ day: d.day });
           vendredi.push({
-            day: d.day,
             startHour: d?.startHour,
             endHour: d?.endHour,
             cours: d?.course?.field,
@@ -122,8 +124,8 @@ export class ScheduleService {
       schedule
         .filter((a) => a.day === 'samedi')
         .map((d) => {
+          samedi.push({ day: d.day });
           samedi.push({
-            day: d.day,
             startHour: d?.startHour,
             endHour: d?.endHour,
             cours: d?.course?.field,
