@@ -55,40 +55,37 @@ export class ScheduleService {
         .populate({
           path: 'course',
           select: 'field',
-          populate: [
-            { path: 'field', select: 'name' },
-            // { path: 'teacher', select: 'firstname' },
-          ],
+          populate: { path: 'field', select: 'name' },
         });
 
       let lundi = [{ day: 'lundi', course: [] }];
-      let mardi = [];
-      let mercredi = [];
-      let jeudi = [];
-      let vendredi = [];
-      let samedi = [];
+      let mardi = [{ day: 'mardi', course: [] }];
+      let mercredi = [{ day: 'mercredi', course: [] }];
+      let jeudi = [{ day: 'jeudi', course: [] }];
+      let vendredi = [{ day: 'vendredi', course: [] }];
+      let samedi = [{ day: 'samedi', course: [] }];
       let newSchedull = [];
-      let course = [];
 
+      let courseLundi = [];
       schedule
         .filter((a) => a.day === 'lundi')
         .map((d) => {
-          let aleatCourse = d?.course?.field;
-          aleatCourse['startHour'] = 1;
-          // Object.assign(aleatCourse, { startHour: d?.startHour });
-          // Object.assign(aleatCourse, { endHour: d?.endHour });
-          course.push(aleatCourse);
-          console.log(aleatCourse, 'oo');
+          courseLundi.push({
+            courseId: JSON.parse(JSON.stringify(d?.course))._id,
+            startHoour: d?.startHour,
+            endHour: d?.endHour,
+            name: JSON.parse(JSON.stringify(d?.course?.field)).name,
+          });
         });
-      lundi[0].course = course;
+      lundi[0].course = courseLundi;
       schedule
         .filter((a) => a.day === 'mardi')
-        .map((d) => {
-          mardi.push({ day: d.day });
-          mardi.push({
-            startHour: d?.startHour,
+        .    .map((d) => {
+          courseLundi.push({
+            courseId: JSON.parse(JSON.stringify(d?.course))._id,
+            startHoour: d?.startHour,
             endHour: d?.endHour,
-            cours: d?.course?.field,
+            name: JSON.parse(JSON.stringify(d?.course?.field)).name,
           });
         });
       schedule
@@ -139,8 +136,8 @@ export class ScheduleService {
       newSchedull.push(vendredi);
       newSchedull.push(samedi);
 
-      return newSchedull;
       // return schedule;
+      return newSchedull;
     } catch (error) {
       return error;
     }

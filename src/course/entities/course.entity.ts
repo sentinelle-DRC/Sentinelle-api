@@ -34,6 +34,7 @@ export class Course {
   })
   @Type(() => Teacher)
   teacher: mongoose.Schema.Types.ObjectId;
+  private _id: any;
 }
 
 export const CourseSchema = SchemaFactory.createForClass(Course);
