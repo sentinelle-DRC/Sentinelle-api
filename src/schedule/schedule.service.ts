@@ -65,7 +65,7 @@ export class ScheduleService {
       let vendredi = [{ day: 'vendredi', course: [] }];
       let samedi = [{ day: 'samedi', course: [] }];
       let newSchedull = [];
-
+      //lundi
       let courseLundi = [];
       schedule
         .filter((a) => a.day === 'lundi')
@@ -78,56 +78,71 @@ export class ScheduleService {
           });
         });
       lundi[0].course = courseLundi;
+      //mardi
+      let courseMardi = [];
       schedule
         .filter((a) => a.day === 'mardi')
-        .    .map((d) => {
-          courseLundi.push({
+        .map((d) => {
+          courseMardi.push({
             courseId: JSON.parse(JSON.stringify(d?.course))._id,
             startHoour: d?.startHour,
             endHour: d?.endHour,
             name: JSON.parse(JSON.stringify(d?.course?.field)).name,
           });
         });
+      mardi[0].course = courseMardi;
+      //mercreid
+      let courrseMer = [];
       schedule
         .filter((a) => a.day === 'mercredi')
         .map((d) => {
-          mercredi.push({ day: d.day });
-          mercredi.push({
-            startHour: d?.startHour,
+          courrseMer.push({
+            courseId: JSON.parse(JSON.stringify(d?.course))._id,
+            startHoour: d?.startHour,
             endHour: d?.endHour,
-            cours: d?.course?.field,
+            name: JSON.parse(JSON.stringify(d?.course?.field)).name,
           });
         });
+      mercredi[0].course = courrseMer;
+      //jeudi
+      let courseJeudi = [];
       schedule
         .filter((a) => a.day === 'jeudi')
         .map((d) => {
-          jeudi.push({ day: d.day });
-          jeudi.push({
-            startHour: d?.startHour,
+          courseJeudi.push({
+            courseId: JSON.parse(JSON.stringify(d?.course))._id,
+            startHoour: d?.startHour,
             endHour: d?.endHour,
-            cours: d?.course?.field,
+            name: JSON.parse(JSON.stringify(d?.course?.field)).name,
           });
         });
+      jeudi[0].course = courseJeudi;
+      //vendredi
+      let courseVendredi = [];
       schedule
         .filter((a) => a.day === 'vendredi')
         .map((d) => {
-          vendredi.push({ day: d.day });
-          vendredi.push({
-            startHour: d?.startHour,
+          courseVendredi.push({
+            courseId: JSON.parse(JSON.stringify(d?.course))._id,
+            startHoour: d?.startHour,
             endHour: d?.endHour,
-            cours: d?.course?.field,
+            name: JSON.parse(JSON.stringify(d?.course?.field)).name,
           });
         });
+      vendredi[0].course = courseVendredi;
+      //samedi
+      let samediCourse = [];
       schedule
         .filter((a) => a.day === 'samedi')
         .map((d) => {
-          samedi.push({ day: d.day });
-          samedi.push({
-            startHour: d?.startHour,
+          samediCourse.push({
+            courseId: JSON.parse(JSON.stringify(d?.course))._id,
+            startHoour: d?.startHour,
             endHour: d?.endHour,
-            cours: d?.course?.field,
+            name: JSON.parse(JSON.stringify(d?.course?.field)).name,
           });
         });
+      samedi[0].course = samediCourse;
 
       newSchedull.push(lundi);
       newSchedull.push(mardi);

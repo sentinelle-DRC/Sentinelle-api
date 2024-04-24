@@ -28,13 +28,13 @@ export class CourseService {
 
     // console.log(createCourseDto.teacher);
 
-    await this.teacherService
-      .addCourse(createCourseDto.teacher, newCourse._id)
-      .catch((e) => {
-        throw new HttpException({ error: 'error', e }, HttpStatus.BAD_REQUEST);
-      });
-    // add to field list
-    await this.fieldService.addCourse(createCourseDto.field, newCourse._id);
+    // await this.teacherService
+    //   .addCourse(createCourseDto.teacher, newCourse._id)
+    //   .catch((e) => {
+    //     throw new HttpException({ error: 'error', e }, HttpStatus.BAD_REQUEST);
+    //   });
+    // // add to field list
+    // await this.fieldService.addCourse(createCourseDto.field, newCourse._id);
 
     return newCourse;
   }
@@ -49,8 +49,7 @@ export class CourseService {
     const course = await this.course
       .find({ class: classe })
       .populate({ path: 'field', select: ['name'] })
-      .populate({path:"teacher",select:["firstName","lastName"]})
-      
+      .populate({ path: 'teacher', select: ['firstName', 'lastName'] });
     return course;
   }
 
