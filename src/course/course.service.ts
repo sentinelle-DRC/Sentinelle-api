@@ -18,7 +18,7 @@ export class CourseService {
   ) {}
 
   async create(createCourseDto: CreateCourseDto) {
-    const newCourse = await this.course
+    const newCourse: any = await this.course
       .create({
         ...createCourseDto,
       })
@@ -28,13 +28,13 @@ export class CourseService {
 
     // console.log(createCourseDto.teacher);
 
-    // await this.teacherService
-    //   .addCourse(createCourseDto.teacher, newCourse._id)
-    //   .catch((e) => {
-    //     throw new HttpException({ error: 'error', e }, HttpStatus.BAD_REQUEST);
-    //   });
-    // // add to field list
-    // await this.fieldService.addCourse(createCourseDto.field, newCourse._id);
+    await this.teacherService
+      .addCourse(createCourseDto.teacher, newCourse?._id)
+      .catch((e) => {
+        throw new HttpException({ error: 'error', e }, HttpStatus.BAD_REQUEST);
+      });
+    // add to field list
+    await this.fieldService.addCourse(createCourseDto.field, newCourse?._id);
 
     return newCourse;
   }
