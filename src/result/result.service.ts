@@ -83,12 +83,14 @@ export class ResultService {
         .select(['cote', 'max'])
         .populate({
           path: 'work',
-          select: ['title', 'about'],
           populate: [
             {
               path: 'course',
-              select: ['field'],
-              populate: [{ path: 'field', select: 'name' }],
+              populate: [
+                {
+                  path: 'field',
+                },
+              ],
             },
           ],
         });
