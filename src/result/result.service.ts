@@ -118,6 +118,12 @@ export class ResultService {
         .populate({
           path: 'work',
           match: { course: courseId },
+          populate: {
+            path: 'course',
+            populate: {
+              path: 'field',
+            },
+          },
         });
       return listOfResult.filter((e) => e.work);
     } catch (error) {

@@ -13,10 +13,9 @@ export class ResultController {
     return this.resultService.create(createResultDto);
   }
   //get all results
-  @Get("/")
-  getAllResut()
-  {
-    return this.resultService.findAllResult()
+  @Get('/')
+  getAllResut() {
+    return this.resultService.findAllResult();
   }
   //gett all results for chat
   @Get('/chat/:id')
@@ -33,16 +32,21 @@ export class ResultController {
   @Get('/:studentId/course/:courseId')
   findAllResultForAllCourseForStudentByCourse(
     @Param('studentId') studentId: mongoose.Schema.Types.ObjectId,
-    @Param('courseId') courseId: mongoose.Schema.Types.ObjectId
+    @Param('courseId') courseId: mongoose.Schema.Types.ObjectId,
   ) {
-    return this.resultService.findResultForAllCourseForOneStudentByCourse(studentId,courseId);
+    return this.resultService.findResultForAllCourseForOneStudentByCourse(
+      studentId,
+      courseId,
+    );
   }
 
   @Get('/average/:studentId')
   findAllAverageResultForAllCourseForStudent(
     @Param('studentId') studentId: string,
   ) {
-    return this.resultService.findAverageResultForAllCourseForOneStudent(studentId);
+    return this.resultService.findAverageResultForAllCourseForOneStudent(
+      studentId,
+    );
   }
   @Get('/:studentId/work/:workId')
   findOneResult(
