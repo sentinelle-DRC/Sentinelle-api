@@ -4,7 +4,7 @@ import mongoose from 'mongoose';
 import { Field } from 'src/field/entities/field.entity';
 
 export type RessourceDcoument = Ressource & Document;
-@Schema()
+@Schema({ timestamps: true })
 export class Ressource {
   @Prop({ required: false })
   title: string;

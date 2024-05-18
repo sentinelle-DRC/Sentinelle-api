@@ -7,8 +7,7 @@ import { Teacher } from 'src/teacher/entities/teacher.entity';
 // import { Teacher } from 'src/teacher/entities/teacher.entity';
 
 export type CourseDocument = Course & Document;
-
-@Schema()
+@Schema({ timestamps: true })
 export class Course {
   @Prop()
   max: number;

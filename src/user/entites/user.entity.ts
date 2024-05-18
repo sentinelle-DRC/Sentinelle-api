@@ -4,7 +4,7 @@ import mongoose from 'mongoose';
 import { School } from 'src/school/entities/school.entity';
 
 export type UserDocument = User & Document;
-@Schema()
+@Schema({ timestamps: true })
 export class User {
   @Prop({ required: true, unique: true })
   phoneNumber: string;

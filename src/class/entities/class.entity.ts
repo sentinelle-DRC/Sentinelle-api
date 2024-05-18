@@ -6,7 +6,7 @@ import { School } from 'src/school/entities/school.entity';
 import { Student } from 'src/student/entities/student.entity';
 
 export type ClassDocument = Class & Document;
-@Schema()
+@Schema({ timestamps: true })
 export class Class {
   @Prop({ required: true })
   level: number;

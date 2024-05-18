@@ -4,8 +4,7 @@ import mongoose, { Document } from 'mongoose';
 import { Student } from 'src/student/entities/student.entity';
 
 export type ParentDocument = Parent & Document;
-
-@Schema()
+@Schema({ timestamps: true })
 export class Parent {
   @Prop({ required: true, unique: true })
   phoneNumber: string;

@@ -9,7 +9,7 @@ import { Result } from 'src/result/entities/result.entity';
 import { School } from 'src/school/entities/school.entity';
 
 export type StudentDocument = Student & Document;
-@Schema()
+@Schema({ timestamps: true })
 export class Student {
   // @Prop({ unique: true })
   @Prop()
@@ -79,9 +79,9 @@ export class Student {
   results: Result;
 
   @Prop({
-    required:false
+    required: false,
   })
-  average:number
+  average: number;
 }
 
 export const StudentSchema = SchemaFactory.createForClass(Student);

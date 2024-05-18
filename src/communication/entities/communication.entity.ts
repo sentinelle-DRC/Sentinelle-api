@@ -4,7 +4,7 @@ import mongoose from 'mongoose';
 import { Type } from 'class-transformer';
 
 export type CommunicationDocument = Communication & Document;
-@Schema()
+@Schema({ timestamps: true })
 export class Communication {
   @Prop({ require: true })
   title: string;

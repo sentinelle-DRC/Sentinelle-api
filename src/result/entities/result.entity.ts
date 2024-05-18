@@ -5,7 +5,7 @@ import { Student } from 'src/student/entities/student.entity';
 import { Work } from 'src/work/entities/work.entity';
 
 export type ResultDocument = Result & Document;
-@Schema()
+@Schema({ timestamps: true })
 export class Result {
   @Prop({ required: true })
   max: number;

@@ -5,7 +5,7 @@ import { Class } from 'src/class/entities/class.entity';
 import { Course } from 'src/course/entities/course.entity';
 
 export type ScheduleDocument = Schedule & Document;
-@Schema()
+@Schema({ timestamps: true })
 export class Schedule {
   @Prop({ required: true })
   day: string;

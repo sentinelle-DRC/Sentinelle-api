@@ -7,7 +7,7 @@ import { School } from 'src/school/entities/school.entity';
 
 export type TeacherDocument = Teacher & Document;
 
-@Schema()
+@Schema({ timestamps: true })
 export class Teacher {
   @Prop({ required: true })
   public firstName: string;

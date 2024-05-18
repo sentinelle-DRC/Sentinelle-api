@@ -4,7 +4,7 @@ import mongoose from 'mongoose';
 import { Student } from 'src/student/entities/student.entity';
 
 export type AbsenceDocument = Absence & Document;
-@Schema()
+@Schema({ timestamps: true })
 export class Absence {
   @Prop()
   justification: string;

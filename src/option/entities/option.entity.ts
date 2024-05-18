@@ -4,8 +4,7 @@ import mongoose from 'mongoose';
 import { Class } from 'src/class/entities/class.entity';
 
 export type OptionDocument = Option & Document;
-
-@Schema()
+@Schema({ timestamps: true })
 export class Option {
   @Prop({ required: true })
   name: string;

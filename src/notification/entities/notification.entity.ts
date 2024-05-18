@@ -4,7 +4,7 @@ import mongoose from 'mongoose';
 import { Student } from 'src/student/entities/student.entity';
 
 export type NotificationDocument = Notification & Document;
-@Schema()
+@Schema({ timestamps: true })
 export class Notification {
   @Prop({ required: true })
   title: string;

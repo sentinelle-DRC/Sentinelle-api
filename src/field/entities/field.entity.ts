@@ -5,8 +5,7 @@ import { Course } from 'src/course/entities/course.entity';
 import { Ressource } from 'src/ressource/entities/ressource.entity';
 
 export type FieldDocument = Field & Document;
-
-@Schema()
+@Schema({ timestamps: true })
 export class Field {
   @Prop({ required: true })
   name: string;
