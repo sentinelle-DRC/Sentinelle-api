@@ -113,7 +113,7 @@ export class ParentService {
    * @returns
    */
   async findParentByPhoneNumber(phoneNumber: string) {
-    return await this.parentModel
+    const parent = await this.parentModel
       .findOne({ phoneNumber: phoneNumber })
       .populate({
         path: 'students',
@@ -132,6 +132,8 @@ export class ParentService {
           { path: 'absences' },
         ],
       });
+
+    return parent ? parent : 'aucun parent avec numero de téléphone';
   }
 
   async update(
