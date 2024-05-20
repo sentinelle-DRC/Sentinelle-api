@@ -57,4 +57,14 @@ export class CreateParentDto {
     description: 'list of codes students',
   })
   public codes: string[];
+
+  @ApiProperty({
+    description: 'verify the connectiion',
+  })
+  public isAlreadyConnected: boolean;
+
+  @ApiProperty({
+    description: 'pour connaitre de chaque enfant',
+  })
+  public childPosition: number;
 }

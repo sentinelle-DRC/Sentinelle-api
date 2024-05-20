@@ -127,5 +127,5 @@ export class CreateStudentDto {
     type: Number,
     description: "Moyenne de l'élève ",
   })
-  public average:number
+  public average: number;
 }

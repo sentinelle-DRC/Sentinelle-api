@@ -7,6 +7,7 @@ import { Parent, ParentDocument } from './entities/parent.entity';
 import * as bcrypt from 'bcrypt';
 import { StudentService } from 'src/student/student.service';
 import { JwtService } from '@nestjs/jwt';
+import path from 'path';
 
 @Injectable()
 export class ParentService {
@@ -135,6 +136,37 @@ export class ParentService {
       });
 
     return parent ? parent : 'aucun parent avec numero de téléphone';
+  }
+
+  async getNombreEnfant(phoneNumber: string): Promise<any | string> {
+    try {
+      const parent = await this.parentModel
+        .findOne({ phoneNumber: phoneNumber })
+        .populate({ path: 'students' });
+
+      const list = parent?.students;
+      return parent ? typeof list : 'aucun parent avec ce numero';
+    } catch (error) {
+      console.log(error);
+      return error;
+    }
+  }
+
+  async updateStateConnected(
+    id: mongoose.Schema.Types.ObjectId,
+    value: boolean,
+  ) {
+    try {
+      return await this.parentModel.updateOne(
+        { _id: id },
+        { isAlreadyConnected: value },
+      );
+    } catch (error) {
+      return error;
+    }
+  }
+  parentModelfindOne(arg0: { phoneNumber: string }) {
+    throw new Error('Method not implemented.');
   }
 
   async update(

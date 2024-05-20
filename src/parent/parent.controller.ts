@@ -35,9 +35,22 @@ export class ParentController {
     return this.parentService.findOne(id);
   }
 
-  @Get('number/:phoneNumber')
+  @Get('numberPhone/:phoneNumber')
   findByphoneNumber(@Param('phoneNumber') phoneNumber: string) {
     return this.parentService.findParentByPhoneNumber(phoneNumber);
+  }
+
+  @Get('numberStudent/:phoneNumber')
+  getNumberStudent(@Param('phoneNumber') phoneNumber: string) {
+    return this.parentService.getNombreEnfant(phoneNumber);
+  }
+
+  @Patch('updateStateConnected/:id')
+  updateStateConnected(
+    @Param('id') id: mongoose.Schema.Types.ObjectId,
+    @Body() value: boolean,
+  ) {
+    return this.parentService.updateStateConnected(id, value);
   }
 
   @Patch(':id')

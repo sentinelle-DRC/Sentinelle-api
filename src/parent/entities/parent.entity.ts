@@ -28,5 +28,9 @@ export class Parent {
   students: Student;
   @Prop()
   codes: string[];
+  @Prop()
+  isAlreadyConnected: boolean;
+  @Prop()
+  childPosition: number;
 }
 export const ParentSchema = SchemaFactory.createForClass(Parent);
