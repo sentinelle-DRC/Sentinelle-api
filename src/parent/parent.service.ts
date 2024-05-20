@@ -7,7 +7,6 @@ import { Parent, ParentDocument } from './entities/parent.entity';
 import * as bcrypt from 'bcrypt';
 import { StudentService } from 'src/student/student.service';
 import { JwtService } from '@nestjs/jwt';
-import path from 'path';
 
 @Injectable()
 export class ParentService {
@@ -15,7 +14,6 @@ export class ParentService {
   constructor(
     @InjectModel(Parent.name)
     private parentModel: Model<ParentDocument>,
-    // @Inject(forwardRef(() => StudentService))
     private stuedntService: StudentService,
     private jwtService: JwtService,
   ) {}
@@ -138,14 +136,14 @@ export class ParentService {
     return parent ? parent : 'aucun parent avec numero de téléphone';
   }
 
-  async getNombreEnfant(phoneNumber: string): Promise<any | string> {
+  async getNombreEnfant(phoneNumber: string): Promise<number | string> {
     try {
-      const parent = await this.parentModel
-        .findOne({ phoneNumber: phoneNumber })
-        .populate({ path: 'students' });
-
-      const list = parent?.students;
-      return parent ? typeof list : 'aucun parent avec ce numero';
+      const parent = await this.parentModel.findOne({
+        phoneNumber: phoneNumber,
+      });
+      return parent
+        ? await this.stuedntService.getNumberOfStudentsForParent(parent._id)
+        : 'aucun parent ne correspond a ce numero de telephone';
     } catch (error) {
       console.log(error);
       return error;

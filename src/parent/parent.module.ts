@@ -5,6 +5,7 @@ import { ParentController } from './parent.controller';
 import { Parent, ParentSchema } from './entities/parent.entity';
 import { StudentModule } from 'src/student/student.module';
 import { JwtModule } from '@nestjs/jwt';
+import { Student, StudentSchema } from 'src/student/entities/student.entity';
 
 @Module({
   imports: [

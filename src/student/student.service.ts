@@ -219,6 +219,11 @@ export class StudentService {
       return error;
     }
   }
+
+  async getNumberOfStudentsForParent(idParent: mongoose.Schema.Types.ObjectId) {
+    const students = await this.studentModel.find({ parent: idParent });
+    return students.length;
+  }
 }
 
 function populate(arg0: { path: string; select: string }) {
