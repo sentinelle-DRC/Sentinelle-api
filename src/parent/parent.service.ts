@@ -117,6 +117,7 @@ export class ParentService {
       .findOne({ phoneNumber: phoneNumber })
       .populate({
         path: 'students',
+        match: { abonnement: true },
         populate: [
           { path: 'school', select: 'name' },
           {
