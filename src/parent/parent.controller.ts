@@ -35,6 +35,11 @@ export class ParentController {
     return this.parentService.findOne(id);
   }
 
+  @Get('number/:phoneNumber')
+  findByphoneNumber(@Param('phoneNumber') phoneNumber: string) {
+    return this.parentService.findParentByPhoneNumber(phoneNumber);
+  }
+
   @Patch(':id')
   update(
     @Param('id') id: mongoose.Schema.Types.ObjectId,
@@ -46,10 +51,10 @@ export class ParentController {
   @Post('addStudent/:parentId/:studentId')
   addNewStudent(
     @Param('parentId') parentId: mongoose.Schema.Types.ObjectId,
-    @Param('studentId') studentId: Schema.Types.ObjectId
+    @Param('studentId') studentId: Schema.Types.ObjectId,
     // @Body() updateParentDto: UpdateParentDto,
   ) {
-    return this.parentService.addNewStudent(parentId,studentId);
+    return this.parentService.addNewStudent(parentId, studentId);
   }
 
   @Delete(':id')

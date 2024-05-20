@@ -1,4 +1,4 @@
-  import { HttpException, Inject, Injectable, forwardRef } from '@nestjs/common';
+import { HttpException, Inject, Injectable, forwardRef } from '@nestjs/common';
 import { CreateParentDto } from './dto/create-parent.dto';
 import { UpdateParentDto } from './dto/update-parent.dto';
 import mongoose, { Model } from 'mongoose';
@@ -106,6 +106,34 @@ export class ParentService {
     });
   }
 
+  //get parent by phone number for chatbot
+  /**
+   *
+   * @param phoneNumber
+   * @returns
+   */
+  async findParentByPhoneNumber(phoneNumber: string) {
+    return await this.parentModel
+      .findOne({ phoneNumber: phoneNumber })
+      .populate({
+        path: 'students',
+        populate: [
+          { path: 'school', select: 'name' },
+          {
+            path: 'class',
+            select: 'level',
+            populate: {
+              path: 'option',
+              select: 'name',
+            },
+          },
+          { path: 'notifications' },
+          { path: 'results' },
+          { path: 'absences' },
+        ],
+      });
+  }
+
   async update(
     id: mongoose.Schema.Types.ObjectId,
     updateParentDto: UpdateParentDto,
@@ -122,16 +150,18 @@ export class ParentService {
     );
     return updatedSchool;
   }
-  async addNewStudent(parentId: mongoose.Schema.Types.ObjectId, studentId: any) {
-    try{
-    const updatedSchool = await this.parentModel.updateOne(
-      { _id: parentId },
-      { $push: { students: studentId } },
-    );
-    return updatedSchool;
-    }
-    catch(error){
-      return error
+  async addNewStudent(
+    parentId: mongoose.Schema.Types.ObjectId,
+    studentId: any,
+  ) {
+    try {
+      const updatedSchool = await this.parentModel.updateOne(
+        { _id: parentId },
+        { $push: { students: studentId } },
+      );
+      return updatedSchool;
+    } catch (error) {
+      return error;
     }
   }
 }
