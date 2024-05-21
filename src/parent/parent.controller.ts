@@ -45,12 +45,12 @@ export class ParentController {
     return this.parentService.getNombreEnfant(phoneNumber);
   }
 
-  @Patch('updateStateConnected/:id')
+  @Patch('updateStateConnected/:phoneNumber')
   updateStateConnected(
-    @Param('id') id: mongoose.Schema.Types.ObjectId,
+    @Param('phoneNumber') phoneNumber: string,
     @Body() value: boolean,
   ) {
-    return this.parentService.updateStateConnected(id, value);
+    return this.parentService.updateStateConnected(phoneNumber, value);
   }
 
   @Patch(':id')

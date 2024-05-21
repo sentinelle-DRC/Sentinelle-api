@@ -150,13 +150,10 @@ export class ParentService {
     }
   }
 
-  async updateStateConnected(
-    id: mongoose.Schema.Types.ObjectId,
-    value: boolean,
-  ) {
+  async updateStateConnected(phoneNumber: string, value: boolean) {
     try {
       return await this.parentModel.updateOne(
-        { _id: id },
+        { phoneNumber },
         { isAlreadyConnected: value },
       );
     } catch (error) {
