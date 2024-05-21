@@ -82,6 +82,8 @@ export class Student {
     required: false,
   })
   average: number;
+  @Prop()
+  childPosition: number;
 }
 
 export const StudentSchema = SchemaFactory.createForClass(Student);

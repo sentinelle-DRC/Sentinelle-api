@@ -30,7 +30,5 @@ export class Parent {
   codes: string[];
   @Prop()
   isAlreadyConnected: boolean;
-  @Prop()
-  childPosition: number;
 }
 export const ParentSchema = SchemaFactory.createForClass(Parent);

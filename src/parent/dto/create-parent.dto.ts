@@ -62,9 +62,4 @@ export class CreateParentDto {
     description: 'verify the connectiion',
   })
   public isAlreadyConnected: boolean;
-
-  @ApiProperty({
-    description: 'pour connaitre de chaque enfant',
-  })
-  public childPosition: number;
 }

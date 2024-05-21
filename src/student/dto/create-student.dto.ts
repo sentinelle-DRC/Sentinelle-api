@@ -128,4 +128,8 @@ export class CreateStudentDto {
     description: "Moyenne de l'élève ",
   })
   public average: number;
+  @ApiProperty({
+    description: 'pour connaitre de chaque enfant',
+  })
+  public childPosition: number;
 }
