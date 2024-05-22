@@ -54,6 +54,13 @@ export class StudentController {
   ) {
     return this.studentService.update(id, updateStudentDto);
   }
+  @Patch('abonnement/:id')
+  updateStateAbonnement(
+    @Param('id') id: mongoose.Schema.Types.ObjectId,
+    @Body() value: boolean,
+  ) {
+    return this.studentService.updateStateAbonnement(id, value);
+  }
 
   @Patch('/average/:id')
   updateAverage(

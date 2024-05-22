@@ -170,6 +170,13 @@ export class StudentService {
       return error.message;
     }
   }
+  updateStateAbonnement(id: mongoose.Schema.Types.ObjectId, value: boolean) {
+    try {
+      return this.studentModel.updateOne({ _id: id }, { abonnement: value });
+    } catch (error) {
+      return error.message;
+    }
+  }
 
   async remove(id: mongoose.Schema.Types.ObjectId): Promise<string> {
     try {
