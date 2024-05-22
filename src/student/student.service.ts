@@ -170,9 +170,26 @@ export class StudentService {
       return error.message;
     }
   }
-  updateStateAbonnement(id: mongoose.Schema.Types.ObjectId, value: boolean) {
+  /**
+   *
+   * @param {mongoose.Schema.Types.ObjectId} id
+   * @returns {*}
+   */
+  activAbonnement(id: mongoose.Schema.Types.ObjectId) {
     try {
-      return this.studentModel.updateOne({ _id: id }, { abonnement: value });
+      return this.studentModel.updateOne({ _id: id }, { abonnement: true });
+    } catch (error) {
+      return error.message;
+    }
+  }
+  /**
+   *
+   * @param {mongoose.Schema.Types.ObjectId} id
+   * @returns {*}
+   */
+  desactivAbonnement(id: mongoose.Schema.Types.ObjectId) {
+    try {
+      return this.studentModel.updateOne({ _id: id }, { abonnement: false });
     } catch (error) {
       return error.message;
     }

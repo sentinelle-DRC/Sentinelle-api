@@ -54,12 +54,19 @@ export class StudentController {
   ) {
     return this.studentService.update(id, updateStudentDto);
   }
-  @Patch('abonnement/:id')
-  updateStateAbonnement(
+  @Patch('abonnement/active/:id')
+  activate(
     @Param('id') id: mongoose.Schema.Types.ObjectId,
-    @Body() value: boolean,
+    // @Body() value: boolean,
   ) {
-    return this.studentService.updateStateAbonnement(id, value);
+    return this.studentService.activAbonnement(id);
+  }
+  @Patch('abonnement/desactive/:id')
+  desactivate(
+    @Param('id') id: mongoose.Schema.Types.ObjectId,
+    // @Body() value: boolean,
+  ) {
+    return this.studentService.desactivAbonnement(id);
   }
 
   @Patch('/average/:id')
