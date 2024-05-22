@@ -42,6 +42,7 @@ export class StudentService {
     delete createStudentDto.code;
     delete createStudentDto.phoneNumber;
     delete createStudentDto.average;
+    delete createStudentDto.abonnement;
 
     const student = new this.studentModel({
       ...createStudentDto,
@@ -50,6 +51,7 @@ export class StudentService {
       phoneNumber: password,
       average: 0,
       parent: null,
+      abonnement: false,
     });
 
     // this.schoolService.addStudent
