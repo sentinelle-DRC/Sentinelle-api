@@ -6,12 +6,14 @@ import {
   Communication,
   CommunicationSchema,
 } from './entities/communication.entity';
+import { ClassModule } from 'src/class/class.module';
 
 @Module({
   imports: [
     MongooseModule.forFeature([
       { name: Communication.name, schema: CommunicationSchema },
     ]),
+    ClassModule,
   ],
   controllers: [CommunicationController],
   providers: [CommunicationService],

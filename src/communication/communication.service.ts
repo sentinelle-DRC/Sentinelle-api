@@ -7,17 +7,24 @@ import {
   Communication,
   CommunicationDocument,
 } from './entities/communication.entity';
+import { ClassService } from 'src/class/class.service';
 
 @Injectable()
 export class CommunicationService {
   constructor(
     @InjectModel(Communication.name)
     private CommunicationModel: Model<CommunicationDocument>,
+    private classService: ClassService,
   ) {}
-  create(createCommunicationDto: CreateCommunicationDto) {
+  async create(createCommunicationDto: CreateCommunicationDto) {
     const newCommunication = new this.CommunicationModel({
       ...createCommunicationDto,
     });
+    //addintoClass
+    await this.classService.addCommunication(
+      createCommunicationDto.class,
+      newCommunication._id,
+    );
 
     return newCommunication.save();
   }

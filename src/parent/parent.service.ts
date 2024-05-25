@@ -7,7 +7,6 @@ import { Parent, ParentDocument } from './entities/parent.entity';
 import * as bcrypt from 'bcrypt';
 import { StudentService } from 'src/student/student.service';
 import { JwtService } from '@nestjs/jwt';
-
 @Injectable()
 export class ParentService {
   private saltOrRounds = 10;
@@ -56,10 +55,13 @@ export class ParentService {
           {
             path: 'class',
             select: 'level',
-            populate: {
-              path: 'option',
-              select: 'name',
-            },
+            populate: [
+              {
+                path: 'option',
+                select: 'name',
+              },
+              { path: 'Communications' },
+            ],
           },
           { path: 'notifications' },
           { path: 'results' },
@@ -125,6 +127,9 @@ export class ParentService {
             populate: {
               path: 'option',
               select: 'name',
+              populate: {
+                path: 'classes',
+              },
             },
           },
           { path: 'notifications' },

@@ -73,4 +73,14 @@ export class ClassService {
       { $push: { students: student } },
     );
   }
+  //addcommunication in classe
+  async addCommunication(
+    id: mongoose.Schema.Types.ObjectId,
+    communication: any,
+  ) {
+    return await this.ClassModel.updateOne(
+      { _id: id },
+      { $push: { Communications: communication } },
+    );
+  }
 }
