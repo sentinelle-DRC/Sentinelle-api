@@ -124,13 +124,17 @@ export class ParentService {
           {
             path: 'class',
             select: 'level',
-            populate: {
-              path: 'option',
-              select: 'name',
-              populate: {
-                path: 'classes',
-              },
-            },
+            // populate: [
+            //   {
+            //     path: 'option',
+            //     select: 'name',
+            //     populate: {
+            //       path: 'classes',
+            //     },
+            //   },
+            //   { path: 'Communications' },
+            // ],
+            populate: { path: 'Communications' },
           },
           { path: 'notifications' },
           { path: 'results' },
