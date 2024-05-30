@@ -15,7 +15,7 @@ export class Communication {
   @Prop({
     require: true,
     type: mongoose.Schema.Types.ObjectId,
-    ref: Class.name,
+    ref: 'Class',
   })
   @Type(() => Class)
   class: Class;
