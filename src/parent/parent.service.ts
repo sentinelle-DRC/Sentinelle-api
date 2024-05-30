@@ -134,7 +134,10 @@ export class ParentService {
             //   },
             //   { path: 'Communications' },
             // ],
-            populate: { path: 'Communications' },
+            populate: [
+              { path: 'Communications' },
+              { path: 'option', select: 'name' },
+            ],
           },
           { path: 'notifications' },
           { path: 'results' },
